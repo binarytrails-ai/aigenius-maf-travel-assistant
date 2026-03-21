@@ -1,0 +1,81 @@
+site_name: AI Agent Builder Workshop
+site_description: A workshop to learn about how to build and manage AI Agents using Microsoft Agent Framework. 
+site_author: Rakesh Lakshminarayanana
+site_url: https://binarytrails-ai.github.io/aigenius-maf-travel-assistant
+
+nav:
+  - Welcome: index.md
+  - Environment Setup: 00-setup_instructions.md
+  - "Finishing Up": finishing-up.md
+  - Learning Resources: resources.md
+  - Additional Resources:
+    - Aspire Dashboard Setup: Resources/aspire-dashboard-setup.md
+  - Feedback: feedback.md
+
+plugins:
+  - glightbox
+  - include-markdown
+
+theme:
+  name: material
+  logo: media/favicon.png
+  favicon: media/favicon.png
+  features:
+    - navigation.instant
+    - navigation.footer
+    - navigation.tracking  # Shows progress in URL for workshop participants
+    - navigation.top  # Back to top button
+    - content.code.copy
+    - navigation.tabs.sticky
+    - content.tabs.link
+    - search.highlight  # Highlight search terms
+    - search.suggest  # Search suggestions
+
+  # Change Font: https://squidfunk.github.io/mkdocs-material/setup/changing-the-fonts/?h=fonts
+  # Google Fonts Supported By Default: https://fonts.google.com/
+  font:
+    code: Roboto Mono
+    text: Roboto
+  palette:
+    - scheme: default # Light Mode
+      primary: black
+      accent: pink
+      toggle:
+        icon: material/brightness-2
+        name: Switch to dark mode
+    - scheme: slate # Dark Mode
+      primary: amber
+      accent: cyan
+      toggle:
+        icon: material/brightness-7
+        name: Switch to light mode
+
+markdown_extensions:
+  - toc:
+      permalink: true
+      toc_depth: 2
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - attr_list
+  - md_in_html
+  # - pymdownx.emoji:
+  # emoji_index: !!python/name:material.extensions.emoji.twemoji
+  # emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+extra_css:
+  - css/custom.css
+
+# mkdocs.yml
+extra_javascript:
+  - js/custom-nav.js
+
+# Version selector for mike
+extra:
+  version:
+    provider: mike
+    default: latest

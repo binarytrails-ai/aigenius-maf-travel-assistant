@@ -1,0 +1,2146 @@
+[
+  {
+    "id": "QF25-MEL-AKL-001",
+    "type": "flight",
+    "flightNumber": "QF25",
+    "airline": {
+      "code": "QF",
+      "name": "Qantas",
+      "logoUrl": "https://content.airhex.com/content/logos/airlines_QF_200_200_r.png"
+    },
+    "route": {
+      "origin": {
+        "city": "Melbourne",
+        "airport": "Melbourne Airport",
+        "code": "MEL",
+        "country": "Australia",
+        "timezone": "Australia/Melbourne"
+      },
+      "destination": {
+        "city": "Auckland",
+        "airport": "Auckland Airport",
+        "code": "AKL",
+        "country": "New Zealand",
+        "timezone": "Pacific/Auckland"
+      }
+    },
+    "schedule": {
+      "departure": "09:30:00",
+      "arrival": "17:45:00",
+      "duration": "10h 15m",
+      "durationMinutes": 615
+    },
+    "pricing": {
+      "amount": 1850.00,
+      "currency": "AUD",
+      "fareClass": "Economy",
+      "bookingClass": "Y"
+    },
+    "aircraft": {
+      "model": "Boeing 787-9",
+      "registration": "VH-ZND"
+    },
+    "stops": 0,
+    "amenities": [
+      "WiFi",
+      "In-flight entertainment",
+      "Meals included",
+      "Lounge access",
+      "Power outlets",
+      "USB charging"
+    ],
+    "baggage": {
+      "cabin": "7kg",
+      "checked": "30kg"
+    },
+    "availability": 15,
+    "tags": [
+      "premium",
+      "direct",
+      "business-friendly"
+    ],
+    "flightProfile": "Premium direct flight from Melbourne to Auckland on Qantas Boeing 787-9. Features include WiFi, in-flight entertainment, included meals, lounge access, power outlets, and USB charging. Economy class with 30kg checked baggage. Ideal for business travelers seeking comfort and convenience."
+  },
+  {
+    "id": "VA55-MEL-AKL-001",
+    "type": "flight",
+    "flightNumber": "VA55",
+    "airline": {
+      "code": "VA",
+      "name": "Virgin Australia",
+      "logoUrl": "https://content.airhex.com/content/logos/airlines_VA_200_200_r.png"
+    },
+    "route": {
+      "origin": {
+        "city": "Melbourne",
+        "airport": "Melbourne Airport",
+        "code": "MEL",
+        "country": "Australia",
+        "timezone": "Australia/Melbourne"
+      },
+      "destination": {
+        "city": "Auckland",
+        "airport": "Auckland Airport",
+        "code": "AKL",
+        "country": "New Zealand",
+        "timezone": "Pacific/Auckland"
+      }
+    },
+    "schedule": {
+      "departure": "14:15:00",
+      "arrival": "22:45:00",
+      "duration": "10h 30m",
+      "durationMinutes": 630
+    },
+    "pricing": {
+      "amount": 1620.00,
+      "currency": "AUD",
+      "fareClass": "Economy",
+      "bookingClass": "Y"
+    },
+    "aircraft": {
+      "model": "Boeing 737-800",
+      "registration": "VH-YFW"
+    },
+    "stops": 0,
+    "amenities": [
+      "WiFi",
+      "Snacks & beverages",
+      "Entertainment",
+      "Power outlets"
+    ],
+    "baggage": {
+      "cabin": "7kg",
+      "checked": "23kg"
+    },
+    "availability": 22,
+    "tags": [
+      "value",
+      "direct",
+      "evening-departure"
+    ],
+    "flightProfile": "Value-oriented direct evening flight from Melbourne to Auckland on Virgin Australia Boeing 737-800. Features WiFi, snacks and beverages, entertainment, and power outlets. Economy class with 23kg checked baggage. Great for travelers seeking good value with convenient evening departure."
+  },
+  {
+    "id": "JQ7-MEL-AKL-001",
+    "type": "flight",
+    "flightNumber": "JQ7",
+    "airline": {
+      "code": "JQ",
+      "name": "Jetstar",
+      "logoUrl": "https://content.airhex.com/content/logos/airlines_JQ_200_200_r.png"
+    },
+    "route": {
+      "origin": {
+        "city": "Melbourne",
+        "airport": "Melbourne Airport",
+        "code": "MEL",
+        "country": "Australia",
+        "timezone": "Australia/Melbourne"
+      },
+      "destination": {
+        "city": "Auckland",
+        "airport": "Auckland Airport",
+        "code": "AKL",
+        "country": "New Zealand",
+        "timezone": "Pacific/Auckland"
+      }
+    },
+    "schedule": {
+      "departure": "06:00:00",
+      "arrival": "18:30:00",
+      "duration": "12h 30m",
+      "durationMinutes": 750,
+      "layovers": [
+        {
+          "airport": "Sydney Airport",
+          "code": "SYD",
+          "duration": "2h 15m"
+        }
+      ]
+    },
+    "pricing": {
+      "amount": 1320.00,
+      "currency": "AUD",
+      "fareClass": "Economy",
+      "bookingClass": "N"
+    },
+    "aircraft": {
+      "model": "Airbus A320",
+      "registration": "VH-VGF"
+    },
+    "stops": 1,
+    "amenities": [
+      "In-flight entertainment",
+      "Food & beverages for purchase"
+    ],
+    "baggage": {
+      "cabin": "7kg",
+      "checked": "20kg"
+    },
+    "availability": 28,
+    "tags": [
+      "budget",
+      "early-departure",
+      "connecting"
+    ],
+    "flightProfile": "Budget-friendly early morning flight from Melbourne to Auckland on Jetstar Airbus A320 with one stop in Sydney. Basic amenities with in-flight entertainment and food and beverages for purchase. Economy class with 20kg checked baggage. Perfect for price-conscious travelers willing to accept layovers for significant savings."
+  },
+  {
+    "id": "SQ237-MEL-AKL-001",
+    "type": "flight",
+    "flightNumber": "SQ237",
+    "airline": {
+      "code": "SQ",
+      "name": "Singapore Airlines",
+      "logoUrl": "https://content.airhex.com/content/logos/airlines_SQ_200_200_r.png"
+    },
+    "route": {
+      "origin": {
+        "city": "Melbourne",
+        "airport": "Melbourne Airport",
+        "code": "MEL",
+        "country": "Australia",
+        "timezone": "Australia/Melbourne"
+      },
+      "destination": {
+        "city": "Auckland",
+        "airport": "Auckland Airport",
+        "code": "AKL",
+        "country": "New Zealand",
+        "timezone": "Pacific/Auckland"
+      }
+    },
+    "schedule": {
+      "departure": "11:00:00",
+      "arrival": "19:15:00",
+      "duration": "10h 15m",
+      "durationMinutes": 615
+    },
+    "pricing": {
+      "amount": 2150.00,
+      "currency": "AUD",
+      "fareClass": "Economy",
+      "bookingClass": "Y"
+    },
+    "aircraft": {
+      "model": "Airbus A350-900",
+      "registration": "9V-SME"
+    },
+    "stops": 0,
+    "amenities": [
+      "WiFi",
+      "Premium meals",
+      "Extra legroom",
+      "Priority boarding",
+      "Award-winning service",
+      "Noise-cancelling headphones"
+    ],
+    "baggage": {
+      "cabin": "7kg",
+      "checked": "30kg"
+    },
+    "availability": 12,
+    "tags": [
+      "premium",
+      "direct",
+      "full-service"
+    ],
+    "flightProfile": "Experience world-class service on this direct Melbourne to Auckland route aboard Singapore Airlines' state-of-the-art Airbus A350-900. Passengers enjoy award-winning hospitality, premium meals crafted by renowned chefs, extra legroom seating, and priority boarding privileges. With noise-cancelling headphones and generous 30kg baggage allowance, this flight represents the pinnacle of trans-Tasman travel for discerning passengers."
+  },
+  {
+    "id": "QF15-MEL-NRT-001",
+    "type": "flight",
+    "flightNumber": "QF15",
+    "airline": {
+      "code": "QF",
+      "name": "Qantas",
+      "logoUrl": "https://content.airhex.com/content/logos/airlines_QF_200_200_r.png"
+    },
+    "route": {
+      "origin": {
+        "city": "Melbourne",
+        "airport": "Melbourne Airport",
+        "code": "MEL",
+        "country": "Australia",
+        "timezone": "Australia/Melbourne"
+      },
+      "destination": {
+        "city": "Tokyo",
+        "airport": "Narita International Airport",
+        "code": "NRT",
+        "country": "Japan",
+        "timezone": "Asia/Tokyo"
+      }
+    },
+    "schedule": {
+      "departure": "10:00:00",
+      "arrival": "18:30:00",
+      "duration": "10h 30m",
+      "durationMinutes": 630
+    },
+    "pricing": {
+      "amount": 2450.00,
+      "currency": "AUD",
+      "fareClass": "Economy",
+      "bookingClass": "Y"
+    },
+    "aircraft": {
+      "model": "Boeing 787-9",
+      "registration": "VH-ZNK"
+    },
+    "stops": 0,
+    "amenities": [
+      "WiFi",
+      "In-flight entertainment",
+      "Meals included",
+      "Lounge access",
+      "Power outlets",
+      "USB charging"
+    ],
+    "baggage": {
+      "cabin": "7kg",
+      "checked": "30kg"
+    },
+    "availability": 18,
+    "tags": [
+      "premium",
+      "direct",
+      "popular-route"
+    ],
+    "flightProfile": "Fly direct to Tokyo on Qantas' popular Boeing 787-9 Dreamliner! This daytime flight gets you to Narita by evening, perfect for maximizing your first day in Japan. Enjoy WiFi connectivity, comprehensive in-flight entertainment, delicious meals, and exclusive lounge access before departure. With 30kg baggage and power outlets at every seat, it's the smart choice for both business and leisure travelers heading to Tokyo."
+  },
+  {
+    "id": "JL772-MEL-NRT-001",
+    "type": "flight",
+    "flightNumber": "JL772",
+    "airline": {
+      "code": "JL",
+      "name": "Japan Airlines",
+      "logoUrl": "https://content.airhex.com/content/logos/airlines_JL_200_200_r.png"
+    },
+    "route": {
+      "origin": {
+        "city": "Melbourne",
+        "airport": "Melbourne Airport",
+        "code": "MEL",
+        "country": "Australia",
+        "timezone": "Australia/Melbourne"
+      },
+      "destination": {
+        "city": "Tokyo",
+        "airport": "Narita International Airport",
+        "code": "NRT",
+        "country": "Japan",
+        "timezone": "Asia/Tokyo"
+      }
+    },
+    "schedule": {
+      "departure": "21:00:00",
+      "arrival": "05:15:00+1",
+      "duration": "10h 15m",
+      "durationMinutes": 615
+    },
+    "pricing": {
+      "amount": 2280.00,
+      "currency": "AUD",
+      "fareClass": "Economy",
+      "bookingClass": "Y"
+    },
+    "aircraft": {
+      "model": "Boeing 787-8",
+      "registration": "JA837J"
+    },
+    "stops": 0,
+    "amenities": [
+      "WiFi",
+      "Premium Japanese meals",
+      "Entertainment system",
+      "Power outlets",
+      "Complimentary sake"
+    ],
+    "baggage": {
+      "cabin": "10kg",
+      "checked": "23kg"
+    },
+    "availability": 14,
+    "tags": [
+      "premium",
+      "direct",
+      "overnight",
+      "japanese-service"
+    ],
+    "flightProfile": "Overnight direct service to Tokyo featuring authentic Japanese hospitality. Japan Airlines Boeing 787-8 departs late evening, arriving early morning - sleep through the flight and wake up refreshed in Japan. Premium Japanese meals, complimentary sake, WiFi, and 10kg cabin baggage. The overnight schedule is ideal for business travelers looking to maximize productivity."
+  },
+  {
+    "id": "JQ25-MEL-NRT-001",
+    "type": "flight",
+    "flightNumber": "JQ25",
+    "airline": {
+      "code": "JQ",
+      "name": "Jetstar",
+      "logoUrl": "https://content.airhex.com/content/logos/airlines_JQ_200_200_r.png"
+    },
+    "route": {
+      "origin": {
+        "city": "Melbourne",
+        "airport": "Melbourne Airport",
+        "code": "MEL",
+        "country": "Australia",
+        "timezone": "Australia/Melbourne"
+      },
+      "destination": {
+        "city": "Tokyo",
+        "airport": "Narita International Airport",
+        "code": "NRT",
+        "country": "Japan",
+        "timezone": "Asia/Tokyo"
+      }
+    },
+    "schedule": {
+      "departure": "08:30:00",
+      "arrival": "22:45:00",
+      "duration": "16h 15m",
+      "durationMinutes": 975,
+      "layovers": [
+        {
+          "airport": "Cairns Airport",
+          "code": "CNS",
+          "duration": "3h 30m"
+        }
+      ]
+    },
+    "pricing": {
+      "amount": 1680.00,
+      "currency": "AUD",
+      "fareClass": "Economy",
+      "bookingClass": "N"
+    },
+    "aircraft": {
+      "model": "Airbus A321neo",
+      "registration": "VH-XIF"
+    },
+    "stops": 1,
+    "amenities": [
+      "In-flight entertainment",
+      "Food & beverages for purchase"
+    ],
+    "baggage": {
+      "cabin": "7kg",
+      "checked": "20kg"
+    },
+    "availability": 32,
+    "tags": [
+      "budget",
+      "connecting",
+      "long-duration"
+    ],
+    "flightProfile": "Save big on your Melbourne to Tokyo journey! This Jetstar Airbus A321neo service stops in tropical Cairns for a 3.5-hour layover - enough time to stretch your legs and grab a bite. While the journey takes longer, budget-conscious travelers appreciate the substantial savings. Basic entertainment and pay-as-you-go meals keep costs down. 20kg checked baggage included."
+  },
+  {
+    "id": "ANA880-MEL-NRT-001",
+    "type": "flight",
+    "flightNumber": "NH880",
+    "airline": {
+      "code": "NH",
+      "name": "All Nippon Airways",
+      "logoUrl": "https://content.airhex.com/content/logos/airlines_NH_200_200_r.png"
+    },
+    "route": {
+      "origin": {
+        "city": "Melbourne",
+        "airport": "Melbourne Airport",
+        "code": "MEL",
+        "country": "Australia",
+        "timezone": "Australia/Melbourne"
+      },
+      "destination": {
+        "city": "Tokyo",
+        "airport": "Narita International Airport",
+        "code": "NRT",
+        "country": "Japan",
+        "timezone": "Asia/Tokyo"
+      }
+    },
+    "schedule": {
+      "departure": "19:30:00",
+      "arrival": "04:00:00+1",
+      "duration": "10h 30m",
+      "durationMinutes": 630
+    },
+    "pricing": {
+      "amount": 2380.00,
+      "currency": "AUD",
+      "fareClass": "Economy",
+      "bookingClass": "Y"
+    },
+    "aircraft": {
+      "model": "Boeing 787-9",
+      "registration": "JA899A"
+    },
+    "stops": 0,
+    "amenities": [
+      "WiFi",
+      "Japanese & Western meals",
+      "Entertainment system",
+      "Power outlets",
+      "Complimentary amenity kit",
+      "USB charging"
+    ],
+    "baggage": {
+      "cabin": "10kg",
+      "checked": "23kg"
+    },
+    "availability": 16,
+    "tags": [
+      "premium",
+      "direct",
+      "overnight",
+      "5-star-rated"
+    ],
+    "flightProfile": "Indulge in 5-star service aboard All Nippon Airways' Boeing 787-9 Dreamliner. This overnight direct flight combines Japanese hospitality with modern comfort - choose from Japanese or Western meal options, enjoy your complimentary amenity kit, and arrive refreshed at Narita. WiFi connectivity, advanced entertainment, and 10kg generous cabin baggage. ANA's consistently high ratings make this a favorite among frequent flyers."
+  },
+  {
+    "id": "QF1-MEL-SIN-001",
+    "type": "flight",
+    "flightNumber": "QF1",
+    "airline": {
+      "code": "QF",
+      "name": "Qantas",
+      "logoUrl": "https://content.airhex.com/content/logos/airlines_QF_200_200_r.png"
+    },
+    "route": {
+      "origin": {
+        "city": "Melbourne",
+        "airport": "Melbourne Airport",
+        "code": "MEL",
+        "country": "Australia",
+        "timezone": "Australia/Melbourne"
+      },
+      "destination": {
+        "city": "Singapore",
+        "airport": "Singapore Changi Airport",
+        "code": "SIN",
+        "country": "Singapore",
+        "timezone": "Asia/Singapore"
+      }
+    },
+    "schedule": {
+      "departure": "23:00:00",
+      "arrival": "05:30:00+1",
+      "duration": "8h 30m",
+      "durationMinutes": 510
+    },
+    "pricing": {
+      "amount": 1950.00,
+      "currency": "AUD",
+      "fareClass": "Economy",
+      "bookingClass": "Y"
+    },
+    "aircraft": {
+      "model": "Airbus A380",
+      "registration": "VH-OQF"
+    },
+    "stops": 0,
+    "amenities": [
+      "WiFi",
+      "In-flight entertainment",
+      "Meals included",
+      "Lounge access",
+      "Power outlets",
+      "USB charging"
+    ],
+    "baggage": {
+      "cabin": "7kg",
+      "checked": "30kg"
+    },
+    "availability": 20,
+    "tags": [
+      "premium",
+      "direct",
+      "overnight",
+      "superjumbo"
+    ],
+    "flightProfile": "Experience the iconic Qantas A380 superjumbo on this overnight service to Singapore. The world's largest passenger aircraft offers unmatched smoothness and quietness at 35,000 feet. Late-night departure means you sleep through most of the 8.5-hour journey, waking up at Changi Airport ready to explore. Full-service amenities include WiFi, premium entertainment, hot meals, and lounge access. A true aviation experience!"
+  },
+  {
+    "id": "SQ227-MEL-SIN-001",
+    "type": "flight",
+    "flightNumber": "SQ227",
+    "airline": {
+      "code": "SQ",
+      "name": "Singapore Airlines",
+      "logoUrl": "https://content.airhex.com/content/logos/airlines_SQ_200_200_r.png"
+    },
+    "route": {
+      "origin": {
+        "city": "Melbourne",
+        "airport": "Melbourne Airport",
+        "code": "MEL",
+        "country": "Australia",
+        "timezone": "Australia/Melbourne"
+      },
+      "destination": {
+        "city": "Singapore",
+        "airport": "Singapore Changi Airport",
+        "code": "SIN",
+        "country": "Singapore",
+        "timezone": "Asia/Singapore"
+      }
+    },
+    "schedule": {
+      "departure": "16:30:00",
+      "arrival": "22:15:00",
+      "duration": "7h 45m",
+      "durationMinutes": 465
+    },
+    "pricing": {
+      "amount": 1780.00,
+      "currency": "AUD",
+      "fareClass": "Economy",
+      "bookingClass": "Y"
+    },
+    "aircraft": {
+      "model": "Airbus A350-900",
+      "registration": "9V-SMI"
+    },
+    "stops": 0,
+    "amenities": [
+      "WiFi",
+      "Premium meals",
+      "Entertainment system",
+      "Power outlets",
+      "Priority boarding",
+      "Extra legroom options"
+    ],
+    "baggage": {
+      "cabin": "7kg",
+      "checked": "30kg"
+    },
+    "availability": 24,
+    "tags": [
+      "premium",
+      "direct",
+      "evening-departure",
+      "award-winning"
+    ],
+    "flightProfile": "Afternoon departure, evening arrival - perfect timing for Singapore! Board at 4:30pm and land at 10:15pm, giving you a full day in Melbourne before departure. Singapore Airlines' award-winning service shines on this A350-900 route with premium meals, excellent entertainment, and WiFi. Extra legroom seats available. Arrive at award-winning Changi Airport with your evening ahead. Consistently rated as one of the world's best airlines."
+  },
+  {
+    "id": "TR17-MEL-SIN-001",
+    "type": "flight",
+    "flightNumber": "TR17",
+    "airline": {
+      "code": "TR",
+      "name": "Scoot",
+      "logoUrl": "https://content.airhex.com/content/logos/airlines_TR_200_200_r.png"
+    },
+    "route": {
+      "origin": {
+        "city": "Melbourne",
+        "airport": "Melbourne Airport",
+        "code": "MEL",
+        "country": "Australia",
+        "timezone": "Australia/Melbourne"
+      },
+      "destination": {
+        "city": "Singapore",
+        "airport": "Singapore Changi Airport",
+        "code": "SIN",
+        "country": "Singapore",
+        "timezone": "Asia/Singapore"
+      }
+    },
+    "schedule": {
+      "departure": "10:15:00",
+      "arrival": "16:30:00",
+      "duration": "8h 15m",
+      "durationMinutes": 495
+    },
+    "pricing": {
+      "amount": 1280.00,
+      "currency": "AUD",
+      "fareClass": "Economy",
+      "bookingClass": "N"
+    },
+    "aircraft": {
+      "model": "Boeing 787-8",
+      "registration": "9V-OFA"
+    },
+    "stops": 0,
+    "amenities": [
+      "WiFi for purchase",
+      "Entertainment streaming",
+      "Food & beverages for purchase"
+    ],
+    "baggage": {
+      "cabin": "7kg",
+      "checked": "20kg"
+    },
+    "availability": 35,
+    "tags": [
+      "budget",
+      "direct",
+      "low-cost-carrier"
+    ],
+    "flightProfile": "No-frills direct flight to Singapore at an unbeatable price! Scoot's Boeing 787-8 offers WiFi and entertainment streaming for purchase, keeping base fares low. Bring your own entertainment or buy onboard - either way, you're saving hundreds compared to full-service carriers. Morning departure gets you to Changi by mid-afternoon. 20kg checked baggage included in your fare."
+  },
+  {
+    "id": "QF9-MEL-LHR-001",
+    "type": "flight",
+    "flightNumber": "QF9",
+    "airline": {
+      "code": "QF",
+      "name": "Qantas",
+      "logoUrl": "https://content.airhex.com/content/logos/airlines_QF_200_200_r.png"
+    },
+    "route": {
+      "origin": {
+        "city": "Melbourne",
+        "airport": "Melbourne Airport",
+        "code": "MEL",
+        "country": "Australia",
+        "timezone": "Australia/Melbourne"
+      },
+      "destination": {
+        "city": "London",
+        "airport": "London Heathrow Airport",
+        "code": "LHR",
+        "country": "United Kingdom",
+        "timezone": "Europe/London"
+      }
+    },
+    "schedule": {
+      "departure": "22:30:00",
+      "arrival": "05:10:00+1",
+      "duration": "19h 40m",
+      "durationMinutes": 1180,
+      "layovers": [
+        {
+          "airport": "Singapore Changi Airport",
+          "code": "SIN",
+          "duration": "2h 00m"
+        }
+      ]
+    },
+    "pricing": {
+      "amount": 3850.00,
+      "currency": "AUD",
+      "fareClass": "Economy",
+      "bookingClass": "Y"
+    },
+    "aircraft": {
+      "model": "Boeing 787-9",
+      "registration": "VH-ZNJ"
+    },
+    "stops": 1,
+    "amenities": [
+      "WiFi",
+      "In-flight entertainment",
+      "Multiple meals included",
+      "Lounge access",
+      "Power outlets",
+      "Amenity kit"
+    ],
+    "baggage": {
+      "cabin": "7kg",
+      "checked": "30kg"
+    },
+    "availability": 10,
+    "tags": [
+      "premium",
+      "ultra-long-haul",
+      "connecting"
+    ],
+    "flightProfile": "Your gateway to London! Qantas QF9 departs late evening and routes through Singapore's world-class Changi Airport for a comfortable 2-hour layover - perfect for stretching and refreshing. Nearly 20 hours of travel made bearable with WiFi, excellent entertainment, multiple hot meals, and an amenity kit. The Boeing 787-9 Dreamliner's pressurization helps reduce jet lag. Lounge access at both airports included."
+  },
+  {
+    "id": "EK406-MEL-LHR-001",
+    "type": "flight",
+    "flightNumber": "EK406",
+    "airline": {
+      "code": "EK",
+      "name": "Emirates",
+      "logoUrl": "https://content.airhex.com/content/logos/airlines_EK_200_200_r.png"
+    },
+    "route": {
+      "origin": {
+        "city": "Melbourne",
+        "airport": "Melbourne Airport",
+        "code": "MEL",
+        "country": "Australia",
+        "timezone": "Australia/Melbourne"
+      },
+      "destination": {
+        "city": "London",
+        "airport": "London Heathrow Airport",
+        "code": "LHR",
+        "country": "United Kingdom",
+        "timezone": "Europe/London"
+      }
+    },
+    "schedule": {
+      "departure": "20:45:00",
+      "arrival": "06:30:00+1",
+      "duration": "22h 45m",
+      "durationMinutes": 1365,
+      "layovers": [
+        {
+          "airport": "Dubai International Airport",
+          "code": "DXB",
+          "duration": "4h 15m"
+        }
+      ]
+    },
+    "pricing": {
+      "amount": 3650.00,
+      "currency": "AUD",
+      "fareClass": "Economy",
+      "bookingClass": "Y"
+    },
+    "aircraft": {
+      "model": "Airbus A380",
+      "registration": "A6-EUE"
+    },
+    "stops": 1,
+    "amenities": [
+      "WiFi",
+      "Ice entertainment system",
+      "Multiple meals",
+      "Power outlets",
+      "Amenity kit",
+      "Complimentary beverages"
+    ],
+    "baggage": {
+      "cabin": "7kg",
+      "checked": "30kg"
+    },
+    "availability": 15,
+    "tags": [
+      "premium",
+      "ultra-long-haul",
+      "connecting",
+      "luxury"
+    ],
+    "flightProfile": "Fly Emirates and experience luxury in the sky! This A380 superjumbo journey via Dubai transforms a long-haul flight into an experience. The ICE entertainment system is legendary - 5,000+ channels of entertainment. Multiple gourmet meals, complimentary bar service, amenity kits, and a generous 4-hour Dubai layover to explore the incredible DXB terminal or relax in spacious lounges. Premium service at a competitive price point."
+  },
+  {
+    "id": "QF93-MEL-LAX-001",
+    "type": "flight",
+    "flightNumber": "QF93",
+    "airline": {
+      "code": "QF",
+      "name": "Qantas",
+      "logoUrl": "https://content.airhex.com/content/logos/airlines_QF_200_200_r.png"
+    },
+    "route": {
+      "origin": {
+        "city": "Melbourne",
+        "airport": "Melbourne Airport",
+        "code": "MEL",
+        "country": "Australia",
+        "timezone": "Australia/Melbourne"
+      },
+      "destination": {
+        "city": "Los Angeles",
+        "airport": "Los Angeles International Airport",
+        "code": "LAX",
+        "country": "United States",
+        "timezone": "America/Los_Angeles"
+      }
+    },
+    "schedule": {
+      "departure": "09:20:00",
+      "arrival": "07:00:00",
+      "duration": "14h 40m",
+      "durationMinutes": 880
+    },
+    "pricing": {
+      "amount": 3250.00,
+      "currency": "AUD",
+      "fareClass": "Economy",
+      "bookingClass": "Y"
+    },
+    "aircraft": {
+      "model": "Airbus A380",
+      "registration": "VH-OQK"
+    },
+    "stops": 0,
+    "amenities": [
+      "WiFi",
+      "In-flight entertainment",
+      "Multiple meals included",
+      "Lounge access",
+      "Power outlets",
+      "USB charging"
+    ],
+    "baggage": {
+      "cabin": "7kg",
+      "checked": "30kg"
+    },
+    "availability": 18,
+    "tags": [
+      "premium",
+      "direct",
+      "long-haul",
+      "trans-pacific"
+    ],
+    "flightProfile": "Qantas' flagship trans-Pacific service! Non-stop Melbourne to Los Angeles on the magnificent A380 - 14 hours 40 minutes of smooth, quiet flying. Depart morning, arrive same morning local time thanks to time zones. Extensive entertainment library, multiple meal services, WiFi throughout, and generous 30kg baggage. Perfect for onwards connections throughout the Americas or LA as your final destination. Consistently excellent crew service."
+  },
+  {
+    "id": "UA98-MEL-LAX-001",
+    "type": "flight",
+    "flightNumber": "UA98",
+    "airline": {
+      "code": "UA",
+      "name": "United Airlines",
+      "logoUrl": "https://content.airhex.com/content/logos/airlines_UA_200_200_r.png"
+    },
+    "route": {
+      "origin": {
+        "city": "Melbourne",
+        "airport": "Melbourne Airport",
+        "code": "MEL",
+        "country": "Australia",
+        "timezone": "Australia/Melbourne"
+      },
+      "destination": {
+        "city": "Los Angeles",
+        "airport": "Los Angeles International Airport",
+        "code": "LAX",
+        "country": "United States",
+        "timezone": "America/Los_Angeles"
+      }
+    },
+    "schedule": {
+      "departure": "11:30:00",
+      "arrival": "08:45:00",
+      "duration": "14h 15m",
+      "durationMinutes": 855
+    },
+    "pricing": {
+      "amount": 2980.00,
+      "currency": "AUD",
+      "fareClass": "Economy",
+      "bookingClass": "Y"
+    },
+    "aircraft": {
+      "model": "Boeing 787-9",
+      "registration": "N38950"
+    },
+    "stops": 0,
+    "amenities": [
+      "WiFi",
+      "Entertainment system",
+      "Meals & snacks included",
+      "Power outlets",
+      "USB charging"
+    ],
+    "baggage": {
+      "cabin": "7kg",
+      "checked": "23kg"
+    },
+    "availability": 22,
+    "tags": [
+      "value",
+      "direct",
+      "long-haul",
+      "star-alliance"
+    ],
+    "flightProfile": "Solid trans-Pacific option via United Airlines! Direct service to LAX on their fuel-efficient 787-9 Dreamliner offers good value - slightly cheaper than competitors while maintaining quality. Star Alliance member benefits mean you can earn miles across multiple airlines. WiFi, entertainment, meals, and power outlets included. Excellent for connecting to United's extensive US network. Note: 23kg checked baggage vs competitors' 30kg."
+  },
+  {
+    "id": "QF127-MEL-HKG-001",
+    "type": "flight",
+    "flightNumber": "QF127",
+    "airline": {
+      "code": "QF",
+      "name": "Qantas",
+      "logoUrl": "https://content.airhex.com/content/logos/airlines_QF_200_200_r.png"
+    },
+    "route": {
+      "origin": {
+        "city": "Melbourne",
+        "airport": "Melbourne Airport",
+        "code": "MEL",
+        "country": "Australia",
+        "timezone": "Australia/Melbourne"
+      },
+      "destination": {
+        "city": "Hong Kong",
+        "airport": "Hong Kong International Airport",
+        "code": "HKG",
+        "country": "Hong Kong",
+        "timezone": "Asia/Hong_Kong"
+      }
+    },
+    "schedule": {
+      "departure": "11:30:00",
+      "arrival": "18:30:00",
+      "duration": "9h 00m",
+      "durationMinutes": 540
+    },
+    "pricing": {
+      "amount": 2150.00,
+      "currency": "AUD",
+      "fareClass": "Economy",
+      "bookingClass": "Y"
+    },
+    "aircraft": {
+      "model": "Airbus A330-300",
+      "registration": "VH-QPJ"
+    },
+    "stops": 0,
+    "amenities": [
+      "WiFi",
+      "In-flight entertainment",
+      "Meals included",
+      "Power outlets"
+    ],
+    "baggage": {
+      "cabin": "7kg",
+      "checked": "30kg"
+    },
+    "availability": 16,
+    "tags": [
+      "premium",
+      "direct",
+      "business-hub"
+    ],
+    "flightProfile": "Connect Melbourne with Asia's premier business hub! This 9-hour direct flight arrives evening, giving you a full day's work before departure. Qantas A330-300 offers reliable service with WiFi for staying productive, quality meals, and generous 30kg baggage for extended trips. Hong Kong's compact, efficient airport means quick transfers if connecting onwards to mainland China or elsewhere in Asia."
+  },
+  {
+    "id": "CX105-MEL-HKG-001",
+    "type": "flight",
+    "flightNumber": "CX105",
+    "airline": {
+      "code": "CX",
+      "name": "Cathay Pacific",
+      "logoUrl": "https://content.airhex.com/content/logos/airlines_CX_200_200_r.png"
+    },
+    "route": {
+      "origin": {
+        "city": "Melbourne",
+        "airport": "Melbourne Airport",
+        "code": "MEL",
+        "country": "Australia",
+        "timezone": "Australia/Melbourne"
+      },
+      "destination": {
+        "city": "Hong Kong",
+        "airport": "Hong Kong International Airport",
+        "code": "HKG",
+        "country": "Hong Kong",
+        "timezone": "Asia/Hong_Kong"
+      }
+    },
+    "schedule": {
+      "departure": "23:30:00",
+      "arrival": "06:00:00+1",
+      "duration": "8h 30m",
+      "durationMinutes": 510
+    },
+    "pricing": {
+      "amount": 1980.00,
+      "currency": "AUD",
+      "fareClass": "Economy",
+      "bookingClass": "Y"
+    },
+    "aircraft": {
+      "model": "Airbus A350-900",
+      "registration": "B-LRP"
+    },
+    "stops": 0,
+    "amenities": [
+      "WiFi",
+      "Studio CX entertainment",
+      "Meals included",
+      "Power outlets",
+      "Noise-cancelling headphones"
+    ],
+    "baggage": {
+      "cabin": "7kg",
+      "checked": "23kg"
+    },
+    "availability": 19,
+    "tags": [
+      "premium",
+      "direct",
+      "overnight",
+      "5-star-rated"
+    ],
+    "flightProfile": "Cathay Pacific's renowned service on their cutting-edge A350-900! Late night departure means you sleep through most of the 8.5-hour journey, waking up refreshed at Hong Kong's excellent airport. Studio CX entertainment system rivals the best in the industry. Noise-cancelling headphones, quality meals, WiFi connectivity. Consistently rated one of the world's best airlines - experience why on this perfectly-timed overnight service."
+  },
+  {
+    "id": "QF81-MEL-BKK-001",
+    "type": "flight",
+    "flightNumber": "QF81",
+    "airline": {
+      "code": "QF",
+      "name": "Qantas",
+      "logoUrl": "https://content.airhex.com/content/logos/airlines_QF_200_200_r.png"
+    },
+    "route": {
+      "origin": {
+        "city": "Melbourne",
+        "airport": "Melbourne Airport",
+        "code": "MEL",
+        "country": "Australia",
+        "timezone": "Australia/Melbourne"
+      },
+      "destination": {
+        "city": "Bangkok",
+        "airport": "Suvarnabhumi Airport",
+        "code": "BKK",
+        "country": "Thailand",
+        "timezone": "Asia/Bangkok"
+      }
+    },
+    "schedule": {
+      "departure": "22:50:00",
+      "arrival": "05:30:00+1",
+      "duration": "9h 40m",
+      "durationMinutes": 580
+    },
+    "pricing": {
+      "amount": 1850.00,
+      "currency": "AUD",
+      "fareClass": "Economy",
+      "bookingClass": "Y"
+    },
+    "aircraft": {
+      "model": "Airbus A330-300",
+      "registration": "VH-QPI"
+    },
+    "stops": 0,
+    "amenities": [
+      "WiFi",
+      "In-flight entertainment",
+      "Meals included",
+      "Power outlets"
+    ],
+    "baggage": {
+      "cabin": "7kg",
+      "checked": "30kg"
+    },
+    "availability": 21,
+    "tags": [
+      "premium",
+      "direct",
+      "overnight",
+      "southeast-asia"
+    ],
+    "flightProfile": "Your direct gateway to Thailand! Late evening departure on Qantas A330-300 means you board after dinner and wake up at Suvarnabhumi Airport ready to explore Bangkok. Under 10 hours of comfortable flying with WiFi, entertainment, hot meals, and 30kg baggage - plenty for bringing back souvenirs. Perfect timing for starting your Southeast Asian adventure or connecting to Phuket, Chiang Mai, and beyond."
+  },
+  {
+    "id": "TG465-MEL-BKK-001",
+    "type": "flight",
+    "flightNumber": "TG465",
+    "airline": {
+      "code": "TG",
+      "name": "Thai Airways",
+      "logoUrl": "https://content.airhex.com/content/logos/airlines_TG_200_200_r.png"
+    },
+    "route": {
+      "origin": {
+        "city": "Melbourne",
+        "airport": "Melbourne Airport",
+        "code": "MEL",
+        "country": "Australia",
+        "timezone": "Australia/Melbourne"
+      },
+      "destination": {
+        "city": "Bangkok",
+        "airport": "Suvarnabhumi Airport",
+        "code": "BKK",
+        "country": "Thailand",
+        "timezone": "Asia/Bangkok"
+      }
+    },
+    "schedule": {
+      "departure": "00:30:00",
+      "arrival": "07:15:00",
+      "duration": "9h 45m",
+      "durationMinutes": 585
+    },
+    "pricing": {
+      "amount": 1680.00,
+      "currency": "AUD",
+      "fareClass": "Economy",
+      "bookingClass": "Y"
+    },
+    "aircraft": {
+      "model": "Boeing 777-300ER",
+      "registration": "HS-TKF"
+    },
+    "stops": 0,
+    "amenities": [
+      "WiFi",
+      "Entertainment system",
+      "Thai cuisine meals",
+      "Power outlets",
+      "Royal Orchid Service"
+    ],
+    "baggage": {
+      "cabin": "7kg",
+      "checked": "30kg"
+    },
+    "availability": 25,
+    "tags": [
+      "value",
+      "direct",
+      "overnight",
+      "star-alliance"
+    ]
+  },
+  {
+    "id": "QF401-MEL-SYD-001",
+    "type": "flight",
+    "flightNumber": "QF401",
+    "airline": {
+      "code": "QF",
+      "name": "Qantas",
+      "logoUrl": "https://content.airhex.com/content/logos/airlines_QF_200_200_r.png"
+    },
+    "route": {
+      "origin": {
+        "city": "Melbourne",
+        "airport": "Melbourne Airport",
+        "code": "MEL",
+        "country": "Australia",
+        "timezone": "Australia/Melbourne"
+      },
+      "destination": {
+        "city": "Sydney",
+        "airport": "Sydney Kingsford Smith Airport",
+        "code": "SYD",
+        "country": "Australia",
+        "timezone": "Australia/Sydney"
+      }
+    },
+    "schedule": {
+      "departure": "06:00:00",
+      "arrival": "07:25:00",
+      "duration": "1h 25m",
+      "durationMinutes": 85
+    },
+    "pricing": {
+      "amount": 189.00,
+      "currency": "AUD",
+      "fareClass": "Economy",
+      "bookingClass": "Y"
+    },
+    "aircraft": {
+      "model": "Boeing 737-800",
+      "registration": "VH-VXQ"
+    },
+    "stops": 0,
+    "amenities": [
+      "WiFi",
+      "In-flight entertainment",
+      "Snacks & beverages",
+      "Power outlets"
+    ],
+    "baggage": {
+      "cabin": "7kg",
+      "checked": "30kg"
+    },
+    "availability": 45,
+    "tags": [
+      "domestic",
+      "direct",
+      "early-departure",
+      "business-friendly"
+    ]
+  },
+  {
+    "id": "VA801-MEL-BNE-001",
+    "type": "flight",
+    "flightNumber": "VA801",
+    "airline": {
+      "code": "VA",
+      "name": "Virgin Australia",
+      "logoUrl": "https://content.airhex.com/content/logos/airlines_VA_200_200_r.png"
+    },
+    "route": {
+      "origin": {
+        "city": "Melbourne",
+        "airport": "Melbourne Airport",
+        "code": "MEL",
+        "country": "Australia",
+        "timezone": "Australia/Melbourne"
+      },
+      "destination": {
+        "city": "Brisbane",
+        "airport": "Brisbane Airport",
+        "code": "BNE",
+        "country": "Australia",
+        "timezone": "Australia/Brisbane"
+      }
+    },
+    "schedule": {
+      "departure": "08:30:00",
+      "arrival": "11:00:00",
+      "duration": "2h 30m",
+      "durationMinutes": 150
+    },
+    "pricing": {
+      "amount": 249.00,
+      "currency": "AUD",
+      "fareClass": "Economy",
+      "bookingClass": "Y"
+    },
+    "aircraft": {
+      "model": "Boeing 737-800",
+      "registration": "VH-YFR"
+    },
+    "stops": 0,
+    "amenities": [
+      "WiFi",
+      "Entertainment",
+      "Snacks & beverages",
+      "Power outlets"
+    ],
+    "baggage": {
+      "cabin": "7kg",
+      "checked": "23kg"
+    },
+    "availability": 38,
+    "tags": [
+      "domestic",
+      "direct",
+      "value"
+    ]
+  },
+  {
+    "id": "QF763-MEL-PER-001",
+    "type": "flight",
+    "flightNumber": "QF763",
+    "airline": {
+      "code": "QF",
+      "name": "Qantas",
+      "logoUrl": "https://content.airhex.com/content/logos/airlines_QF_200_200_r.png"
+    },
+    "route": {
+      "origin": {
+        "city": "Melbourne",
+        "airport": "Melbourne Airport",
+        "code": "MEL",
+        "country": "Australia",
+        "timezone": "Australia/Melbourne"
+      },
+      "destination": {
+        "city": "Perth",
+        "airport": "Perth Airport",
+        "code": "PER",
+        "country": "Australia",
+        "timezone": "Australia/Perth"
+      }
+    },
+    "schedule": {
+      "departure": "09:45:00",
+      "arrival": "12:35:00",
+      "duration": "3h 50m",
+      "durationMinutes": 230
+    },
+    "pricing": {
+      "amount": 459.00,
+      "currency": "AUD",
+      "fareClass": "Economy",
+      "bookingClass": "Y"
+    },
+    "aircraft": {
+      "model": "Airbus A330-200",
+      "registration": "VH-EBL"
+    },
+    "stops": 0,
+    "amenities": [
+      "WiFi",
+      "In-flight entertainment",
+      "Meals included",
+      "Power outlets",
+      "USB charging"
+    ],
+    "baggage": {
+      "cabin": "7kg",
+      "checked": "30kg"
+    },
+    "availability": 32,
+    "tags": [
+      "domestic",
+      "direct",
+      "cross-country"
+    ]
+  },
+  {
+    "id": "JQ701-MEL-ADL-001",
+    "type": "flight",
+    "flightNumber": "JQ701",
+    "airline": {
+      "code": "JQ",
+      "name": "Jetstar",
+      "logoUrl": "https://content.airhex.com/content/logos/airlines_JQ_200_200_r.png"
+    },
+    "route": {
+      "origin": {
+        "city": "Melbourne",
+        "airport": "Melbourne Airport",
+        "code": "MEL",
+        "country": "Australia",
+        "timezone": "Australia/Melbourne"
+      },
+      "destination": {
+        "city": "Adelaide",
+        "airport": "Adelaide Airport",
+        "code": "ADL",
+        "country": "Australia",
+        "timezone": "Australia/Adelaide"
+      }
+    },
+    "schedule": {
+      "departure": "10:15:00",
+      "arrival": "11:35:00",
+      "duration": "1h 20m",
+      "durationMinutes": 80
+    },
+    "pricing": {
+      "amount": 149.00,
+      "currency": "AUD",
+      "fareClass": "Economy",
+      "bookingClass": "N"
+    },
+    "aircraft": {
+      "model": "Airbus A320",
+      "registration": "VH-VGY"
+    },
+    "stops": 0,
+    "amenities": [
+      "In-flight entertainment",
+      "Food & beverages for purchase"
+    ],
+    "baggage": {
+      "cabin": "7kg",
+      "checked": "20kg"
+    },
+    "availability": 52,
+    "tags": [
+      "domestic",
+      "budget",
+      "direct"
+    ]
+  },
+  {
+    "id": "QF821-MEL-CNS-001",
+    "type": "flight",
+    "flightNumber": "QF821",
+    "airline": {
+      "code": "QF",
+      "name": "Qantas",
+      "logoUrl": "https://content.airhex.com/content/logos/airlines_QF_200_200_r.png"
+    },
+    "route": {
+      "origin": {
+        "city": "Melbourne",
+        "airport": "Melbourne Airport",
+        "code": "MEL",
+        "country": "Australia",
+        "timezone": "Australia/Melbourne"
+      },
+      "destination": {
+        "city": "Cairns",
+        "airport": "Cairns Airport",
+        "code": "CNS",
+        "country": "Australia",
+        "timezone": "Australia/Brisbane"
+      }
+    },
+    "schedule": {
+      "departure": "07:30:00",
+      "arrival": "11:00:00",
+      "duration": "3h 30m",
+      "durationMinutes": 210
+    },
+    "pricing": {
+      "amount": 349.00,
+      "currency": "AUD",
+      "fareClass": "Economy",
+      "bookingClass": "Y"
+    },
+    "aircraft": {
+      "model": "Boeing 737-800",
+      "registration": "VH-VZE"
+    },
+    "stops": 0,
+    "amenities": [
+      "WiFi",
+      "In-flight entertainment",
+      "Meals included",
+      "Power outlets"
+    ],
+    "baggage": {
+      "cabin": "7kg",
+      "checked": "30kg"
+    },
+    "availability": 28,
+    "tags": [
+      "domestic",
+      "direct",
+      "tropical"
+    ]
+  },
+  {
+    "id": "VA1355-MEL-OOL-001",
+    "type": "flight",
+    "flightNumber": "VA1355",
+    "airline": {
+      "code": "VA",
+      "name": "Virgin Australia",
+      "logoUrl": "https://content.airhex.com/content/logos/airlines_VA_200_200_r.png"
+    },
+    "route": {
+      "origin": {
+        "city": "Melbourne",
+        "airport": "Melbourne Airport",
+        "code": "MEL",
+        "country": "Australia",
+        "timezone": "Australia/Melbourne"
+      },
+      "destination": {
+        "city": "Gold Coast",
+        "airport": "Gold Coast Airport",
+        "code": "OOL",
+        "country": "Australia",
+        "timezone": "Australia/Brisbane"
+      }
+    },
+    "schedule": {
+      "departure": "12:00:00",
+      "arrival": "14:20:00",
+      "duration": "2h 20m",
+      "durationMinutes": 140
+    },
+    "pricing": {
+      "amount": 239.00,
+      "currency": "AUD",
+      "fareClass": "Economy",
+      "bookingClass": "Y"
+    },
+    "aircraft": {
+      "model": "Boeing 737-800",
+      "registration": "VH-YIR"
+    },
+    "stops": 0,
+    "amenities": [
+      "WiFi",
+      "Entertainment",
+      "Snacks & beverages"
+    ],
+    "baggage": {
+      "cabin": "7kg",
+      "checked": "23kg"
+    },
+    "availability": 41,
+    "tags": [
+      "domestic",
+      "direct",
+      "beach-destination"
+    ]
+  },
+  {
+    "id": "QF107-MEL-WLG-001",
+    "type": "flight",
+    "flightNumber": "QF107",
+    "airline": {
+      "code": "QF",
+      "name": "Qantas",
+      "logoUrl": "https://content.airhex.com/content/logos/airlines_QF_200_200_r.png"
+    },
+    "route": {
+      "origin": {
+        "city": "Melbourne",
+        "airport": "Melbourne Airport",
+        "code": "MEL",
+        "country": "Australia",
+        "timezone": "Australia/Melbourne"
+      },
+      "destination": {
+        "city": "Wellington",
+        "airport": "Wellington International Airport",
+        "code": "WLG",
+        "country": "New Zealand",
+        "timezone": "Pacific/Auckland"
+      }
+    },
+    "schedule": {
+      "departure": "11:30:00",
+      "arrival": "18:15:00",
+      "duration": "6h 45m",
+      "durationMinutes": 405
+    },
+    "pricing": {
+      "amount": 1580.00,
+      "currency": "AUD",
+      "fareClass": "Economy",
+      "bookingClass": "Y"
+    },
+    "aircraft": {
+      "model": "Airbus A330-200",
+      "registration": "VH-EBS"
+    },
+    "stops": 0,
+    "amenities": [
+      "WiFi",
+      "In-flight entertainment",
+      "Meals included",
+      "Power outlets",
+      "USB charging"
+    ],
+    "baggage": {
+      "cabin": "7kg",
+      "checked": "30kg"
+    },
+    "availability": 24,
+    "tags": [
+      "international",
+      "direct",
+      "trans-tasman"
+    ]
+  },
+  {
+    "id": "NZ125-MEL-CHC-001",
+    "type": "flight",
+    "flightNumber": "NZ125",
+    "airline": {
+      "code": "NZ",
+      "name": "Air New Zealand",
+      "logoUrl": "https://content.airhex.com/content/logos/airlines_NZ_200_200_r.png"
+    },
+    "route": {
+      "origin": {
+        "city": "Melbourne",
+        "airport": "Melbourne Airport",
+        "code": "MEL",
+        "country": "Australia",
+        "timezone": "Australia/Melbourne"
+      },
+      "destination": {
+        "city": "Christchurch",
+        "airport": "Christchurch International Airport",
+        "code": "CHC",
+        "country": "New Zealand",
+        "timezone": "Pacific/Auckland"
+      }
+    },
+    "schedule": {
+      "departure": "13:45:00",
+      "arrival": "20:00:00",
+      "duration": "6h 15m",
+      "durationMinutes": 375
+    },
+    "pricing": {
+      "amount": 1490.00,
+      "currency": "AUD",
+      "fareClass": "Economy",
+      "bookingClass": "Y"
+    },
+    "aircraft": {
+      "model": "Boeing 787-9",
+      "registration": "ZK-NZE"
+    },
+    "stops": 0,
+    "amenities": [
+      "WiFi",
+      "In-flight entertainment",
+      "Meals included",
+      "Power outlets",
+      "USB charging",
+      "Sky Couch available"
+    ],
+    "baggage": {
+      "cabin": "7kg",
+      "checked": "23kg"
+    },
+    "availability": 19,
+    "tags": [
+      "international",
+      "direct",
+      "trans-tasman",
+      "premium"
+    ]
+  },
+  {
+    "id": "VA165-MEL-ZQN-001",
+    "type": "flight",
+    "flightNumber": "VA165",
+    "airline": {
+      "code": "VA",
+      "name": "Virgin Australia",
+      "logoUrl": "https://content.airhex.com/content/logos/airlines_VA_200_200_r.png"
+    },
+    "route": {
+      "origin": {
+        "city": "Melbourne",
+        "airport": "Melbourne Airport",
+        "code": "MEL",
+        "country": "Australia",
+        "timezone": "Australia/Melbourne"
+      },
+      "destination": {
+        "city": "Queenstown",
+        "airport": "Queenstown Airport",
+        "code": "ZQN",
+        "country": "New Zealand",
+        "timezone": "Pacific/Auckland"
+      }
+    },
+    "schedule": {
+      "departure": "08:00:00",
+      "arrival": "14:30:00",
+      "duration": "6h 30m",
+      "durationMinutes": 390
+    },
+    "pricing": {
+      "amount": 1650.00,
+      "currency": "AUD",
+      "fareClass": "Economy",
+      "bookingClass": "Y"
+    },
+    "aircraft": {
+      "model": "Boeing 737-800",
+      "registration": "VH-YFW"
+    },
+    "stops": 0,
+    "amenities": [
+      "WiFi",
+      "In-flight entertainment",
+      "Meals included",
+      "Power outlets"
+    ],
+    "baggage": {
+      "cabin": "7kg",
+      "checked": "23kg"
+    },
+    "availability": 16,
+    "tags": [
+      "international",
+      "direct",
+      "trans-tasman",
+      "ski-destination"
+    ]
+  },
+  {
+    "id": "QF895-MEL-HBA-001",
+    "type": "flight",
+    "flightNumber": "QF895",
+    "airline": {
+      "code": "QF",
+      "name": "Qantas",
+      "logoUrl": "https://content.airhex.com/content/logos/airlines_QF_200_200_r.png"
+    },
+    "route": {
+      "origin": {
+        "city": "Melbourne",
+        "airport": "Melbourne Airport",
+        "code": "MEL",
+        "country": "Australia",
+        "timezone": "Australia/Melbourne"
+      },
+      "destination": {
+        "city": "Hobart",
+        "airport": "Hobart International Airport",
+        "code": "HBA",
+        "country": "Australia",
+        "timezone": "Australia/Hobart"
+      }
+    },
+    "schedule": {
+      "departure": "15:30:00",
+      "arrival": "16:45:00",
+      "duration": "1h 15m",
+      "durationMinutes": 75
+    },
+    "pricing": {
+      "amount": 179.00,
+      "currency": "AUD",
+      "fareClass": "Economy",
+      "bookingClass": "Y"
+    },
+    "aircraft": {
+      "model": "Boeing 737-800",
+      "registration": "VH-VZP"
+    },
+    "stops": 0,
+    "amenities": [
+      "WiFi",
+      "In-flight entertainment",
+      "Snacks & beverages",
+      "Power outlets"
+    ],
+    "baggage": {
+      "cabin": "7kg",
+      "checked": "30kg"
+    },
+    "availability": 36,
+    "tags": [
+      "domestic",
+      "direct",
+      "tasmania"
+    ]
+  },
+  {
+    "id": "JQ737-MEL-DRW-001",
+    "type": "flight",
+    "flightNumber": "JQ737",
+    "airline": {
+      "code": "JQ",
+      "name": "Jetstar",
+      "logoUrl": "https://content.airhex.com/content/logos/airlines_JQ_200_200_r.png"
+    },
+    "route": {
+      "origin": {
+        "city": "Melbourne",
+        "airport": "Melbourne Airport",
+        "code": "MEL",
+        "country": "Australia",
+        "timezone": "Australia/Melbourne"
+      },
+      "destination": {
+        "city": "Darwin",
+        "airport": "Darwin International Airport",
+        "code": "DRW",
+        "country": "Australia",
+        "timezone": "Australia/Darwin"
+      }
+    },
+    "schedule": {
+      "departure": "16:00:00",
+      "arrival": "21:30:00",
+      "duration": "5h 30m",
+      "durationMinutes": 330
+    },
+    "pricing": {
+      "amount": 399.00,
+      "currency": "AUD",
+      "fareClass": "Economy",
+      "bookingClass": "N"
+    },
+    "aircraft": {
+      "model": "Airbus A321",
+      "registration": "VH-VWZ"
+    },
+    "stops": 0,
+    "amenities": [
+      "In-flight entertainment",
+      "Food & beverages for purchase"
+    ],
+    "baggage": {
+      "cabin": "7kg",
+      "checked": "20kg"
+    },
+    "availability": 44,
+    "tags": [
+      "domestic",
+      "budget",
+      "direct",
+      "northern-territory"
+    ]
+  },
+  {
+    "id": "VA1457-MEL-CBR-001",
+    "type": "flight",
+    "flightNumber": "VA1457",
+    "airline": {
+      "code": "VA",
+      "name": "Virgin Australia",
+      "logoUrl": "https://content.airhex.com/content/logos/airlines_VA_200_200_r.png"
+    },
+    "route": {
+      "origin": {
+        "city": "Melbourne",
+        "airport": "Melbourne Airport",
+        "code": "MEL",
+        "country": "Australia",
+        "timezone": "Australia/Melbourne"
+      },
+      "destination": {
+        "city": "Canberra",
+        "airport": "Canberra Airport",
+        "code": "CBR",
+        "country": "Australia",
+        "timezone": "Australia/Sydney"
+      }
+    },
+    "schedule": {
+      "departure": "17:15:00",
+      "arrival": "18:20:00",
+      "duration": "1h 5m",
+      "durationMinutes": 65
+    },
+    "pricing": {
+      "amount": 169.00,
+      "currency": "AUD",
+      "fareClass": "Economy",
+      "bookingClass": "Y"
+    },
+    "aircraft": {
+      "model": "Boeing 737-700",
+      "registration": "VH-VBZ"
+    },
+    "stops": 0,
+    "amenities": [
+      "WiFi",
+      "Entertainment",
+      "Snacks & beverages"
+    ],
+    "baggage": {
+      "cabin": "7kg",
+      "checked": "23kg"
+    },
+    "availability": 48,
+    "tags": [
+      "domestic",
+      "direct",
+      "capital-city"
+    ]
+  },
+  {
+    "id": "QF431-MEL-SYD-002",
+    "type": "flight",
+    "flightNumber": "QF431",
+    "airline": {
+      "code": "QF",
+      "name": "Qantas",
+      "logoUrl": "https://content.airhex.com/content/logos/airlines_QF_200_200_r.png"
+    },
+    "route": {
+      "origin": {
+        "city": "Melbourne",
+        "airport": "Melbourne Airport",
+        "code": "MEL",
+        "country": "Australia",
+        "timezone": "Australia/Melbourne"
+      },
+      "destination": {
+        "city": "Sydney",
+        "airport": "Sydney Kingsford Smith Airport",
+        "code": "SYD",
+        "country": "Australia",
+        "timezone": "Australia/Sydney"
+      }
+    },
+    "schedule": {
+      "departure": "18:00:00",
+      "arrival": "19:25:00",
+      "duration": "1h 25m",
+      "durationMinutes": 85
+    },
+    "pricing": {
+      "amount": 209.00,
+      "currency": "AUD",
+      "fareClass": "Economy",
+      "bookingClass": "Y"
+    },
+    "aircraft": {
+      "model": "Boeing 737-800",
+      "registration": "VH-VXA"
+    },
+    "stops": 0,
+    "amenities": [
+      "WiFi",
+      "In-flight entertainment",
+      "Snacks & beverages",
+      "Power outlets"
+    ],
+    "baggage": {
+      "cabin": "7kg",
+      "checked": "30kg"
+    },
+    "availability": 40,
+    "tags": [
+      "domestic",
+      "direct",
+      "evening-departure",
+      "business-friendly"
+    ]
+  },
+  {
+    "id": "NZ717-MEL-AKL-002",
+    "type": "flight",
+    "flightNumber": "NZ717",
+    "airline": {
+      "code": "NZ",
+      "name": "Air New Zealand",
+      "logoUrl": "https://content.airhex.com/content/logos/airlines_NZ_200_200_r.png"
+    },
+    "route": {
+      "origin": {
+        "city": "Melbourne",
+        "airport": "Melbourne Airport",
+        "code": "MEL",
+        "country": "Australia",
+        "timezone": "Australia/Melbourne"
+      },
+      "destination": {
+        "city": "Auckland",
+        "airport": "Auckland Airport",
+        "code": "AKL",
+        "country": "New Zealand",
+        "timezone": "Pacific/Auckland"
+      }
+    },
+    "schedule": {
+      "departure": "16:30:00",
+      "arrival": "00:45:00",
+      "duration": "10h 15m",
+      "durationMinutes": 615
+    },
+    "pricing": {
+      "amount": 1720.00,
+      "currency": "AUD",
+      "fareClass": "Economy",
+      "bookingClass": "Y"
+    },
+    "aircraft": {
+      "model": "Boeing 787-9",
+      "registration": "ZK-NZI"
+    },
+    "stops": 0,
+    "amenities": [
+      "WiFi",
+      "In-flight entertainment",
+      "Meals included",
+      "Power outlets",
+      "USB charging",
+      "Sky Couch available"
+    ],
+    "baggage": {
+      "cabin": "7kg",
+      "checked": "23kg"
+    },
+    "availability": 21,
+    "tags": [
+      "international",
+      "direct",
+      "trans-tasman",
+      "evening-departure"
+    ]
+  },
+  {
+    "id": "QF639-MEL-LST-001",
+    "type": "flight",
+    "flightNumber": "QF639",
+    "airline": {
+      "code": "QF",
+      "name": "Qantas",
+      "logoUrl": "https://content.airhex.com/content/logos/airlines_QF_200_200_r.png"
+    },
+    "route": {
+      "origin": {
+        "city": "Melbourne",
+        "airport": "Melbourne Airport",
+        "code": "MEL",
+        "country": "Australia",
+        "timezone": "Australia/Melbourne"
+      },
+      "destination": {
+        "city": "Launceston",
+        "airport": "Launceston Airport",
+        "code": "LST",
+        "country": "Australia",
+        "timezone": "Australia/Hobart"
+      }
+    },
+    "schedule": {
+      "departure": "07:00:00",
+      "arrival": "08:05:00",
+      "duration": "1h 5m",
+      "durationMinutes": 65
+    },
+    "pricing": {
+      "amount": 165.00,
+      "currency": "AUD",
+      "fareClass": "Economy",
+      "bookingClass": "Y"
+    },
+    "aircraft": {
+      "model": "Boeing 717-200",
+      "registration": "VH-NXD"
+    },
+    "stops": 0,
+    "amenities": [
+      "WiFi",
+      "Snacks & beverages",
+      "Power outlets"
+    ],
+    "baggage": {
+      "cabin": "7kg",
+      "checked": "30kg"
+    },
+    "availability": 33,
+    "tags": [
+      "domestic",
+      "direct",
+      "tasmania",
+      "early-departure"
+    ]
+  },
+  {
+    "id": "VA323-MEL-BNE-002",
+    "type": "flight",
+    "flightNumber": "VA323",
+    "airline": {
+      "code": "VA",
+      "name": "Virgin Australia",
+      "logoUrl": "https://content.airhex.com/content/logos/airlines_VA_200_200_r.png"
+    },
+    "route": {
+      "origin": {
+        "city": "Melbourne",
+        "airport": "Melbourne Airport",
+        "code": "MEL",
+        "country": "Australia",
+        "timezone": "Australia/Melbourne"
+      },
+      "destination": {
+        "city": "Brisbane",
+        "airport": "Brisbane Airport",
+        "code": "BNE",
+        "country": "Australia",
+        "timezone": "Australia/Brisbane"
+      }
+    },
+    "schedule": {
+      "departure": "19:00:00",
+      "arrival": "21:30:00",
+      "duration": "2h 30m",
+      "durationMinutes": 150
+    },
+    "pricing": {
+      "amount": 269.00,
+      "currency": "AUD",
+      "fareClass": "Economy",
+      "bookingClass": "Y"
+    },
+    "aircraft": {
+      "model": "Boeing 737-800",
+      "registration": "VH-YVA"
+    },
+    "stops": 0,
+    "amenities": [
+      "WiFi",
+      "Entertainment",
+      "Snacks & beverages",
+      "Power outlets"
+    ],
+    "baggage": {
+      "cabin": "7kg",
+      "checked": "23kg"
+    },
+    "availability": 35,
+    "tags": [
+      "domestic",
+      "direct",
+      "evening-departure"
+    ]
+  }
+]

@@ -1,0 +1,77 @@
+site_name: Build Practical AI Agents - AI Genius
+site_description: Workshop for AI Genius to learn the fundamentals of building AI Agents using Microsoft Agent Framework.
+site_author: Rakesh Lakshminarayanana
+site_url: https://binarytrails-ai.github.io/aigenius-maf-travel-assistant
+
+# Exclude the default index.md so index-ai-genius.md becomes the home page
+exclude_docs: |
+  index.md
+
+nav:
+  - Welcome: events/index-ai-genius.md
+  - Environment Setup: 00-setup_instructions.md
+  - Learning Resources: resources.md
+  - Additional Resources:
+    - Aspire Dashboard Setup: Resources/aspire-dashboard-setup.md
+  - Feedback: feedback.md
+
+plugins:
+  - glightbox
+  - include-markdown
+
+theme:
+  name: material
+  logo: media/favicon.png
+  favicon: media/favicon.png
+  features:
+    - navigation.instant
+    - navigation.footer
+    - navigation.tracking
+    - navigation.top
+    - content.code.copy
+    - navigation.tabs.sticky
+    - content.tabs.link
+    - search.highlight
+    - search.suggest
+
+  font:
+    code: Roboto Mono
+    text: Roboto
+  palette:
+    - scheme: default
+      primary: black
+      accent: pink
+      toggle:
+        icon: material/brightness-2
+        name: Switch to dark mode
+    - scheme: slate
+      primary: amber
+      accent: cyan
+      toggle:
+        icon: material/brightness-7
+        name: Switch to light mode
+
+markdown_extensions:
+  - toc:
+      permalink: true
+      toc_depth: 2
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - attr_list
+  - md_in_html
+
+extra_css:
+  - css/custom.css
+
+extra_javascript:
+  - js/custom-nav.js
+
+extra:
+  version:
+    provider: mike
+    default: latest

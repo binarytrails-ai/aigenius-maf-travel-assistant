@@ -1,0 +1,41 @@
+@Lab05Host_HostAddress = http://localhost:5000
+
+###############################################
+# OpenAI-Compatible Chat Completions API
+###############################################
+
+### Simple Chat - First Message
+POST {{Lab05Host_HostAddress}}/TravelAssistant/v1/chat/completions
+Content-Type: application/json
+
+{
+  "model": "gpt-4o",
+  "messages": [
+    {
+      "role": "user",
+      "content": "What are some must-visit places in Australia?"
+    },
+    {
+      "role": "assistant",
+      "content": "Australia has many incredible destinations! Here are some must-visit places:\n\n1. **Sydney** - Famous for the Opera House and Harbour Bridge\n2. **Great Barrier Reef** - World's largest coral reef system, perfect for snorkeling and diving\n3. **Melbourne** - Known for its arts, culture, and coffee scene\n4. **Uluru (Ayers Rock)** - Iconic red rock formation in the heart of Australia\n5. **Gold Coast** - Beautiful beaches and theme parks\n6. **Tasmania** - Stunning wilderness and wildlife\n7. **Cairns** - Gateway to the Great Barrier Reef and rainforests\n\nEach destination offers unique experiences. What type of activities are you most interested in?"
+    },
+    {
+      "role": "user",
+      "content": "Which one would you recommend for families with kids?"
+    }
+  ]
+}
+
+### Flight Search Request
+POST {{Lab05Host_HostAddress}}/TravelAssistant/v1/chat/completions
+Content-Type: application/json
+
+{
+  "model": "gpt-4o",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Find me flights from Melbourne to Tokyo for next week"
+    }
+  ]
+}
