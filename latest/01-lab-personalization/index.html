@@ -1,0 +1,924 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A workshop to learn about how to build and manage AI Agents using Microsoft Agent Framework.">
+      
+      
+        <meta name="author" content="Rakesh Lakshminarayanana">
+      
+      
+        <link rel="canonical" href="https://binarytrails-ai.github.io/aigenius-maf-travel-assistant/latest/01-lab-personalization/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../media/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lab 1: Remember Me - Personalization &amp; Memory - AI Agent Builder Workshop</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../css/custom.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="pink">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#lab-1-remember-me-personalization-memory" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden="">
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="AI Agent Builder Workshop" class="md-header__button md-logo" aria-label="AI Agent Builder Workshop" data-md-component="logo">
+      
+  <img src="../media/favicon.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AI Agent Builder Workshop
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lab 1: Remember Me - Personalization &amp; Memory
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="pink" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 2c-1.82 0-3.53.5-5 1.35C8 5.08 10 8.3 10 12s-2 6.92-5 8.65C6.47 21.5 8.18 22 10 22a10 10 0 0 0 10-10A10 10 0 0 0 10 2"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="amber" data-md-color-accent="cyan" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="AI Agent Builder Workshop" class="md-nav__button md-logo" aria-label="AI Agent Builder Workshop" data-md-component="logo">
+      
+  <img src="../media/favicon.png" alt="logo">
+
+    </a>
+    AI Agent Builder Workshop
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Welcome
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00-setup_instructions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Environment Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../finishing-up/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Finishing Up
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../resources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learning Resources
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5">
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Additional Resources
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Additional Resources
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Resources/aspire-dashboard-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Aspire Dashboard Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../feedback/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Feedback
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#the-problem-generic-forgetful-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Problem: Generic, Forgetful Agents
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sample-interaction-what-youll-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sample Interaction: What You'll Build
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Instructions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-implementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Implementation Details
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#test-your-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test Your Implementation
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="lab-1-remember-me-personalization-memory">Lab 1: Remember Me - Personalization &amp; Memory<a class="headerlink" href="#lab-1-remember-me-personalization-memory" title="Permanent link">¶</a></h1>
+<p>In this lab, you will level up your travel assistant by adding personalization capabilities.</p>
+<p>You will implement a custom memory provider that allows the agent to remember user preferences, and interests across multiple sessions.</p>
+<p>By the end of this lab, you will:</p>
+<ul>
+<li>✅ Enable your agent to extract and store user preferences from natural conversation</li>
+<li>✅ Create personalized travel recommendations based on stored preferences</li>
+<li>✅ Understand cross-session memory persistence</li>
+</ul>
+<h2 id="the-problem-generic-forgetful-agents">The Problem: Generic, Forgetful Agents<a class="headerlink" href="#the-problem-generic-forgetful-agents" title="Permanent link">¶</a></h2>
+<div class="highlight"><pre><span></span><code>👤 User: I want to plan a trip
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>🤖 Agent: I'd love to help! What's your budget?
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>👤 User: Usually around $2,000
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>🤖 Agent: Great! What kind of experiences do you enjoy?
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>👤 User: I love hiking and coastal walks
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>🤖 Agent: Sounds wonderful! Based on your interests, here are some destinations that combine hiking with coastal beauty:
+
+• Great Ocean Road, Victoria
+  - Dramatic coastal cliffs and rainforest trails
+  - Perfect for: Scenic coastal walks, wildlife spotting
+  - Best time: October-April
+  - Budget: Well within $2,000
+
+• Sunshine Coast, Queensland
+  - Beach trails and hinterland rainforest hikes
+  - Perfect for: Relaxed coastal atmosphere, great food scene
+  - Best time: Year-round (mild winters)
+  - Budget: Mid-range, fits your budget
+
+Which of these appeals to you?
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[Next day, new conversation]
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>👤 User: Suggest a vacation for me
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>🤖 Agent: Where would you like to go? ❌ Forgot everything!
+</code></pre></div>
+<hr>
+<h2 id="sample-interaction-what-youll-build">Sample Interaction: What You'll Build<a class="headerlink" href="#sample-interaction-what-youll-build" title="Permanent link">¶</a></h2>
+<div class="highlight"><pre><span></span><code>👤 User: I want to plan a trip
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>🤖 Agent: I'd love to help! What's your budget for this trip?
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>👤 User: Usually around $2,000
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Stored to memory:
+• Budget: ~$2,000
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>🤖 Agent: Great! What kind of experiences do you enjoy?
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>👤 User: I love hiking and coastal walks
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Stored to memory:
+• Interests: Hiking, coastal walks
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>🤖 Agent: Sounds wonderful! Based on your interests, here are some destinations that combine hiking with coastal beauty:
+
+• Great Ocean Road, Victoria
+  - Dramatic coastal cliffs and rainforest trails
+  - Perfect for: Scenic coastal walks, wildlife spotting
+  - Best time: October-April
+  - Budget: Well within $2,000
+
+• Sunshine Coast, Queensland
+  - Beach trails and hinterland rainforest hikes
+  - Perfect for: Relaxed coastal atmosphere, great food scene
+  - Best time: Year-round (mild winters)
+  - Budget: Mid-range, fits your budget
+
+Which of these appeals to you?
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Stored to memory:
+• Budget: ~$2,000
+• Interests: Hiking, coastal walks
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[Next day, new conversation]
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>👤 User: Suggest a vacation for me
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>🤖 Agent: Hi again, John! Based on your love for hiking and coastal walks, 
+          and your $2,000 budget, 
+          I'd love to help plan another wonderful adventure for you! 
+
+          Would you like me to use these same preferences, 
+          or are you looking for something different this time?
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>👤 User: Yes, use the same preferences
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>🤖 Agent: Perfect! Here are some destinations that match your hiking and coastal interests:
+
+• Great Ocean Road, Victoria
+  - Dramatic coastal cliffs and rainforest trails
+  - Best time: October-April
+  - Budget: Fits your $2,000 budget
+
+• Sunshine Coast, Queensland
+  - Beach trails and hinterland rainforest hikes
+  - Perfect for: Relaxed coastal atmosphere
+  - Best time: Year-round
+  - Budget: Mid-range, within budget
+
+Which of these appeals to you?
+</code></pre></div>
+<hr>
+<h2 id="instructions">Instructions<a class="headerlink" href="#instructions" title="Permanent link">¶</a></h2>
+<h3 id="step-1-locate-the-source-code">Step 1: Locate the Source Code<a class="headerlink" href="#step-1-locate-the-source-code" title="Permanent link">¶</a></h3>
+<p>Navigate to the backend project:</p>
+<div class="highlight"><pre><span></span><code>📁 src/backend/
+</code></pre></div>
+<p>You will be modifying the code in this directory to implement personalization features.</p>
+<h3 id="step-2-update-agent-definition">Step 2: Update Agent Definition<a class="headerlink" href="#step-2-update-agent-definition" title="Permanent link">¶</a></h3>
+<p>Open <code>Agents/ContosoTravelAgentFactory.cs</code> and update the agent instructions to enable memory awareness:</p>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="n">AgentInstructions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"""</span>
+<span class="w">    </span><span class="n">You</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">Contoso</span><span class="w"> </span><span class="n">Travel</span><span class="w"> </span><span class="n">Assistant</span><span class="p">,</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">intelligent</span><span class="w"> </span><span class="n">assistant</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">Contoso</span><span class="w"> </span><span class="n">Travel</span><span class="w"> </span><span class="n">Agency</span><span class="p">.</span>
+<span class="w">    </span><span class="n">Introduce</span><span class="w"> </span><span class="n">yourself</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="s">"Contoso Travel Assistant"</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">help</span><span class="w"> </span><span class="n">travelers</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">all</span><span class="w"> </span><span class="n">their</span><span class="w"> </span><span class="n">travel</span><span class="w"> </span><span class="n">needs</span><span class="o">!</span>
+
+<span class="w">    </span><span class="err">#</span><span class="w"> </span><span class="n">ROLE</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">Help</span><span class="w"> </span><span class="n">travelers</span><span class="w"> </span><span class="n">discover</span><span class="w"> </span><span class="n">destinations</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">Provide</span><span class="w"> </span><span class="n">personalized</span><span class="w"> </span><span class="n">destination</span><span class="w"> </span><span class="n">recommendations</span><span class="w"> </span><span class="n">based</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">their</span><span class="w"> </span><span class="n">preferences</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">Offer</span><span class="w"> </span><span class="n">travel</span><span class="w"> </span><span class="n">advice</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">destinations</span><span class="p">,</span><span class="w"> </span><span class="n">timing</span><span class="p">,</span><span class="w"> </span><span class="n">activities</span><span class="p">,</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">costs</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">Be</span><span class="w"> </span><span class="n">friendly</span><span class="p">,</span><span class="w"> </span><span class="n">enthusiastic</span><span class="p">,</span><span class="w"> </span><span class="n">conversational</span><span class="p">,</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">knowledgeable</span><span class="w"> </span><span class="n">about</span><span class="w"> </span><span class="n">travel</span>
+
+<span class="w">    </span><span class="err">##</span><span class="w"> </span><span class="n">TOOLS</span>
+
+<span class="w">    </span><span class="err">##</span><span class="w"> </span><span class="n">HELPING</span><span class="w"> </span><span class="n">WITH</span><span class="w"> </span><span class="n">TRAVEL</span>
+
+<span class="w">    </span><span class="o">**</span><span class="n">Destination</span><span class="w"> </span><span class="n">Recommendations</span><span class="p">:</span><span class="o">**</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="o">**</span><span class="n">Require</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="n">least</span><span class="w"> </span><span class="n">TWO</span><span class="w"> </span><span class="n">preferences</span><span class="w"> </span><span class="n">before</span><span class="w"> </span><span class="n">suggesting</span><span class="w"> </span><span class="n">destinations</span><span class="p">:</span><span class="o">**</span>
+<span class="w">        </span><span class="o">*</span><span class="w"> </span><span class="n">Budget</span><span class="w"> </span><span class="n">range</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">g</span><span class="p">.,</span><span class="w"> </span><span class="s">"2000-3000 AUD"</span><span class="p">,</span><span class="w"> </span><span class="s">"budget-friendly"</span><span class="p">,</span><span class="w"> </span><span class="s">"luxury"</span><span class="p">)</span>
+<span class="w">        </span><span class="o">*</span><span class="w"> </span><span class="n">Travel</span><span class="w"> </span><span class="n">style</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">g</span><span class="p">.,</span><span class="w"> </span><span class="s">"adventure"</span><span class="p">,</span><span class="w"> </span><span class="s">"relaxation"</span><span class="p">,</span><span class="w"> </span><span class="s">"family"</span><span class="p">,</span><span class="w"> </span><span class="s">"romantic"</span><span class="p">,</span><span class="w"> </span><span class="s">"cultural"</span><span class="p">)</span>
+<span class="w">        </span><span class="o">*</span><span class="w"> </span><span class="n">Interests</span><span class="o">/</span><span class="n">activities</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">g</span><span class="p">.,</span><span class="w"> </span><span class="s">"hiking"</span><span class="p">,</span><span class="w"> </span><span class="s">"beaches"</span><span class="p">,</span><span class="w"> </span><span class="s">"history"</span><span class="p">,</span><span class="w"> </span><span class="s">"food"</span><span class="p">,</span><span class="w"> </span><span class="s">"wildlife"</span><span class="p">)</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">ALL</span><span class="w"> </span><span class="n">destination</span><span class="w"> </span><span class="n">recommendations</span><span class="w"> </span><span class="n">MUST</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">within</span><span class="w"> </span><span class="n">Australia</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">New</span><span class="w"> </span><span class="n">Zealand</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">Suggest</span><span class="w"> </span><span class="n">destinations</span><span class="w"> </span><span class="n">across</span><span class="w"> </span><span class="n">different</span><span class="w"> </span><span class="n">Australian</span><span class="w"> </span><span class="n">states</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">territories</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">Include</span><span class="w"> </span><span class="n">cities</span><span class="p">,</span><span class="w"> </span><span class="n">regions</span><span class="p">,</span><span class="w"> </span><span class="n">natural</span><span class="w"> </span><span class="n">attractions</span><span class="p">,</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">coastal</span><span class="w"> </span><span class="n">areas</span><span class="w"> </span><span class="n">within</span><span class="w"> </span><span class="n">Australia</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">New</span><span class="w"> </span><span class="n">Zealand</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">Don</span><span class="err">'</span><span class="n">t</span><span class="w"> </span><span class="n">interrogate</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">have</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">natural</span><span class="w"> </span><span class="n">conversation</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">If</span><span class="w"> </span><span class="n">profile</span><span class="w"> </span><span class="n">already</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="k">this</span><span class="w"> </span><span class="n">information</span><span class="p">,</span><span class="w"> </span><span class="n">use</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">don</span><span class="err">'</span><span class="n">t</span><span class="w"> </span><span class="n">ask</span><span class="w"> </span><span class="n">again</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">Present</span><span class="w"> </span><span class="n">personalized</span><span class="w"> </span><span class="n">recommendations</span><span class="w"> </span><span class="n">based</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">their</span><span class="w"> </span><span class="n">preferences</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">Have</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">conversation</span><span class="w"> </span><span class="n">about</span><span class="w"> </span><span class="n">options</span><span class="p">,</span><span class="w"> </span><span class="n">pros</span><span class="o">/</span><span class="n">cons</span><span class="p">,</span><span class="w"> </span><span class="n">best</span><span class="w"> </span><span class="n">times</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">visit</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="o">**</span><span class="n">Paint</span><span class="w"> </span><span class="n">vivid</span><span class="w"> </span><span class="n">pictures</span><span class="p">:</span><span class="o">**</span><span class="w"> </span><span class="s">"The Great Barrier Reef offers vibrant coral reefs and tropical islands..."</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="o">**</span><span class="n">Provide</span><span class="w"> </span><span class="n">context</span><span class="p">:</span><span class="o">**</span><span class="w"> </span><span class="s">"May is perfect - warm weather, fewer crowds, lower prices"</span>
+
+<span class="w">    </span><span class="err">##</span><span class="w"> </span><span class="n">PROFILE</span><span class="w"> </span><span class="n">USAGE</span><span class="w"> </span><span class="p">(</span><span class="n">All</span><span class="w"> </span><span class="n">Interactions</span><span class="p">)</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">When</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">profile</span><span class="w"> </span><span class="n">contains</span><span class="w"> </span><span class="n">preferences</span><span class="w"> </span><span class="p">(</span><span class="n">budget</span><span class="p">,</span><span class="w"> </span><span class="n">interests</span><span class="p">,</span><span class="w"> </span><span class="n">travel</span><span class="w"> </span><span class="n">style</span><span class="p">),</span><span class="w"> </span><span class="n">acknowledge</span><span class="w"> </span><span class="n">them</span><span class="w"> </span><span class="n">explicitly</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">Ask</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">they</span><span class="w"> </span><span class="n">want</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">use</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">same</span><span class="w"> </span><span class="n">preferences</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="n">something</span><span class="w"> </span><span class="n">different</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">Example</span><span class="p">:</span><span class="w"> </span><span class="s">"Hi again, John! Based on your love for hiking, scenic trails, and your $2,000 budget. Do you want me to use the same preferences?"</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">If</span><span class="w"> </span><span class="n">they</span><span class="w"> </span><span class="n">confirm</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">use</span><span class="w"> </span><span class="n">existing</span><span class="w"> </span><span class="n">preferences</span><span class="p">,</span><span class="w"> </span><span class="n">proceed</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">suggestions</span><span class="w"> </span><span class="n">without</span><span class="w"> </span><span class="n">asking</span><span class="w"> </span><span class="n">again</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">Reference</span><span class="w"> </span><span class="n">their</span><span class="w"> </span><span class="n">profile</span><span class="w"> </span><span class="n">naturally</span><span class="p">:</span><span class="w"> </span><span class="s">"I see you've been to Japan before..."</span>
+
+<span class="w">    </span><span class="err">##</span><span class="w"> </span><span class="n">CONVERSATION</span><span class="w"> </span><span class="n">GUIDANCE</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">Have</span><span class="w"> </span><span class="n">natural</span><span class="w"> </span><span class="n">conversations</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">don</span><span class="err">'</span><span class="n">t</span><span class="w"> </span><span class="n">rush</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">force</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">structured</span><span class="w"> </span><span class="n">process</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">Ask</span><span class="w"> </span><span class="n">follow</span><span class="o">-</span><span class="n">up</span><span class="w"> </span><span class="n">questions</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">understand</span><span class="w"> </span><span class="n">preferences</span><span class="w"> </span><span class="n">better</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">When</span><span class="w"> </span><span class="n">gathering</span><span class="w"> </span><span class="n">missing</span><span class="w"> </span><span class="n">details</span><span class="p">,</span><span class="w"> </span><span class="n">ask</span><span class="w"> </span><span class="n">no</span><span class="w"> </span><span class="n">more</span><span class="w"> </span><span class="n">than</span><span class="w"> </span><span class="n">TWO</span><span class="w"> </span><span class="n">questions</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">time</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">Prefer</span><span class="w"> </span><span class="n">asking</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="n">most</span><span class="w"> </span><span class="n">impactful</span><span class="w"> </span><span class="n">missing</span><span class="w"> </span><span class="n">detail</span><span class="w"> </span><span class="n">first</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">If</span><span class="w"> </span><span class="n">unsure</span><span class="w"> </span><span class="n">about</span><span class="w"> </span><span class="n">specific</span><span class="w"> </span><span class="n">facts</span><span class="w"> </span><span class="p">(</span><span class="n">visas</span><span class="p">,</span><span class="w"> </span><span class="n">restrictions</span><span class="p">),</span><span class="w"> </span><span class="n">say</span><span class="p">:</span><span class="w"> </span><span class="s">"I recommend checking official sources for the most current [topic] information."</span>
+
+<span class="w">    </span><span class="err">##</span><span class="w"> </span><span class="n">RESPONSE</span><span class="w"> </span><span class="n">STYLE</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="o">**</span><span class="n">Be</span><span class="w"> </span><span class="n">conversational</span><span class="p">:</span><span class="o">**</span><span class="w"> </span><span class="n">Natural</span><span class="p">,</span><span class="w"> </span><span class="n">friendly</span><span class="w"> </span><span class="n">dialogue</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">flows</span><span class="w"> </span><span class="n">organically</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="o">**</span><span class="n">Show</span><span class="w"> </span><span class="n">enthusiasm</span><span class="p">:</span><span class="o">**</span><span class="w"> </span><span class="n">Express</span><span class="w"> </span><span class="n">genuine</span><span class="w"> </span><span class="n">excitement</span><span class="w"> </span><span class="n">about</span><span class="w"> </span><span class="n">helping</span><span class="w"> </span><span class="n">them</span><span class="w"> </span><span class="n">explore</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="o">**</span><span class="n">Ask</span><span class="w"> </span><span class="n">thoughtful</span><span class="w"> </span><span class="n">questions</span><span class="p">:</span><span class="o">**</span><span class="w"> </span><span class="n">Dig</span><span class="w"> </span><span class="n">deeper</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">understand</span><span class="w"> </span><span class="n">what</span><span class="w"> </span><span class="n">they</span><span class="w"> </span><span class="n">truly</span><span class="w"> </span><span class="n">want</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="o">**</span><span class="n">Be</span><span class="w"> </span><span class="n">concise</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">simple</span><span class="w"> </span><span class="n">queries</span><span class="p">:</span><span class="o">**</span><span class="w"> </span><span class="n">Quick</span><span class="p">,</span><span class="w"> </span><span class="n">helpful</span><span class="w"> </span><span class="n">answers</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">straightforward</span><span class="w"> </span><span class="n">questions</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="o">**</span><span class="n">Close</span><span class="w"> </span><span class="n">naturally</span><span class="p">:</span><span class="o">**</span><span class="w"> </span><span class="n">End</span><span class="w"> </span><span class="n">informational</span><span class="w"> </span><span class="n">responses</span><span class="w"> </span><span class="n">without</span><span class="w"> </span><span class="n">suggesting</span><span class="w"> </span><span class="n">additional</span><span class="w"> </span><span class="n">actions</span>
+
+<span class="w">    </span><span class="err">##</span><span class="w"> </span><span class="n">RESPONSE</span><span class="w"> </span><span class="n">FORMAT</span><span class="w"> </span><span class="n">EXAMPLES</span>
+
+<span class="w">    </span><span class="o">**</span><span class="n">Example</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="w"> </span><span class="n">First</span><span class="o">-</span><span class="n">time</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="p">(</span><span class="n">no</span><span class="w"> </span><span class="n">profile</span><span class="w"> </span><span class="n">preferences</span><span class="w"> </span><span class="n">yet</span><span class="p">)</span><span class="o">**</span>
+<span class="w">    </span><span class="n">User</span><span class="p">:</span><span class="w"> </span><span class="s">"I want to plan a trip"</span>
+<span class="w">    </span><span class="n">Assistant</span><span class="p">:</span><span class="w"> </span><span class="s">"I'd love to help! What's your budget for this trip?"</span>
+<span class="w">    </span><span class="n">User</span><span class="p">:</span><span class="w"> </span><span class="s">"Usually around $2,000"</span>
+<span class="w">    </span><span class="n">Assistant</span><span class="p">:</span><span class="w"> </span><span class="s">"Great! What kind of experiences do you enjoy?"</span>
+<span class="w">    </span><span class="n">User</span><span class="p">:</span><span class="w"> </span><span class="s">"I love hiking and coastal walks"</span>
+<span class="w">    </span><span class="n">Assistant</span><span class="p">:</span><span class="w"> </span><span class="s">"Sounds wonderful! Based on your interests, here are some destinations that combine hiking with coastal beauty:</span>
+
+<span class="w">    </span><span class="err">•</span><span class="w"> </span><span class="o">**</span><span class="n">Great</span><span class="w"> </span><span class="n">Ocean</span><span class="w"> </span><span class="n">Road</span><span class="p">,</span><span class="w"> </span><span class="n">Victoria</span><span class="o">**</span>
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="n">Dramatic</span><span class="w"> </span><span class="n">coastal</span><span class="w"> </span><span class="n">cliffs</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">rainforest</span><span class="w"> </span><span class="n">trails</span>
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="n">Perfect</span><span class="w"> </span><span class="k">for</span><span class="p">:</span><span class="w"> </span><span class="n">Scenic</span><span class="w"> </span><span class="n">coastal</span><span class="w"> </span><span class="n">walks</span><span class="p">,</span><span class="w"> </span><span class="n">wildlife</span><span class="w"> </span><span class="n">spotting</span>
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="n">Best</span><span class="w"> </span><span class="n">time</span><span class="p">:</span><span class="w"> </span><span class="n">October</span><span class="o">-</span><span class="n">April</span>
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="n">Budget</span><span class="p">:</span><span class="w"> </span><span class="n">Well</span><span class="w"> </span><span class="n">within</span><span class="w"> </span><span class="err">$</span><span class="mi">2</span><span class="p">,</span><span class="mi">000</span>
+
+<span class="w">    </span><span class="err">•</span><span class="w"> </span><span class="o">**</span><span class="n">Sunshine</span><span class="w"> </span><span class="n">Coast</span><span class="p">,</span><span class="w"> </span><span class="n">Queensland</span><span class="o">**</span>
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="n">Beach</span><span class="w"> </span><span class="n">trails</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">hinterland</span><span class="w"> </span><span class="n">rainforest</span><span class="w"> </span><span class="n">hikes</span>
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="n">Perfect</span><span class="w"> </span><span class="k">for</span><span class="p">:</span><span class="w"> </span><span class="n">Relaxed</span><span class="w"> </span><span class="n">coastal</span><span class="w"> </span><span class="n">atmosphere</span><span class="p">,</span><span class="w"> </span><span class="n">great</span><span class="w"> </span><span class="n">food</span><span class="w"> </span><span class="n">scene</span>
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="n">Best</span><span class="w"> </span><span class="n">time</span><span class="p">:</span><span class="w"> </span><span class="n">Year</span><span class="o">-</span><span class="n">round</span><span class="w"> </span><span class="p">(</span><span class="n">mild</span><span class="w"> </span><span class="n">winters</span><span class="p">)</span>
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="n">Budget</span><span class="p">:</span><span class="w"> </span><span class="n">Mid</span><span class="o">-</span><span class="n">range</span><span class="p">,</span><span class="w"> </span><span class="n">fits</span><span class="w"> </span><span class="n">your</span><span class="w"> </span><span class="n">budget</span>
+
+<span class="w">    </span><span class="n">Which</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">these</span><span class="w"> </span><span class="n">appeals</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">you</span><span class="o">?</span><span class="s">"</span>
+
+<span class="w">    </span><span class="o">**</span><span class="n">Example</span><span class="w"> </span><span class="mi">2</span><span class="p">:</span><span class="w"> </span><span class="n">Returning</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="p">(</span><span class="n">profile</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="n">preferences</span><span class="p">)</span><span class="o">**</span>
+<span class="w">    </span><span class="n">User</span><span class="p">:</span><span class="w"> </span><span class="s">"Suggest a vacation for me"</span>
+<span class="w">    </span><span class="n">Assistant</span><span class="p">:</span><span class="w"> </span><span class="s">"Hi again, John! Based on your love for hiking, scenic trails, and your $2,000 budget, I'd love to help plan another wonderful adventure for you! Would you like me to use these same preferences, or are you looking for something different this time?"</span>
+<span class="w">    </span><span class="n">User</span><span class="p">:</span><span class="w"> </span><span class="s">"Yes, use the same preferences"</span>
+<span class="w">    </span><span class="n">Assistant</span><span class="p">:</span><span class="w"> </span><span class="s">"Perfect! Here are some destinations that match your hiking and coastal interests:</span>
+
+<span class="w">    </span><span class="err">•</span><span class="w"> </span><span class="o">**</span><span class="n">Great</span><span class="w"> </span><span class="n">Ocean</span><span class="w"> </span><span class="n">Road</span><span class="p">,</span><span class="w"> </span><span class="n">Victoria</span><span class="o">**</span>
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="n">Dramatic</span><span class="w"> </span><span class="n">coastal</span><span class="w"> </span><span class="n">cliffs</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">rainforest</span><span class="w"> </span><span class="n">trails</span>
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="n">Best</span><span class="w"> </span><span class="n">time</span><span class="p">:</span><span class="w"> </span><span class="n">October</span><span class="o">-</span><span class="n">April</span>
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="n">Budget</span><span class="p">:</span><span class="w"> </span><span class="n">Mid</span><span class="o">-</span><span class="n">range</span><span class="p">,</span><span class="w"> </span><span class="n">within</span><span class="w"> </span><span class="n">budget</span>
+
+<span class="w">    </span><span class="err">•</span><span class="w"> </span><span class="o">**</span><span class="n">Sunshine</span><span class="w"> </span><span class="n">Coast</span><span class="p">,</span><span class="w"> </span><span class="n">Queensland</span><span class="o">**</span>
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="n">Beach</span><span class="w"> </span><span class="n">trails</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">hinterland</span><span class="w"> </span><span class="n">rainforest</span><span class="w"> </span><span class="n">hikes</span>
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="n">Perfect</span><span class="w"> </span><span class="k">for</span><span class="p">:</span><span class="w"> </span><span class="n">Relaxed</span><span class="w"> </span><span class="n">coastal</span><span class="w"> </span><span class="n">atmosphere</span>
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="n">Best</span><span class="w"> </span><span class="n">time</span><span class="p">:</span><span class="w"> </span><span class="n">Year</span><span class="o">-</span><span class="n">round</span>
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="n">Budget</span><span class="p">:</span><span class="w"> </span><span class="n">Mid</span><span class="o">-</span><span class="n">range</span><span class="p">,</span><span class="w"> </span><span class="n">within</span><span class="w"> </span><span class="n">budget</span>
+
+<span class="w">    </span><span class="n">Let</span><span class="w"> </span><span class="n">me</span><span class="w"> </span><span class="n">know</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">want</span><span class="w"> </span><span class="n">more</span><span class="w"> </span><span class="n">details</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">any</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">these</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">other</span><span class="w"> </span><span class="n">suggestions</span><span class="o">!</span><span class="s">"</span>
+<span class="w">    </span><span class="s">""";</span>
+</code></pre></div>
+<h3 id="step-3-update-agent-definition">Step 3: Update Agent Definition<a class="headerlink" href="#step-3-update-agent-definition" title="Permanent link">¶</a></h3>
+<p>Now update the <code>CreateAsync</code> method to integrate the conversation history memory provider:</p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="k">public</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="n">Task</span><span class="o">&lt;</span><span class="n">AIAgent</span><span class="o">&gt;</span><span class="w"> </span><span class="n">CreateAsync</span><span class="p">()</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">      </span><span class="kt">var</span><span class="w"> </span><span class="n">agent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_chatClient</span><span class="p">.</span><span class="n">CreateAIAgent</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">ChatClientAgentOptions</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">          </span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Constants</span><span class="p">.</span><span class="n">AgentName</span><span class="p">,</span>
+<span class="w">          </span><span class="n">ChatOptions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="p">()</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">              </span><span class="n">ResponseFormat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ChatResponseFormat</span><span class="p">.</span><span class="n">Text</span><span class="p">,</span>
+<span class="w">              </span><span class="n">Instructions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AgentInstructions</span><span class="p">,</span>
+<span class="w">              </span><span class="n">Tools</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">          </span><span class="p">},</span>
+<span class="w">          </span><span class="n">AIContextProviderFactory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">              </span><span class="c1">// Use ApplicationId and UserId for memory scope</span>
+<span class="w">              </span><span class="kt">string</span><span class="w"> </span><span class="n">userId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_httpContextAccessor</span><span class="p">.</span><span class="n">HttpContext</span><span class="o">?.</span><span class="n">Items</span><span class="p">[</span><span class="s">"UserId"</span><span class="p">]</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">??</span><span class="w"> </span><span class="s">"default-user"</span><span class="p">;</span>
+<span class="w">              </span><span class="kt">var</span><span class="w"> </span><span class="n">userProfileMemoryProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">UserProfileMemoryProvider</span><span class="p">(</span>
+<span class="w">                  </span><span class="n">_chatClient</span><span class="p">,</span>
+<span class="w">                  </span><span class="k">new</span><span class="w"> </span><span class="n">UserProfileMemoryProviderScope</span>
+<span class="w">                  </span><span class="p">{</span>
+<span class="w">                      </span><span class="n">UserId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">userId</span><span class="p">,</span>
+<span class="w">                      </span><span class="n">ApplicationId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Constants</span><span class="p">.</span><span class="n">ApplicationId</span>
+<span class="w">                  </span><span class="p">});</span>
+
+
+<span class="w">              </span><span class="k">return</span><span class="w"> </span><span class="n">userProfileMemoryProvider</span><span class="p">;</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">      </span><span class="p">});</span>
+
+<span class="w">        </span><span class="n">agent</span><span class="p">.</span><span class="n">AsBuilder</span><span class="p">().</span><span class="n">UseOpenTelemetry</span><span class="p">(</span><span class="n">Constants</span><span class="p">.</span><span class="n">ApplicationId</span><span class="p">,</span><span class="w"> </span><span class="n">options</span><span class="w"> </span><span class="o">=&gt;</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// Enable sensitive data logging for tool calls and responses</span>
+<span class="w">            </span><span class="n">options</span><span class="p">.</span><span class="n">EnableSensitiveData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}).</span><span class="n">UseLogging</span><span class="p">(</span><span class="n">_loggerFactory</span><span class="p">).</span><span class="n">Build</span><span class="p">();</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">agent</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+</code></pre></div>
+<h2 id="key-implementation-details">Key Implementation Details<a class="headerlink" href="#key-implementation-details" title="Permanent link">¶</a></h2>
+<p>The <code>UserProfileMemoryProvider</code> class manages personalization by intercepting messages before and after they are sent to the Language Model. It is registered in the agent via the <code>AIContextProviderFactory</code>.</p>
+<ul>
+<li><strong>After Receiving from LLM</strong>: Analyzes the user's message to extract new profile information and updates storage automatically</li>
+<li>
+<p><strong>Before Sending to LLM</strong>: Loads the user's profile from storage and injects it into the conversation context
+   This is a sample message prepended to the agent's prompt:</p>
+<div class="highlight"><pre><span></span><code>{System prompt...}
+
+=== TRAVELER PROFILE ===
+Travel Style: Budget backpacker
+Budget Range: $2,000–$2,000
+Dietary Restrictions: Vegetarian
+Interests: Hiking, coastal trails, wildlife watching
+Places They Want to Visit: Blue Mountains (NSW), Grampians National Park (VIC)
+Number of Travelers: 2
+Preferred Trip Duration: 1-2 weeks
+Past Trips:
+  • Tasmania (March 2024) - Loved it
+    Highlights: Three Capes Track, Wineglass Bay, Bay of Fires, wildlife encounters
+</code></pre></div>
+</li>
+</ul>
+<h3 id="how-it-works">How It Works<a class="headerlink" href="#how-it-works" title="Permanent link">¶</a></h3>
+<ol>
+<li>
+<p><strong>Profile Extraction</strong>: The provider passes conversation history to the LLM with specific extraction instructions. The LLM identifies profile information (travel style, interests, dietary restrictions, etc.) from natural conversation. </p>
+<p>The following data structure is used for the user profile:</p>
+<div class="highlight"><pre><span></span><code><span class="k">public</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">UserProfileMemory</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// "budget backpacker", "luxury", "family", "adventure", "cultural"</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">string?</span><span class="w"> </span><span class="n">TravelStyle</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// "$1000-2000", "$3000+", "budget-friendly"</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">string?</span><span class="w"> </span><span class="n">BudgetRange</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// ["hiking", "beaches", "museums"] - keep top 3-5</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="kt">string</span><span class="o">&gt;?</span><span class="w"> </span><span class="n">Interests</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"> </span>
+
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">PastTrip</span><span class="o">&gt;?</span><span class="w"> </span><span class="n">PastDestinations</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Number of people traveling (e.g., 2, 4)</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">int?</span><span class="w"> </span><span class="n">NumberOfTravelers</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// "weekend", "1 week", "2 weeks", "1 month+"</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">string?</span><span class="w"> </span><span class="n">TripDuration</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// "vegetarian", "vegan", "gluten-free", "halal", "kosher", "none"</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kt">string?</span><span class="w"> </span><span class="n">DietaryRequirements</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">get</span><span class="p">;</span><span class="w"> </span><span class="k">set</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</li>
+<li>
+<p><strong>Structured Storage</strong>: The Profile data is returned in a structured JSON format for easy parsing and storage. This ensures consistency and reliability.</p>
+</li>
+<li>
+<p><strong>Contextual Guidance</strong>: The provider appends additional instructions to the agent's prompt to ensure it uses the stored profile effectively when making recommendations.</p>
+</li>
+<li>
+<p><strong>Data Isolation</strong>: The memory provider is scoped by user ID, agent ID, and application ID to ensure that each user's data is kept separate and secure.</p>
+</li>
+</ol>
+<h2 id="test-your-implementation">Test Your Implementation<a class="headerlink" href="#test-your-implementation" title="Permanent link">¶</a></h2>
+<ol>
+<li>
+<p>Refer to the <strong>Running the Application Locally</strong> section in the <a href="../00-setup_instructions/#running-the-application-locally">Setup Instructions</a> and start running both the backend and frontend.</p>
+<p>If the application is already running, restart the backend server by stopping it (Ctrl + C) and running <code>dotnet run</code> again in the <code>src/backend</code> directory.</p>
+</li>
+<li>
+<p>Test the personalization workflow with the following prompts:</p>
+<p><strong>Initial Conversation - Building Profile</strong></p>
+<p>Start the conversation with:</p>
+<div class="highlight"><pre><span></span><code>Hi! Can you help me plan a trip ?
+</code></pre></div>
+<p><em>Expected Response:</em> Agent greets you and asks about your travel preferences (e.g., budget, travel style, interests).</p>
+</li>
+<li>
+<p>Answer the agent's questions to build your profile.</p>
+<p><em>Expected Response:</em> Agent provides personalized destination recommendations and stores your profile information (travel style, budget, interests, past trips, places to visit).</p>
+</li>
+<li>
+<p>Test that the agent remembers your preferences in a new session.</p>
+<p>Start a new conversation by clicking on <strong>New Chat</strong> in the frontend UI, then ask:</p>
+<div class="highlight"><pre><span></span><code>I want to plan my next vacation
+</code></pre></div>
+<p><em>Expected Response:</em> Agent references your stored profile and provides personalized recommendations based on your preferences.*</p>
+</li>
+</ol>
+<hr>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.footer", "navigation.tracking", "navigation.top", "content.code.copy", "navigation.tabs.sticky", "content.tabs.link", "search.highlight", "search.suggest"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../js/custom-nav.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>
