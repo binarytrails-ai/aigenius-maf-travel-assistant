@@ -1,0 +1,16 @@
+# node_modules will be installed during build
+node_modules/
+.next/
+.git/
+.gitignore
+.vscode/
+README.md
+*.md
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.env
+.env.local
+.env.development
+.env.production

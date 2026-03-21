@@ -1,0 +1,92 @@
+@AIAgent.Host_HostAddress = http://localhost:5001
+
+POST {{AIAgent.Host_HostAddress}}/ContosoTravelAgent/v1/chat/completions
+Content-Type: application/json
+
+{
+  "model": "gpt-4o",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Hi! I'm planning my next adventure and would love some help."
+    }
+  ]
+}
+
+### Chat with History
+POST {{AIAgent.Host_HostAddress}}/ContosoTravelAgent/v1/chat/completions
+Content-Type: application/json
+
+{
+  "model": "gpt-4o",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Hi, I am Sarah. I love beach vacations and water sports"
+    },
+    {
+      "role": "assistant",
+      "content": "Hello Sarah! It's great to meet you. I'd be happy to help you plan a beach vacation with water sports activities. To provide you with the best recommendations, could you tell me:\n\n1. What type of water sports are you most interested in? (e.g., surfing, snorkeling, diving, jet skiing, parasailing)\n2. What's your preferred travel timeframe?\n3. Do you have a budget range in mind?\n4. Are you looking for a domestic or international destination?\n\nThis will help me suggest the perfect beach destination for your adventure!"
+    },
+    {
+      "role": "user",
+      "content": "I love snorkeling and diving. Looking to travel in March for about a week. Budget around $3000-4000"
+    }
+  ]
+}
+
+###############################################
+# OpenAI-Compatible API Endpoints (Alternative)
+###############################################
+
+### OpenAI Chat Completions API
+POST {{AIAgent.Host_HostAddress}}/ContosoTravelAgent/v1/chat/completions
+Content-Type: application/json
+
+{
+  "model": "gpt-4o",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Hi! I'm planning my next adventure and would love some help."
+    }
+  ]
+}
+
+
+
+### OpenAI Chat Completions API
+POST {{AIAgent.Host_HostAddress}}/ContosoTravelAgent/v1/chat/completions
+Content-Type: application/json
+
+{
+  "model": "gpt-4o",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Hi! Can you search for budget-friendly flights from Melbourne to Perth"
+    }
+  ]
+}
+
+### OpenAI Chat Completions API with History
+POST {{AIAgent.Host_HostAddress}}/ContosoTravelAgent/v1/chat/completions
+Content-Type: application/json
+
+{
+  "model": "gpt-4o",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Hi! I'm planning my next adventure and would love some help."
+    },
+    {
+      "role": "assistant",
+      "content": "Hello! It's great to meet you. I'd be happy to help you plan your next adventure. To provide you with the best recommendations, could you tell me:\n\n1. What kind of experiences are you hoping for on this trip?\n2. Do you have a budget in mind for this adventure?\n3. How would you describe your travel style?\n\nThis will help me suggest the perfect destination for your adventure!"
+    },
+    {
+      "role": "user",
+      "content": "I love snorkeling and diving. Looking to travel in March for about a week. Budget around 4000 AUD"
+    }
+  ]
+}

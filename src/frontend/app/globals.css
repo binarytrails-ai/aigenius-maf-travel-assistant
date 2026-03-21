@@ -1,0 +1,346 @@
+@import "tailwindcss";
+
+/* ================================
+   Root Theme Variables
+   ================================ */
+:root {
+  /* App Theme */
+  --background: #f7f9fc; /* soft light app background */
+  --foreground: #171717;
+
+  /* CopilotKit CSS Variables */
+  --copilotkit-primary-color: #2563eb;
+  --copilotkit-secondary-color: #3b82f6;
+  --copilotkit-background-color: #ffffff;
+  --copilotkit-response-button-background-color: #2563eb;
+  --copilotkit-response-button-color: #ffffff;
+
+  --copilot-kit-separator-color: #e5e7eb;
+  --copilot-kit-response-button-border-radius: 0;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-display: var(--font-outfit), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* ================================
+   Global Styles
+   ================================ */
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Roboto", "Helvetica Neue", Arial, sans-serif;
+  font-size: 18px;
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-outfit), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+/* ================================
+   Animations (Subtle & Demo-safe)
+   ================================ */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes progressLineGrow {
+  from {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  to {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+}
+
+.animate-progressLine {
+  animation: progressLineGrow 0.8s ease-out;
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slideInLeft {
+  animation: slideInLeft 0.4s ease-out;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slideInRight {
+  animation: slideInRight 0.4s ease-out;
+}
+
+/* ================================
+   Interactive Elements
+   ================================ */
+button,
+a {
+  transition: all 0.2s ease-in-out;
+}
+
+/* ================================
+   Scrollbar (Light Theme)
+   ================================ */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #eef2f7;
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c7d2fe;
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a5b4fc;
+}
+
+/* ================================
+   Reasoning / Explanation Blocks
+   ================================ */
+.copilotKitMessages p:has(strong:first-child) {
+  background: #eff6ff;
+  border-left: 4px solid #3b82f6;
+  padding: 1rem;
+  border-radius: 0;
+  margin: 0.75rem 0;
+}
+
+.copilotKitMessages
+  p:has(strong:first-child)
+  strong:first-child::before {
+  content: "🧠 ";
+}
+
+.copilotKitMessages hr {
+  margin: 1rem 0;
+  border-color: #3b82f6;
+  opacity: 0.25;
+}
+
+/* ================================
+   Copilot Chat Styling - Comprehensive
+   ================================ */
+
+/* Apply Inter font to all CopilotKit components */
+[class*="copilotKit"],
+[class*="CopilotKit"] {
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+}
+
+/* All messages base styling */
+[class*="copilotKitMessage"] {
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  font-size: 18px !important;
+  line-height: 1.6 !important;
+  margin-bottom: 12px !important;
+  padding: 12px 16px !important;
+}
+
+/* User messages */
+[class*="copilotKitMessage"][class*="user"],
+[class*="copilotKitMessage"][class*="User"] {
+  background-color: #2563eb !important;
+  color: #ffffff !important;
+  border-radius: 0 !important;
+}
+
+/* Assistant messages */
+[class*="copilotKitMessage"][class*="assistant"],
+[class*="copilotKitMessage"][class*="Assistant"] {
+  background-color: #f8fafc !important;
+  color: #1f2937 !important;
+  border-radius: 0 !important;
+  border: 1px solid #e5e7eb !important;
+}
+
+/* Message content */
+[class*="copilotKitMessage"] p {
+  font-family: var(--font-inter), -apple-system, sans-serif !important;
+  font-size: 18px !important;
+  line-height: 1.6 !important;
+  margin-bottom: 0.5rem !important;
+}
+
+[class*="copilotKitMessage"] strong {
+  font-weight: 600 !important;
+}
+
+[class*="copilotKitMessage"] ul,
+[class*="copilotKitMessage"] ol {
+  margin-left: 1.25rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+[class*="copilotKitMessage"] li {
+  margin-bottom: 0.25rem !important;
+}
+
+/* Message content text */
+[class*="copilotKitMessage"] p {
+  font-family: var(--font-inter), -apple-system, sans-serif !important;
+  font-size: 18px !important;
+  line-height: 1.7 !important;
+  margin-bottom: 0.75rem !important;
+}
+
+[class*="copilotKitMessage"] strong {
+  font-weight: 600 !important;
+}
+
+[class*="copilotKitMessage"] ul,
+[class*="copilotKitMessage"] ol {
+  margin-left: 1.5rem !important;
+  margin-bottom: 0.75rem !important;
+}
+
+[class*="copilotKitMessage"] li {
+  margin-bottom: 0.35rem !important;
+  line-height: 1.6 !important;
+}
+
+/* Header */
+.custom-copilot-sidebar header,
+.custom-copilot-sidebar [class*="header"] {
+  background-color: #ffffff !important;
+  background-image: none !important;
+  border-bottom: 1px solid #e5e7eb !important;
+  padding: 1rem 1.5rem !important;
+}
+
+.custom-copilot-sidebar header * {
+  background-image: none !important;
+}
+
+.custom-copilot-sidebar h2 {
+  color: #1f2937 !important;
+  font-weight: 600 !important;
+  font-family: var(--font-outfit), -apple-system, sans-serif !important;
+}
+
+/* ================================
+   Input Area
+   ================================ */
+.copilot-input-container {
+  border-top: 1px solid var(--copilot-kit-separator-color);
+  padding: 1rem;
+  background: #ffffff;
+}
+
+.copilot-input,
+[class*="copilotKit"] input,
+[class*="copilotKit"] textarea {
+  border: 2px solid var(--copilot-kit-separator-color);
+  border-radius: var(--copilot-kit-response-button-border-radius);
+  padding: 0.75rem 1rem;
+  transition: all 0.2s ease;
+  background: #ffffff;
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  font-size: 18px !important;
+  line-height: 1.6 !important;
+}
+
+.copilot-input:focus {
+  border-color: var(--copilotkit-primary-color);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+/* ================================
+   Send Button
+   ================================ */
+.copilot-send-button {
+  background: var(--copilotkit-primary-color);
+  color: #ffffff;
+  border-radius: var(--copilot-kit-response-button-border-radius);
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.copilot-send-button:hover {
+  background: var(--copilotkit-secondary-color);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
+}
+
+.copilot-send-button:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* ================================
+   Message Content Styling
+   ================================ */
+[class*="copilotKitMessage"] {
+  font-family: var(--font-inter), -apple-system, sans-serif !important;
+  font-size: 18px !important;
+  line-height: 1.6 !important;
+}
+
+[class*="copilotKitMessage"] p {
+  font-family: var(--font-inter), -apple-system, sans-serif !important;
+  font-size: 18px !important;
+  line-height: 1.6 !important;
+  margin-bottom: 0.75rem;
+}
+
+[class*="copilotKitMessage"] strong {
+  font-weight: 600;
+}
+
+[class*="copilotKitMessage"] ul,
+[class*="copilotKitMessage"] ol {
+  margin-left: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+[class*="copilotKitMessage"] li {
+  margin-bottom: 0.25rem;
+}

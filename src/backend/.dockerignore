@@ -1,0 +1,11 @@
+**/.vs/
+**/bin/
+**/obj/
+**/.vscode/
+**/.git/
+**/.gitignore
+**/README.md
+**/*.md
+**/.env
+**/.env.local
+**/appsettings.Development.json
