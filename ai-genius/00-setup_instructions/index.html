@@ -1,0 +1,889 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Workshop for AI Genius to learn the fundamentals of building AI Agents using Microsoft Agent Framework.">
+      
+      
+        <meta name="author" content="Rakesh Lakshminarayanana">
+      
+      
+        <link rel="canonical" href="https://binarytrails-ai.github.io/aigenius-maf-travel-assistant/ai-genius/00-setup_instructions/">
+      
+      
+        <link rel="prev" href="../events/index-ai-genius/">
+      
+      
+        <link rel="next" href="../resources/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../media/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Environment Setup - Build Practical AI Agents - AI Genius</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../css/custom.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="pink">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#setting-up-your-environment-for-the-workshop" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden="">
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Build Practical AI Agents - AI Genius" class="md-header__button md-logo" aria-label="Build Practical AI Agents - AI Genius" data-md-component="logo">
+      
+  <img src="../media/favicon.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Build Practical AI Agents - AI Genius
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Environment Setup
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="pink" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 2c-1.82 0-3.53.5-5 1.35C8 5.08 10 8.3 10 12s-2 6.92-5 8.65C6.47 21.5 8.18 22 10 22a10 10 0 0 0 10-10A10 10 0 0 0 10 2"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="amber" data-md-color-accent="cyan" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Build Practical AI Agents - AI Genius" class="md-nav__button md-logo" aria-label="Build Practical AI Agents - AI Genius" data-md-component="logo">
+      
+  <img src="../media/favicon.png" alt="logo">
+
+    </a>
+    Build Practical AI Agents - AI Genius
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../events/index-ai-genius/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Welcome
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Environment Setup
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Environment Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setup-source-code-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setup Source Code Repository
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#set-up-azure-infrastructure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set Up Azure Infrastructure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#load-sample-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Load Sample Data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-the-application-locally" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running the Application Locally
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-set-up-aspire-dashboard-for-observability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (Optional) Set Up Aspire Dashboard for Observability
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#completed-source-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Completed Source Code
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../resources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learning Resources
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Additional Resources
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Additional Resources
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Resources/aspire-dashboard-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Aspire Dashboard Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../feedback/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Feedback
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setup-source-code-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setup Source Code Repository
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#set-up-azure-infrastructure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set Up Azure Infrastructure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#load-sample-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Load Sample Data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-the-application-locally" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running the Application Locally
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-set-up-aspire-dashboard-for-observability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (Optional) Set Up Aspire Dashboard for Observability
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#completed-source-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Completed Source Code
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="setting-up-your-environment-for-the-workshop">Setting Up Your Environment for the Workshop<a class="headerlink" href="#setting-up-your-environment-for-the-workshop" title="Permanent link">¶</a></h1>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">¶</a></h2>
+<ul>
+<li><strong>GitHub Account</strong>: If you don't have one yet, sign up on <a href="https://github.com/join" target="_blank">GitHub</a>.</li>
+<li><strong>Azure Subscription</strong>: Sign up for a free <a href="https://azure.microsoft.com/free/">Azure account</a>.</li>
+</ul>
+<hr>
+<h2 id="setup-source-code-repository">Setup Source Code Repository<a class="headerlink" href="#setup-source-code-repository" title="Permanent link">¶</a></h2>
+<ol>
+<li>From your browser, navigate to the <a href="https://github.com/binarytrails-ai/aigenius-maf-travel-assistant">aigenius-maf-travel-assistant</a> repository on GitHub. This repository has all the code and resources for the workshop.</li>
+<li>
+<p>Fork this repository to your own GitHub account. <br>
+   <a href="https://github.com/binarytrails-ai/aigenius-maf-travel-assistant/fork"><img alt="Fork on GitHub" src="https://img.shields.io/badge/Fork%20Repo-blue?logo=github&amp;style=for-the-badge"></a></p>
+</li>
+<li>
+<p>The recommended way to work through this workshop is with <strong>GitHub Codespaces</strong>, which provides a ready-to-use environment with all required tools. <br>Alternatively, you can use a Visual Studio Code to run the workshop locally.<br><br>
+<strong>Using GitHub Codespaces</strong>: Once you've forked the repository, navigate to your forked repository on GitHub and click the green <strong>Code</strong> button, then select the <strong>Codespaces</strong> tab and click <strong>Create codespace on main</strong>.</p>
+<p>The Codespace will be pre-configured with all the necessary dependencies and tools to run the labs.</p>
+<div class="admonition warning">
+<p class="admonition-title">It may take a few minutes for the Codespace to be created and all dependencies to be installed.</p>
+<p>If you encounter any issues, refer to the <a href="https://docs.github.com/en/codespaces">GitHub Codespaces documentation</a> for troubleshooting tips and solutions.</p>
+</div>
+</li>
+</ol>
+<hr>
+<h2 id="set-up-azure-infrastructure">Set Up Azure Infrastructure<a class="headerlink" href="#set-up-azure-infrastructure" title="Permanent link">¶</a></h2>
+<p>Deploy the application to Azure. You will also connect to these resources when running the application from your local machine or Codespace.</p>
+<h3 id="1-authenticate-with-azure">1. Authenticate with Azure<a class="headerlink" href="#1-authenticate-with-azure" title="Permanent link">¶</a></h3>
+<p>First, authenticate with your Azure account using the Azure Developer CLI:</p>
+<div class="highlight"><pre><span></span><code><span class="n">azd</span> <span class="n">auth</span> <span class="n">login</span> <span class="p">-</span><span class="n">-use-device-code</span>
+</code></pre></div>
+<p>Follow the prompts to complete the authentication process in your browser.</p>
+<h3 id="2-create-and-configure-environment">2. Create and Configure Environment<a class="headerlink" href="#2-create-and-configure-environment" title="Permanent link">¶</a></h3>
+<p>Create a new environment for your Azure resources:</p>
+<div class="highlight"><pre><span></span><code><span class="n">azd</span> <span class="n">env</span> <span class="n">new</span> <span class="n">dev</span>
+<span class="n">azd</span> <span class="n">env</span> <span class="nb">select </span><span class="n">dev</span>
+<span class="n">azd</span> <span class="n">env</span> <span class="nb">set </span><span class="n">AZURE_LOCATION</span> <span class="n">australiaeast</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Azure Location</p>
+<p>You can change <code>australiaeast</code> to any Azure region that supports AI Foundry. Common options include: <code>eastus</code>, <code>westus2</code>, <code>westeurope</code>, <code>southeastasia</code>.</p>
+</div>
+<h3 id="3-provision-and-deploy">3. Provision and Deploy<a class="headerlink" href="#3-provision-and-deploy" title="Permanent link">¶</a></h3>
+<p>Deploy all required Azure resources using a single command:</p>
+<div class="highlight"><pre><span></span><code><span class="n">azd</span> <span class="n">up</span>
+</code></pre></div>
+<p>This command will:</p>
+<ul>
+<li>Provision all the necessary resources in Azure.</li>
+<li>Deploy AI models.</li>
+<li>Configure authentication and permissions</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Deployment Time</p>
+<p>The deployment process may take 5-10 minutes to complete. Please be patient while Azure provisions all resources.</p>
+</div>
+<h3 id="verify-deployment">Verify Deployment ✅<a class="headerlink" href="#verify-deployment" title="Permanent link">¶</a></h3>
+<ol>
+<li>Navigate to the <a href="https://portal.azure.com">Azure Portal</a> and verify the resources under the resource group <code>rg-aiagent-ws-dev</code>.</li>
+</ol>
+<hr>
+<h2 id="load-sample-data">Load Sample Data<a class="headerlink" href="#load-sample-data" title="Permanent link">¶</a></h2>
+<p>Before running the application, you should load your database with sample data which includes chat history and flight information. This will allow you to test the agent's memory capabilities and the flight search tool in later labs.</p>
+<ol>
+<li>Navigate to <code>notebooks/cosmosdb-insert.ipynb</code> in your workspace</li>
+<li>Run the notebook cells to connect to your Azure Cosmos DB instance and insert sample records. You can run the cells in two ways:<ul>
+<li><strong>Option 1 - Run All</strong>: Click the "Run All" button at the top of the notebook to execute all cells sequentially</li>
+<li><strong>Option 2 - Run Individual Cells</strong>: Click the play button next to each cell to run them one by one</li>
+</ul>
+</li>
+<li>Verify that the data has been inserted successfully by checking the output messages in the notebook. You should see confirmation messages for each record inserted.</li>
+</ol>
+<hr>
+<h2 id="running-the-application-locally">Running the Application Locally<a class="headerlink" href="#running-the-application-locally" title="Permanent link">¶</a></h2>
+<p>To work through the labs, you need to run both the backend (.NET) and frontend (React) applications simultaneously.</p>
+<h3 id="1-start-the-backend-server">1. Start the Backend Server<a class="headerlink" href="#1-start-the-backend-server" title="Permanent link">¶</a></h3>
+<ul>
+<li>
+<p>Navigate to the backend folder:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>src/backend
+</code></pre></div>
+</li>
+<li>
+<p>Start the backend server by running the following command. This will start the backend API server on <strong><code>http://localhost:5001</code></strong></p>
+<div class="highlight"><pre><span></span><code>dotnet<span class="w"> </span>run
+</code></pre></div>
+</li>
+</ul>
+<h3 id="2-start-the-frontend-development-server">2. Start the Frontend Development Server<a class="headerlink" href="#2-start-the-frontend-development-server" title="Permanent link">¶</a></h3>
+<ul>
+<li>
+<p>In a separate terminal, navigate to the frontend folder by running the following command:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>src/frontend
+</code></pre></div>
+</li>
+<li>
+<p>Install the required npm packages (if you haven't already):</p>
+<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>install
+</code></pre></div>
+</li>
+<li>
+<p>Build the frontend application:</p>
+<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>run<span class="w"> </span>build
+</code></pre></div>
+</li>
+<li>
+<p>Start the frontend server. The frontend is configured to communicate with the backend API on port <strong>5001</strong>:</p>
+<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>start
+</code></pre></div>
+</li>
+</ul>
+<p>To access the frontend application:</p>
+<ul>
+<li><strong>Local Development</strong>: Open your browser to <code>http://localhost:3000</code></li>
+<li><strong>GitHub Codespaces</strong>: When the frontend starts, Codespaces will automatically forward port 3000. 
+        Go to the <strong>Ports</strong> panel in VS Code, find port <strong>3000</strong>, and click the <strong>globe icon</strong> (🌐) to open the frontend in your browser.</li>
+</ul>
+<h3 id="3-test-your-setup">3. Test Your Setup<a class="headerlink" href="#3-test-your-setup" title="Permanent link">¶</a></h3>
+<ul>
+<li>
+<p><strong>API Testing</strong>: Navigate to the file <code>src/backend/ContosoTravelAgent.http</code> in the code repository.</p>
+<p>This file contains HTTP requests that you can use to interact with the backend API. To send a request, click on the <code>Send Request</code> link above each request in the file.</p>
+</li>
+<li>
+<p><strong>Web Application Testing</strong>: Open your web browser and navigate to <code>http://localhost:3000</code>.</p>
+<p>Click on the <code>New Chat</code> button to start a new conversation with the travel assistant. </p>
+<p>Send a few messages to verify that the frontend and backend are communicating correctly.</p>
+</li>
+</ul>
+<hr>
+<h2 id="optional-set-up-aspire-dashboard-for-observability">(Optional) Set Up Aspire Dashboard for Observability<a class="headerlink" href="#optional-set-up-aspire-dashboard-for-observability" title="Permanent link">¶</a></h2>
+<p>The .NET Aspire Dashboard provides a web-based UI for viewing OpenTelemetry traces, metrics, and logs in real-time. This is useful for monitoring your agent's behavior and debugging .</p>
+<p>Refer to the <a href="../Resources/aspire-dashboard-setup/">Aspire Dashboard Setup Guide</a> for detailed instructions on how to set up the dashboard locally using Docker.</p>
+<div class="admonition warning">
+<p class="admonition-title">GitHub Codespaces Limitations</p>
+<p>Running Docker containers in GitHub Codespaces may have limitations depending on your configuration. If you encounter issues running the Aspire Dashboard in Codespaces, you can skip this optional step and still complete all labs. The dashboard provides enhanced observability but is not required.</p>
+</div>
+<hr>
+<h2 id="completed-source-code">Completed Source Code<a class="headerlink" href="#completed-source-code" title="Permanent link">¶</a></h2>
+<p>The complete source code for all labs is available in the <code>completed</code> branch of the repository. You can switch to this branch at any time to view the final implementation.</p>
+<p><a href="https://github.com/binarytrails-ai/aigenius-maf-travel-assistant/tree/completed"><img alt="View Completed Code" src="https://img.shields.io/badge/View%20Completed%20Code-blue?logo=github&amp;style=for-the-badge"></a></p>
+<hr>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer">
+        
+          
+          <a href="../events/index-ai-genius/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Welcome">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Welcome
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../resources/" class="md-footer__link md-footer__link--next" aria-label="Next: Learning Resources">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Learning Resources
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"></path></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.footer", "navigation.tracking", "navigation.top", "content.code.copy", "navigation.tabs.sticky", "content.tabs.link", "search.highlight", "search.suggest"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../js/custom-nav.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

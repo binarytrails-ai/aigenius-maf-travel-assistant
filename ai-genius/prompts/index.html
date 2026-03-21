@@ -1,0 +1,882 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Workshop for AI Genius to learn the fundamentals of building AI Agents using Microsoft Agent Framework.">
+      
+      
+        <meta name="author" content="Rakesh Lakshminarayanana">
+      
+      
+        <link rel="canonical" href="https://binarytrails-ai.github.io/aigenius-maf-travel-assistant/ai-genius/prompts/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../media/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Prompts - Build Practical AI Agents - AI Genius</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../css/custom.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="pink">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#prompts" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden="">
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Build Practical AI Agents - AI Genius" class="md-header__button md-logo" aria-label="Build Practical AI Agents - AI Genius" data-md-component="logo">
+      
+  <img src="../media/favicon.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Build Practical AI Agents - AI Genius
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Prompts
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="pink" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 2c-1.82 0-3.53.5-5 1.35C8 5.08 10 8.3 10 12s-2 6.92-5 8.65C6.47 21.5 8.18 22 10 22a10 10 0 0 0 10-10A10 10 0 0 0 10 2"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="amber" data-md-color-accent="cyan" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Build Practical AI Agents - AI Genius" class="md-nav__button md-logo" aria-label="Build Practical AI Agents - AI Genius" data-md-component="logo">
+      
+  <img src="../media/favicon.png" alt="logo">
+
+    </a>
+    Build Practical AI Agents - AI Genius
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../events/index-ai-genius/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Welcome
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00-setup_instructions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Environment Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../resources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learning Resources
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Additional Resources
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Additional Resources
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Resources/aspire-dashboard-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Aspire Dashboard Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../feedback/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Feedback
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#lab-1-personalization-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lab 1: Personalization &amp; Memory
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-failure-patterns-quick-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Failure Patterns (Quick Reference)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alternative-prompts-lab-1-variations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alternative Prompts (Lab 1 Variations)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-2-long-term-memory-vector-store" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lab 2: Long-Term Memory (Vector Store)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-3-tools-structured-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lab 3: Tools &amp; Structured Data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-4-observability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lab 4: Observability
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-5-human-in-the-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lab 5: Human-in-the-Loop
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-test-sequence-5-minutes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Test Sequence (5 minutes)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="prompts">Prompts<a class="headerlink" href="#prompts" title="Permanent link">¶</a></h1>
+<h2 id="lab-1-personalization-memory">Lab 1: Personalization &amp; Memory<a class="headerlink" href="#lab-1-personalization-memory" title="Permanent link">¶</a></h2>
+<h3 id="demo-1a-natural-profile-building">Demo 1A: Natural Profile Building<a class="headerlink" href="#demo-1a-natural-profile-building" title="Permanent link">¶</a></h3>
+<h4 id="main-prompt-recommended">Main Prompt (Recommended)<a class="headerlink" href="#main-prompt-recommended" title="Permanent link">¶</a></h4>
+<p><strong>Message 1:</strong>
+</p><div class="highlight"><pre><span></span><code>I want to plan a trip
+</code></pre></div><p></p>
+<p><strong>Expected Agent Response:</strong>
+</p><div class="highlight"><pre><span></span><code>I'd love to help you plan a trip! To give you the best recommendations, could you tell me about your travel preferences?
+- What's your travel style? (budget, luxury, mid-range)
+- What activities do you enjoy?
+- Any past trips you've loved?
+</code></pre></div><p></p>
+<p><strong>Message 2:</strong>
+</p><div class="highlight"><pre><span></span><code>I'm a budget backpacker who loves hiking. Last year I went to Portugal and loved it!
+</code></pre></div><p></p>
+<p><strong>Expected:</strong> Agent extracts TravelStyle, Interests, PastDestinations with Rating</p>
+<hr>
+<h4 id="alternative-variations">Alternative Variations<a class="headerlink" href="#alternative-variations" title="Permanent link">¶</a></h4>
+<p><strong>Variation 1 - Adventure Solo</strong></p>
+<p><strong>Message 1:</strong>
+</p><div class="highlight"><pre><span></span><code>I want to plan a trip
+</code></pre></div><p></p>
+<p><strong>Message 2:</strong>
+</p><div class="highlight"><pre><span></span><code>I love solo hiking trips. New Zealand last summer was amazing!
+</code></pre></div><p></p>
+<p><strong>Variation 2 - Beach Couple</strong></p>
+<p><strong>Message 1:</strong>
+</p><div class="highlight"><pre><span></span><code>I want to plan a trip
+</code></pre></div><p></p>
+<p><strong>Message 2:</strong>
+</p><div class="highlight"><pre><span></span><code>We're budget travelers who love beaches. Thailand last year was incredible!
+</code></pre></div><p></p>
+<p><strong>Variation 3 - Family Travel</strong></p>
+<p><strong>Message 1:</strong>
+</p><div class="highlight"><pre><span></span><code>I want to plan a trip
+</code></pre></div><p></p>
+<p><strong>Message 2:</strong>
+</p><div class="highlight"><pre><span></span><code>I travel with my family of 4. We love culture and outdoors. Italy was perfect!
+</code></pre></div><p></p>
+<p><strong>Variation 4 - Luxury Seeker</strong></p>
+<p><strong>Message 1:</strong>
+</p><div class="highlight"><pre><span></span><code>I want to plan a trip
+</code></pre></div><p></p>
+<p><strong>Message 2:</strong>
+</p><div class="highlight"><pre><span></span><code>I prefer luxury resorts and spas. Maldives last fall was stunning!
+</code></pre></div><p></p>
+<p><strong>Variation 5 - Food Tourism</strong></p>
+<p><strong>Message 1:</strong>
+</p><div class="highlight"><pre><span></span><code>I want to plan a trip
+</code></pre></div><p></p>
+<p><strong>Message 2:</strong>
+</p><div class="highlight"><pre><span></span><code>I'm a foodie who explores local cuisines. Japan last year blew my mind!
+</code></pre></div><p></p>
+<p><strong>Variation 6 - Photography Focus</strong></p>
+<p><strong>Message 1:</strong>
+</p><div class="highlight"><pre><span></span><code>I want to plan a trip
+</code></pre></div><p></p>
+<p><strong>Message 2:</strong>
+</p><div class="highlight"><pre><span></span><code>I'm into landscape photography. Iceland last summer was breathtaking!
+</code></pre></div><p></p>
+<p><strong>Expected:</strong> Agent extracts TravelStyle, Interests, PastDestinations with Rating</p>
+<hr>
+<h3 id="demo-1a-fail-without-profile-memory-optional-show-the-problem">Demo 1A-FAIL: Without Profile Memory ❌ (Optional - Show the Problem)<a class="headerlink" href="#demo-1a-fail-without-profile-memory-optional-show-the-problem" title="Permanent link">¶</a></h3>
+<p><strong>Purpose:</strong> Show what happens WITHOUT user profile memory to demonstrate its value</p>
+<p><strong>Conversation 1:</strong></p>
+<p><strong>Message 1:</strong>
+</p><div class="highlight"><pre><span></span><code>I want to plan a trip
+</code></pre></div><p></p>
+<p><strong>Without Memory - Agent Response:</strong>
+</p><div class="highlight"><pre><span></span><code>I'd love to help! To give you the best recommendations, could you tell me:
+- What's your travel style? (budget, luxury, mid-range)
+- What activities do you enjoy?
+- What's your budget range?
+- How long do you typically travel?
+</code></pre></div><p></p>
+<p><strong>Message 2:</strong>
+</p><div class="highlight"><pre><span></span><code>I'm a budget backpacker who loves hiking. Budget is $2500 for 2 weeks.
+</code></pre></div><p></p>
+<p><strong>Without Memory - Agent Response:</strong>
+</p><div class="highlight"><pre><span></span><code>Great! Based on that, I'd recommend Croatia - beautiful hiking trails and budget-friendly!
+</code></pre></div><p></p>
+<p><strong>Conversation 2: (NEW THREAD - Same User)</strong></p>
+<p><strong>Message 1:</strong>
+</p><div class="highlight"><pre><span></span><code>I want to plan another trip
+</code></pre></div><p></p>
+<p><strong>Without Memory - Agent Response:</strong>
+</p><div class="highlight"><pre><span></span><code>I'd love to help! To give you the best recommendations, could you tell me:
+- What's your travel style? (budget, luxury, mid-range)
+- What activities do you enjoy?
+- What's your budget range?
+- How long do you typically travel?
+</code></pre></div><p></p>
+<p><strong>Problem Demonstrated:</strong> 
+- Agent forgot EVERYTHING from previous conversation
+- Asks the EXACT SAME questions again
+- User must repeat all preferences
+- Poor UX, no learning, no memory</p>
+<p><strong>With Profile Memory - Expected (Conversation 2):</strong>
+</p><div class="highlight"><pre><span></span><code>Welcome back! I remember you're a budget backpacker who loves hiking ($2500 for 2 weeks).
+Ready to plan your next adventure? Where are you thinking?
+</code></pre></div><p></p>
+<hr>
+<h3 id="demo-1b-immediate-personalization">Demo 1B: Immediate Personalization<a class="headerlink" href="#demo-1b-immediate-personalization" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code>Where should I go next?
+</code></pre></div>
+<p><strong>Expected:</strong> Agent uses stored profile to recommend Croatia (similar to Portugal, budget-friendly, hiking)</p>
+<hr>
+<h3 id="demo-1b-fail-without-personalization-optional">Demo 1B-FAIL: Without Personalization ❌ (Optional)<a class="headerlink" href="#demo-1b-fail-without-personalization-optional" title="Permanent link">¶</a></h3>
+<p><strong>Scenario:</strong> Show generic recommendations without profile usage</p>
+<p><strong>User Message:</strong>
+</p><div class="highlight"><pre><span></span><code>Where should I go next?
+</code></pre></div><p></p>
+<p><strong>Without Memory - Agent Response:</strong>
+</p><div class="highlight"><pre><span></span><code>Where would you like to travel? Some popular destinations include:
+- Paris, France
+- Tokyo, Japan
+- Bali, Indonesia
+- New York, USA
+
+What type of experience are you looking for?
+</code></pre></div><p></p>
+<p><strong>Problem:</strong> Generic list, no personalization, asks questions already answered</p>
+<p><strong>With Profile Memory - Expected:</strong>
+</p><div class="highlight"><pre><span></span><code>Based on your profile (budget backpacker, loves hiking, loved Portugal):
+🇭🇷 Croatia - similar coastal trails, 30% cheaper. Want details?
+</code></pre></div><p></p>
+<hr>
+<h3 id="demo-1c-cross-session-memory-new-conversation">Demo 1C: Cross-Session Memory ✨ (NEW CONVERSATION)<a class="headerlink" href="#demo-1c-cross-session-memory-new-conversation" title="Permanent link">¶</a></h3>
+<p><strong>Instructions:</strong> Start a NEW conversation (different conversation ID)</p>
+<div class="highlight"><pre><span></span><code>Hey, I need trip ideas
+</code></pre></div>
+<p><strong>Expected:</strong> Agent recalls profile from previous conversation and personalizes recommendations</p>
+<hr>
+<h3 id="demo-1c-fail-without-cross-session-memory-optional">Demo 1C-FAIL: Without Cross-Session Memory ❌ (Optional)<a class="headerlink" href="#demo-1c-fail-without-cross-session-memory-optional" title="Permanent link">¶</a></h3>
+<p><strong>Purpose:</strong> Show what happens when memory doesn't persist across sessions</p>
+<p><strong>Instructions:</strong> Start a NEW conversation (different conversation ID)</p>
+<p><strong>User Message:</strong>
+</p><div class="highlight"><pre><span></span><code>Hey, I need trip ideas
+</code></pre></div><p></p>
+<p><strong>Without Cross-Session Memory - Agent Response:</strong>
+</p><div class="highlight"><pre><span></span><code>Hi! I'd love to help you plan a trip. Could you tell me:
+- What's your travel style? (budget, luxury, mid-range)
+- What activities interest you?
+- Any past trips you've enjoyed?
+- What's your budget range?
+</code></pre></div><p></p>
+<p><strong>Problem:</strong> Agent forgot everything, treats user as new, asks all questions again</p>
+<p><strong>With Cross-Session Memory - Expected:</strong>
+</p><div class="highlight"><pre><span></span><code>Welcome back! I see you're a budget backpacker who loves hiking and loved Portugal.
+How about Croatia? Similar vibes, great trails, budget-friendly!
+</code></pre></div><p></p>
+<p><strong>Teaching Point:</strong> This demonstrates the WOW factor - persistent memory across sessions!</p>
+<hr>
+<h3 id="demo-1d-incremental-learning">Demo 1D: Incremental Learning<a class="headerlink" href="#demo-1d-incremental-learning" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code>I usually travel for 2 weeks and my budget is around $2500
+</code></pre></div>
+<p>Then follow up with:</p>
+<div class="highlight"><pre><span></span><code>So where should I go?
+</code></pre></div>
+<p><strong>Expected:</strong> Agent updates profile with TripDuration and BudgetRange, then refines recommendations</p>
+<hr>
+<h3 id="demo-1e-memory-recall-questions">Demo 1E: Memory Recall Questions<a class="headerlink" href="#demo-1e-memory-recall-questions" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code>What's my budget?
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Where did I go that I loved?
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>How long do I usually travel for?
+</code></pre></div>
+<p><strong>Expected:</strong> Agent accurately recalls stored profile information</p>
+<hr>
+<h3 id="demo-1e-fail-without-memory-recall-optional">Demo 1E-FAIL: Without Memory Recall ❌ (Optional)<a class="headerlink" href="#demo-1e-fail-without-memory-recall-optional" title="Permanent link">¶</a></h3>
+<p><strong>Scenario:</strong> Agent can't answer questions about user's profile</p>
+<p><strong>User Message:</strong>
+</p><div class="highlight"><pre><span></span><code>What's my budget?
+</code></pre></div><p></p>
+<p><strong>Without Memory - Agent Response:</strong>
+</p><div class="highlight"><pre><span></span><code>I don't have that information. Could you tell me what your typical travel budget is?
+</code></pre></div><p></p>
+<p><strong>User Message:</strong>
+</p><div class="highlight"><pre><span></span><code>Where did I go that I loved?
+</code></pre></div><p></p>
+<p><strong>Without Memory - Agent Response:</strong>
+</p><div class="highlight"><pre><span></span><code>I don't have any record of your past trips. Where have you traveled before?
+</code></pre></div><p></p>
+<p><strong>Problem:</strong> Agent has no memory, can't build trust, user frustrated</p>
+<p><strong>With Profile Memory - Expected:</strong>
+</p><div class="highlight"><pre><span></span><code>Your typical budget is $2500 for 2-week trips.
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>You went to Portugal and loved it!
+</code></pre></div><p></p>
+<p><strong>Teaching Point:</strong> Memory recall builds trust and transparency</p>
+<hr>
+<h2 id="common-failure-patterns-quick-reference">Common Failure Patterns (Quick Reference)<a class="headerlink" href="#common-failure-patterns-quick-reference" title="Permanent link">¶</a></h2>
+<h3 id="without-profile-memory">❌ Without Profile Memory<a class="headerlink" href="#without-profile-memory" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Repetitive Questions</strong> - Asks same questions every conversation</li>
+<li><strong>Generic Recommendations</strong> - No personalization or context</li>
+<li><strong>No Learning</strong> - Doesn't improve with more interactions</li>
+<li><strong>Poor UX</strong> - User must repeat themselves constantly</li>
+<li><strong>No Cross-Session Memory</strong> - Every conversation starts from zero</li>
+</ul>
+<h3 id="with-profile-memory">✅ With Profile Memory<a class="headerlink" href="#with-profile-memory" title="Permanent link">¶</a></h3>
+<ul>
+<li><strong>Progressive Learning</strong> - Builds profile incrementally</li>
+<li><strong>Personalized Suggestions</strong> - Tailored to user preferences</li>
+<li><strong>Contextual Responses</strong> - References past trips and preferences</li>
+<li><strong>Persistent Memory</strong> - Remembers across sessions</li>
+<li><strong>Trust Building</strong> - Can recall what it knows about user</li>
+</ul>
+<hr>
+<h2 id="alternative-prompts-lab-1-variations">Alternative Prompts (Lab 1 Variations)<a class="headerlink" href="#alternative-prompts-lab-1-variations" title="Permanent link">¶</a></h2>
+<h3 id="variation-a-adventure-solo-traveler">Variation A: Adventure Solo Traveler<a class="headerlink" href="#variation-a-adventure-solo-traveler" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code>Hi! I'm into adventure travel and love hiking. I usually travel solo for about 2 weeks at a time. My budget is typically $2000-3000. Last summer I went to New Zealand and loved the Milford Track!
+</code></pre></div>
+<h3 id="variation-b-budget-couple">Variation B: Budget Couple<a class="headerlink" href="#variation-b-budget-couple" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code>Hey! My partner and I are budget travelers who love beaches. We went to Thailand last year and had an amazing time in Krabi. We usually do 10-day trips.
+</code></pre></div>
+<h3 id="variation-c-family-trip-planner">Variation C: Family Trip Planner<a class="headerlink" href="#variation-c-family-trip-planner" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code>Hello! I'm planning for my family of 4 (two kids). We love cultural experiences and outdoor activities. We visited Portugal last spring and the kids loved it. We typically travel for 1-2 weeks.
+</code></pre></div>
+<h3 id="variation-d-luxury-traveler">Variation D: Luxury Traveler<a class="headerlink" href="#variation-d-luxury-traveler" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code>Hi! I prefer luxury travel experiences. I went to Santorini last fall and it was perfect! I usually take 7-10 day trips with a flexible budget.
+</code></pre></div>
+<hr>
+<h2 id="lab-2-long-term-memory-vector-store">Lab 2: Long-Term Memory (Vector Store)<a class="headerlink" href="#lab-2-long-term-memory-vector-store" title="Permanent link">¶</a></h2>
+<h3 id="demo-2a-semantic-search">Demo 2A: Semantic Search<a class="headerlink" href="#demo-2a-semantic-search" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code>What restaurants did you recommend in Split?
+</code></pre></div>
+<p><strong>Expected:</strong> Agent searches vector store and retrieves past conversation about restaurant recommendations</p>
+<hr>
+<h3 id="demo-2b-long-term-recall">Demo 2B: Long-Term Recall<a class="headerlink" href="#demo-2b-long-term-recall" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code>I think you mentioned something about travel insurance last time?
+</code></pre></div>
+<p><strong>Expected:</strong> Agent finds and recalls specific details from weeks-old conversations</p>
+<hr>
+<h2 id="lab-3-tools-structured-data">Lab 3: Tools &amp; Structured Data<a class="headerlink" href="#lab-3-tools-structured-data" title="Permanent link">¶</a></h2>
+<h3 id="demo-3a-weather-tool">Demo 3A: Weather Tool<a class="headerlink" href="#demo-3a-weather-tool" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code>What's the weather like in Croatia in March?
+</code></pre></div>
+<p><strong>Expected:</strong> Agent calls GetWeatherForecast tool with real data</p>
+<hr>
+<h3 id="demo-3b-llm-parameter-extraction">Demo 3B: LLM Parameter Extraction<a class="headerlink" href="#demo-3b-llm-parameter-extraction" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code>Find me flights from Seattle to Croatia in March for 2 weeks, budget $2500
+</code></pre></div>
+<p><strong>Expected:</strong> Agent extracts structured parameters (dates, budget, locations) and calls SearchFlights</p>
+<hr>
+<h3 id="demo-3c-complex-natural-language">Demo 3C: Complex Natural Language<a class="headerlink" href="#demo-3c-complex-natural-language" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code>Me and my wife want to go somewhere warm next spring for about 10 days, budget is flexible but under three grand
+</code></pre></div>
+<p><strong>Expected:</strong> Agent extracts NumberOfTravelers=2, calculates spring dates, maxBudget=3000</p>
+<hr>
+<h3 id="demo-3d-tool-chaining-calendar-check">Demo 3D: Tool Chaining - Calendar Check<a class="headerlink" href="#demo-3d-tool-chaining-calendar-check" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code>Book the Delta flight for March 10-20
+</code></pre></div>
+<p><strong>Expected:</strong> Agent proactively calls CheckCalendarConflicts before booking, detects conflicts, suggests alternatives</p>
+<hr>
+<h2 id="lab-4-observability">Lab 4: Observability<a class="headerlink" href="#lab-4-observability" title="Permanent link">¶</a></h2>
+<h3 id="demo-4a-trace-searchflight">Demo 4A: Trace SearchFlight<a class="headerlink" href="#demo-4a-trace-searchflight" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code>Find flights to Paris under $2000
+</code></pre></div>
+<p><strong>Expected:</strong> View complete trace in Application Insights showing parameter extraction, tool call, costs, latency</p>
+<hr>
+<h2 id="lab-5-human-in-the-loop">Lab 5: Human-in-the-Loop<a class="headerlink" href="#lab-5-human-in-the-loop" title="Permanent link">¶</a></h2>
+<h3 id="demo-5a-calendar-entry-with-approval">Demo 5A: Calendar Entry with Approval<a class="headerlink" href="#demo-5a-calendar-entry-with-approval" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code>Add my Croatia trip to my calendar for March 8-20
+</code></pre></div>
+<p><strong>Expected:</strong> Agent requests approval, shows calendar entry details, waits for user confirmation before executing</p>
+<hr>
+<h2 id="quick-test-sequence-5-minutes">Quick Test Sequence (5 minutes)<a class="headerlink" href="#quick-test-sequence-5-minutes" title="Permanent link">¶</a></h2>
+<p>Use this rapid-fire sequence to demo all Lab 1 steps quickly:</p>
+<p><strong>Step 1:</strong>
+</p><div class="highlight"><pre><span></span><code>I'm a budget backpacker who loves hiking. I went to Portugal last March and loved it!
+</code></pre></div><p></p>
+<p><strong>Step 2:</strong>
+</p><div class="highlight"><pre><span></span><code>Where should I go next?
+</code></pre></div><p></p>
+<p><strong>Step 3:</strong> <em>(New conversation)</em>
+</p><div class="highlight"><pre><span></span><code>Hey! I need vacation ideas
+</code></pre></div><p></p>
+<p><strong>Step 4:</strong>
+</p><div class="highlight"><pre><span></span><code>I usually travel for 2 weeks. Budget is $2500.
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>So where should I go?
+</code></pre></div><p></p>
+<p><strong>Step 5:</strong>
+</p><div class="highlight"><pre><span></span><code>What's my budget?
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Where did I go that I loved?
+</code></pre></div><p></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.footer", "navigation.tracking", "navigation.top", "content.code.copy", "navigation.tabs.sticky", "content.tabs.link", "search.highlight", "search.suggest"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../js/custom-nav.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

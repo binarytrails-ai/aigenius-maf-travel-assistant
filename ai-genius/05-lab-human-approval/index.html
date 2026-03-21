@@ -1,0 +1,817 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Workshop for AI Genius to learn the fundamentals of building AI Agents using Microsoft Agent Framework.">
+      
+      
+        <meta name="author" content="Rakesh Lakshminarayanana">
+      
+      
+        <link rel="canonical" href="https://binarytrails-ai.github.io/aigenius-maf-travel-assistant/ai-genius/05-lab-human-approval/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../media/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lab 5: Human-in-the-Loop - Approval Workflows - Build Practical AI Agents - AI Genius</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../css/custom.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="pink">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#lab-5-human-in-the-loop-approval-workflows" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden="">
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Build Practical AI Agents - AI Genius" class="md-header__button md-logo" aria-label="Build Practical AI Agents - AI Genius" data-md-component="logo">
+      
+  <img src="../media/favicon.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Build Practical AI Agents - AI Genius
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lab 5: Human-in-the-Loop - Approval Workflows
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="pink" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 2c-1.82 0-3.53.5-5 1.35C8 5.08 10 8.3 10 12s-2 6.92-5 8.65C6.47 21.5 8.18 22 10 22a10 10 0 0 0 10-10A10 10 0 0 0 10 2"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="amber" data-md-color-accent="cyan" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Build Practical AI Agents - AI Genius" class="md-nav__button md-logo" aria-label="Build Practical AI Agents - AI Genius" data-md-component="logo">
+      
+  <img src="../media/favicon.png" alt="logo">
+
+    </a>
+    Build Practical AI Agents - AI Genius
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../events/index-ai-genius/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Welcome
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00-setup_instructions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Environment Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../resources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learning Resources
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Additional Resources
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Additional Resources
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Resources/aspire-dashboard-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Aspire Dashboard Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../feedback/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Feedback
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#the-problem-autonomous-actions-without-consent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Problem: Autonomous Actions Without Consent
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sample-interaction-what-youll-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sample Interaction: What You'll Build
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Instructions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-implementation-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Implementation Details
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#test-your-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test Your Implementation
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="lab-5-human-in-the-loop-approval-workflows">Lab 5: Human-in-the-Loop - Approval Workflows<a class="headerlink" href="#lab-5-human-in-the-loop-approval-workflows" title="Permanent link">¶</a></h1>
+<p>In this lab, you'll implement human approval workflows for your travel assistant to ensure critical decisions require explicit user consent from the user before execution.</p>
+<p>This is important for actions that share sensitive information or perform an action on behalf of the user, such as searching for flights or booking reservations.</p>
+<p>By the end of this lab, you will:</p>
+<ul>
+<li>✅ Enable users to review and approve tool calls before execution</li>
+<li>✅ Provide clear context for approval decisions</li>
+</ul>
+<hr>
+<h2 id="the-problem-autonomous-actions-without-consent">The Problem: Autonomous Actions Without Consent<a class="headerlink" href="#the-problem-autonomous-actions-without-consent" title="Permanent link">¶</a></h2>
+<p>When searching for flights, the agent sends user details (travel dates, destinations, preferences) to third-party APIs. Without a formal approval workflow, the agent can share this information immediately based solely on the user's request.</p>
+<p>This raises privacy and trust concerns, as users may not expect their personal information to be shared without explicit consent.</p>
+<div class="highlight"><pre><span></span><code>👤 User: Find flights from Melbourne to Wellington leaving next Friday
+</code></pre></div>
+<p>❌ <strong>Without an approval workflow, the agent proceeds to search for flights immediately:</strong></p>
+<div class="highlight"><pre><span></span><code>🤖 Agent: I found a flight option for your trip from Melbourne to Wellington, leaving on Friday, February 9th, and returning after two weeks:
+
+        Flight: Qantas Flight QF107
+        Departure: Friday, February 9th, 11:30 AM
+        Arrival: Friday, February 9th, 6:15 PM
+        Duration: 6h 45m (Direct)
+        Price: $1,580 AUD
+        Amenities: WiFi, in-flight entertainment, vegetarian meals, power outlets, USB charging
+
+        Would you like to see more options or proceed with this one?
+</code></pre></div>
+<h2 id="sample-interaction-what-youll-build">Sample Interaction: What You'll Build<a class="headerlink" href="#sample-interaction-what-youll-build" title="Permanent link">¶</a></h2>
+<p>The UI will prompt the user to approve or reject critical actions before they are executed.
+The user can then approve or reject the action. The response is then added back into the message history for the agent to continue processing.</p>
+<p>This approach provides a reliable and secure mechanism to ensure that sensitive actions only execute with explicit user consent.</p>
+<div class="highlight"><pre><span></span><code>👤 User: Find flights from Melbourne to Wellington leaving next Friday
+</code></pre></div>
+<p>✅ <strong>With approval workflow, the agent pauses and requests approval:</strong></p>
+<div class="highlight"><pre><span></span><code>🔧 Agent requests approval to call the tool
+
+   Tool: SearchFlights
+   Parameters: { 
+     origin: "Melbourne",
+     destination: "Auckland",
+     departureDate: "2026-02-05",
+     returnDate: "2026-02-26"
+   }
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>   [UI shows approval dialog]
+
+   ✅ Approve  ❌ Reject
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>👤 User: [Clicks Approve]
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>🔧 Agent calls: SearchFlights(
+     origin: "Melbourne",
+     destination: "Auckland",
+     departureDate: "2026-02-05",
+     returnDate: "2026-02-26"
+   ) ✅
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>🤖 Agent: I found a flight option for your trip from Melbourne to Wellington, leaving on Friday, February 9th, and returning after two weeks:
+
+        Flight: Qantas Flight QF107
+        Departure: Friday, February 9th, 11:30 AM
+        Arrival: Friday, February 9th, 6:15 PM
+        Duration: 6h 45m (Direct)
+        Price: $1,580 AUD
+        Amenities: WiFi, in-flight entertainment, vegetarian meals, power outlets, USB charging
+
+        Would you like to see more options or proceed with this one?
+</code></pre></div>
+<hr>
+<h2 id="instructions">Instructions<a class="headerlink" href="#instructions" title="Permanent link">¶</a></h2>
+<h3 id="step-1-locate-the-source-code">Step 1: Locate the Source Code<a class="headerlink" href="#step-1-locate-the-source-code" title="Permanent link">¶</a></h3>
+<p>Navigate to the backend project:</p>
+<div class="highlight"><pre><span></span><code>📁 src/backend/
+</code></pre></div>
+<p>You will be modifying the code in this directory to implement human approval workflows.</p>
+<h3 id="step-2-update-agent-definition">Step 2: Update Agent Definition<a class="headerlink" href="#step-2-update-agent-definition" title="Permanent link">¶</a></h3>
+<p>Update the <code>CreateAsync</code> method in <code>Agents/ContosoTravelAgentFactory.cs</code> to wrap SearchFlights with approval requirement.</p>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="n">Task</span><span class="o">&lt;</span><span class="n">AIAgent</span><span class="o">&gt;</span><span class="w"> </span><span class="n">CreateAsync</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">var</span><span class="w"> </span><span class="n">agent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_chatClient</span><span class="p">.</span><span class="n">CreateAIAgent</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">ChatClientAgentOptions</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Constants</span><span class="p">.</span><span class="n">AgentName</span><span class="p">,</span>
+<span class="w">            </span><span class="n">ChatOptions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="p">()</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="n">ResponseFormat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ChatResponseFormat</span><span class="p">.</span><span class="n">Text</span><span class="p">,</span>
+<span class="w">                </span><span class="n">Instructions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AgentInstructions</span><span class="p">,</span>
+<span class="w">                </span><span class="n">Tools</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                        </span><span class="n">AIFunctionFactory</span><span class="p">.</span><span class="n">Create</span><span class="p">(</span><span class="n">DateTimeTools</span><span class="p">.</span><span class="n">GetCurrentDate</span><span class="p">),</span>
+<span class="w">                        </span><span class="n">AIFunctionFactory</span><span class="p">.</span><span class="n">Create</span><span class="p">(</span><span class="n">DateTimeTools</span><span class="p">.</span><span class="n">CalculateDateDifference</span><span class="p">),</span>
+<span class="w">                        </span><span class="n">AIFunctionFactory</span><span class="p">.</span><span class="n">Create</span><span class="p">(</span><span class="n">DateTimeTools</span><span class="p">.</span><span class="n">ValidateTravelDates</span><span class="p">),</span>
+<span class="w">                        </span><span class="n">AIFunctionFactory</span><span class="p">.</span><span class="n">Create</span><span class="p">(</span><span class="n">UserContextTools</span><span class="p">.</span><span class="n">GetUserContext</span><span class="p">),</span>
+
+<span class="w">                        </span><span class="cp">#pragma warning disable MEAI001</span>
+<span class="w">                        </span><span class="k">new</span><span class="w"> </span><span class="nf">ApprovalRequiredAIFunction</span><span class="p">(</span>
+<span class="w">                            </span><span class="n">AIFunctionFactory</span><span class="p">.</span><span class="n">Create</span><span class="p">(</span><span class="n">_flightFinderTools</span><span class="p">.</span><span class="n">SearchFlights</span><span class="p">)</span>
+<span class="w">                        </span><span class="p">)</span>
+<span class="w">                        </span><span class="cp">#pragma warning restore MEAI001</span>
+<span class="w">                </span><span class="p">]</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="n">AIContextProviderFactory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="c1">// Use ApplicationId and UserId for memory scope</span>
+<span class="w">                </span><span class="kt">string</span><span class="w"> </span><span class="n">userId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_httpContextAccessor</span><span class="p">.</span><span class="n">HttpContext</span><span class="o">?.</span><span class="n">Items</span><span class="p">[</span><span class="s">"UserId"</span><span class="p">]</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">??</span><span class="w"> </span><span class="s">"default-user"</span><span class="p">;</span>
+<span class="w">                </span><span class="kt">var</span><span class="w"> </span><span class="n">userProfileMemoryProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">UserProfileMemoryProvider</span><span class="p">(</span>
+<span class="w">                    </span><span class="n">_chatClient</span><span class="p">,</span>
+<span class="w">                    </span><span class="k">new</span><span class="w"> </span><span class="n">UserProfileMemoryProviderScope</span>
+<span class="w">                    </span><span class="p">{</span>
+<span class="w">                        </span><span class="n">UserId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">userId</span><span class="p">,</span>
+<span class="w">                        </span><span class="n">ApplicationId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Constants</span><span class="p">.</span><span class="n">ApplicationId</span>
+<span class="w">                    </span><span class="p">});</span>
+
+<span class="w">                </span><span class="kt">var</span><span class="w"> </span><span class="n">chatHistoryMemoryProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">CosmosDbChatHistoryProvider</span><span class="p">(</span>
+<span class="w">                     </span><span class="n">_cosmosDatabase</span><span class="p">.</span><span class="n">Client</span><span class="p">,</span>
+<span class="w">                     </span><span class="n">_cosmosDatabase</span><span class="p">.</span><span class="n">Id</span><span class="p">,</span>
+<span class="w">                     </span><span class="n">containerName</span><span class="p">:</span><span class="w"> </span><span class="s">"ChatHistory"</span><span class="p">,</span>
+<span class="w">                     </span><span class="n">partitionKeyPath</span><span class="p">:</span><span class="w"> </span><span class="s">"/ApplicationId"</span><span class="p">,</span>
+<span class="w">                     </span><span class="n">storageScope</span><span class="p">:</span><span class="w"> </span><span class="k">new</span><span class="p">()</span>
+<span class="w">                     </span><span class="p">{</span>
+<span class="w">                         </span><span class="n">UserId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">userId</span><span class="p">,</span>
+<span class="w">                         </span><span class="n">ApplicationId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Constants</span><span class="p">.</span><span class="n">ApplicationId</span>
+<span class="w">                     </span><span class="p">},</span>
+<span class="w">                     </span><span class="n">embeddingGenerator</span><span class="p">:</span><span class="w"> </span><span class="n">_embeddingClient</span><span class="p">.</span><span class="n">AsIEmbeddingGenerator</span><span class="p">(),</span>
+<span class="w">                     </span><span class="n">searchScope</span><span class="p">:</span><span class="w"> </span><span class="k">new</span><span class="p">()</span>
+<span class="w">                     </span><span class="p">{</span>
+<span class="w">                         </span><span class="n">UserId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">userId</span><span class="p">,</span>
+<span class="w">                         </span><span class="n">ApplicationId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Constants</span><span class="p">.</span><span class="n">ApplicationId</span>
+<span class="w">                     </span><span class="p">},</span>
+<span class="w">                     </span><span class="n">options</span><span class="p">:</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ChatHistoryMemoryProviderOptions</span><span class="p">()</span>
+<span class="w">                     </span><span class="p">{</span>
+<span class="w">                         </span><span class="n">ContextPrompt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"## Memories\nConsider the following memories when answering user questions:"</span><span class="p">,</span>
+<span class="w">                         </span><span class="n">EnableSensitiveTelemetryData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="p">,</span>
+<span class="w">                         </span><span class="n">MaxResults</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span>
+<span class="w">                     </span><span class="p">},</span>
+<span class="w">                     </span><span class="n">loggerFactory</span><span class="p">:</span><span class="w"> </span><span class="n">_loggerFactory</span><span class="p">);</span>
+
+
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nf">CompositeMemoryProvider</span>
+<span class="w">                </span><span class="p">([</span><span class="n">userProfileMemoryProvider</span><span class="p">,</span><span class="w"> </span><span class="n">chatHistoryMemoryProvider</span><span class="p">]);</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">});</span>
+
+<span class="w">        </span><span class="n">agent</span><span class="p">.</span><span class="n">AsBuilder</span><span class="p">().</span><span class="n">UseOpenTelemetry</span><span class="p">(</span><span class="n">Constants</span><span class="p">.</span><span class="n">ApplicationId</span><span class="p">,</span><span class="w"> </span><span class="n">options</span><span class="w"> </span><span class="o">=&gt;</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// Enable sensitive data logging for tool calls and responses</span>
+<span class="w">            </span><span class="n">options</span><span class="p">.</span><span class="n">EnableSensitiveData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}).</span><span class="n">UseLogging</span><span class="p">(</span><span class="n">_loggerFactory</span><span class="p">).</span><span class="n">Build</span><span class="p">();</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nf">ServerFunctionApprovalAgent</span><span class="p">(</span><span class="n">agent</span><span class="p">,</span><span class="w"> </span><span class="n">_jsonSerializerOptions</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+</code></pre></div>
+<h2 id="key-implementation-details">Key Implementation Details<a class="headerlink" href="#key-implementation-details" title="Permanent link">¶</a></h2>
+<p>The approval workflow consists of following components that work together:</p>
+<ol>
+<li>
+<p><strong>ApprovalRequiredAIFunction</strong> - <code>ApprovalRequiredAIFunction</code> is a wrapper around tools that must not be executed automatically. Instead of running the tool immediately, it intercepts the invocation and blocks execution until an explicit approval decision is received.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Wrap the flight search tool with approval requirement</span>
+<span class="k">new</span><span class="w"> </span><span class="nf">ApprovalRequiredAIFunction</span><span class="p">(</span>
+<span class="w">    </span><span class="n">AIFunctionFactory</span><span class="p">.</span><span class="n">Create</span><span class="p">(</span><span class="n">TravelSearchTools</span><span class="p">.</span><span class="n">SearchFlights</span><span class="p">))</span>
+</code></pre></div>
+</li>
+<li>
+<p><strong>ServerFunctionApprovalAgent</strong> - <code>ServerFunctionApprovalAgent</code> is the base class for all agents. It acts as a bridge between tool calls and the frontend approval experience. </p>
+<p>It reads the response from the LLM, to detect when an approval is required. It then sends an event to the frontend so a user can make a decision.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Wrap the agent to enable approval handling</span>
+<span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nf">ServerFunctionApprovalAgent</span><span class="p">(</span><span class="n">agent</span><span class="p">,</span><span class="w"> </span><span class="n">jsonSerializerOptions</span><span class="p">);</span>
+</code></pre></div>
+</li>
+<li>
+<p><strong>AG-UI Frontend Integration</strong> - The frontend implements the human approval experience using CopilotKit’s <code>useHumanInTheLoop</code> hook. It listens for events emitted by the server and renders a custom approval dialog for the user for the event <code>request_approval</code>.</p>
+<p>It captures the user’s decision and sends it back to the server referencing the original approval request identifier. This allows the agent to resume execution based on the user’s choice.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// In your React component (src/frontend/app/page.tsx)</span>
+<span class="nx">useHumanInTheLoop</span><span class="p">({</span>
+<span class="w">    </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">"request_approval"</span><span class="p">,</span><span class="w"> </span><span class="c1">// This should match the tool name in the backend that requires approval</span>
+<span class="w">    </span><span class="nx">parameters</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">"request"</span><span class="p">,</span>
+<span class="w">        </span><span class="kr">type</span><span class="o">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">description</span><span class="o">:</span><span class="w"> </span><span class="s2">"The approval request containing function details"</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">required</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="p">,</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nx">render</span><span class="o">:</span><span class="w"> </span><span class="p">({</span><span class="w"> </span><span class="nx">args</span><span class="p">,</span><span class="w"> </span><span class="nx">respond</span><span class="p">,</span><span class="w"> </span><span class="nx">status</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Parse the approval request from the wrapper</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">approvalData</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">approvalId?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">        </span><span class="nx">toolName?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">args</span><span class="p">.</span><span class="nx">request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">parsed</span><span class="w"> </span><span class="o">=</span>
+<span class="w">            </span><span class="ow">typeof</span><span class="w"> </span><span class="nx">args</span><span class="p">.</span><span class="nx">request</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s2">"string"</span>
+<span class="w">            </span><span class="o">?</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">args</span><span class="p">.</span><span class="nx">request</span><span class="p">)</span>
+<span class="w">            </span><span class="o">:</span><span class="w"> </span><span class="nx">args</span><span class="p">.</span><span class="nx">request</span><span class="p">;</span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Parsed approval request:"</span><span class="p">,</span><span class="w"> </span><span class="nx">parsed</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// Handle both snake_case (from backend) and PascalCase (legacy)</span>
+<span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">functionName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">parsed</span><span class="p">.</span><span class="nx">function_name</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">parsed</span><span class="p">.</span><span class="nx">FunctionName</span><span class="p">;</span>
+<span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">approvalId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">parsed</span><span class="p">.</span><span class="nx">approval_id</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">parsed</span><span class="p">.</span><span class="nx">ApprovalId</span><span class="p">;</span>
+
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Function name:"</span><span class="p">,</span><span class="w"> </span><span class="nx">functionName</span><span class="p">);</span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Approval ID:"</span><span class="p">,</span><span class="w"> </span><span class="nx">approvalId</span><span class="p">);</span>
+
+<span class="w">        </span><span class="nx">approvalData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">toolName</span><span class="o">:</span><span class="w"> </span><span class="kt">functionName</span><span class="p">,</span>
+<span class="w">            </span><span class="nx">approvalId</span><span class="o">:</span><span class="w"> </span><span class="kt">approvalId</span><span class="p">,</span>
+<span class="w">        </span><span class="p">};</span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Extracted approval data:"</span><span class="p">,</span><span class="w"> </span><span class="nx">approvalData</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span>
+<span class="w">            </span><span class="s2">"Failed to parse approval request:"</span><span class="p">,</span>
+<span class="w">            </span><span class="nx">e</span><span class="p">,</span>
+<span class="w">            </span><span class="s2">"Raw args:"</span><span class="p">,</span>
+<span class="w">            </span><span class="nx">args</span><span class="p">,</span>
+<span class="w">        </span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="s2">"No request property in args:"</span><span class="p">,</span><span class="w"> </span><span class="nx">args</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span>
+<span class="w">        </span><span class="o">&lt;</span><span class="nx">ApprovalUI</span><span class="w"> </span><span class="nx">args</span><span class="o">=</span><span class="p">{</span><span class="nx">approvalData</span><span class="p">}</span><span class="w"> </span><span class="nx">respond</span><span class="o">=</span><span class="p">{</span><span class="nx">respond</span><span class="p">}</span><span class="w"> </span><span class="nx">status</span><span class="o">=</span><span class="p">{</span><span class="nx">status</span><span class="p">}</span><span class="w"> </span><span class="o">/&gt;</span>
+<span class="w">    </span><span class="p">);</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="p">});</span>
+</code></pre></div>
+</li>
+</ol>
+<h3 id="how-it-works">How It Works<a class="headerlink" href="#how-it-works" title="Permanent link">¶</a></h3>
+<ol>
+<li>User requests an action that requires approval (e.g., searching for flights).</li>
+<li>The agent decides which tool to use (e.g., SearchFlights).</li>
+<li>The tool is wrapped with <code>ApprovalRequiredAIFunction</code>, so it does not execute immediately.</li>
+<li>An approval request is sent to the frontend with approval ID, function name, and parameters.</li>
+<li>The frontend notices the approval request and displays a custom approval dialog with search parameters.</li>
+<li>The user approves or rejects the search.</li>
+<li>The decision is sent back to the agent with the approval request ID.</li>
+<li>The agent continues the flight search or cancels based on the user's decision.</li>
+</ol>
+<hr>
+<h2 id="test-your-implementation">Test Your Implementation<a class="headerlink" href="#test-your-implementation" title="Permanent link">¶</a></h2>
+<ol>
+<li>
+<p>Refer to the <strong>Running the Application Locally</strong> section in the <a href="../00-setup_instructions/#running-the-application-locally">Setup Instructions</a> and start running both the backend and frontend.</p>
+<p>If the application is already running, restart the backend server by stopping it (Ctrl + C) and running <code>dotnet run</code> again in the <code>src/backend</code> directory.</p>
+</li>
+<li>
+<p>Test the complete approval workflow with the following prompts:</p>
+<p><strong>Initial Request</strong></p>
+<p>Start the conversation with:</p>
+<div class="highlight"><pre><span></span><code>Find flights from Melbourne to Wellington leaving next Friday
+</code></pre></div>
+<p><em>Expected Response:</em> Agent requests approval to call <code>SearchFlights</code>.</p>
+</li>
+<li>
+<p>Click the "Approve" button in the UI when the approval dialog appears</p>
+<p><em>Expected: Agent calls <code>SearchFlights()</code> successfully, presents flight options</em></p>
+</li>
+</ol>
+<hr>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.footer", "navigation.tracking", "navigation.top", "content.code.copy", "navigation.tabs.sticky", "content.tabs.link", "search.highlight", "search.suggest"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../js/custom-nav.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>
