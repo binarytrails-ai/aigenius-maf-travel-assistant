@@ -49,6 +49,7 @@ var resourceNames = {
   containerAppsEnvironment: toLower('${abbr.appManagedEnvironments}${uniqueSuffixValue}')
   backendIdentity: toLower('id-backend-${uniqueSuffixValue}')
   mcpIdentity: toLower('id-mcp-${uniqueSuffixValue}')
+  frontendIdentity: toLower('id-frontend-${uniqueSuffixValue}')
 }
 
 // Tags
@@ -183,6 +184,17 @@ module mcpIdentity 'modules/managed-identity.bicep' = {
   name: 'id-mcp-${uniqueSuffixValue}'
   params: {
     name: resourceNames.mcpIdentity
+    location: location
+    tags: tags
+  }
+}
+
+// Deploy Managed Identity for Frontend App
+module frontendIdentity 'modules/managed-identity.bicep' = {
+  scope: rg
+  name: 'id-frontend-${uniqueSuffixValue}'
+  params: {
+    name: resourceNames.frontendIdentity
     location: location
     tags: tags
   }
@@ -366,6 +378,45 @@ module mcpServerApp 'modules/containerapp.bicep' = {
   }
 }
 
+// Deploy Frontend Container App
+module frontendApp 'modules/containerapp.bicep' = {
+  scope: rg
+  name: 'frontend-${uniqueSuffixValue}'
+  params: {
+    name: '${resourcePrefix}-frontend-${uniqueSuffixValue}'
+    location: location
+    tags: union(tags, {
+      'azd-service-name': 'frontend'
+    })
+    containerAppsEnvironmentName: containerAppsEnvironment.outputs.name
+    containerRegistryName: containerRegistry.outputs.name
+    identityName: frontendIdentity.outputs.name
+    identityType: 'UserAssigned'
+    targetPort: 3000
+    external: true
+    containerCpuCoreCount: '0.5'
+    containerMemory: '1.0Gi'
+    env: [
+      {
+        name: 'BACKEND_AGENT_BASE_URL'
+        value: backendApp.outputs.uri
+      }
+      {
+        name: 'NODE_ENV'
+        value: 'production'
+      }
+      {
+        name: 'PORT'
+        value: '3000'
+      }
+      {
+        name: 'HOSTNAME'
+        value: '0.0.0.0'
+      }
+    ]
+  }
+}
+
 output AZURE_LOCATION string = location
 output AZURE_TENANT_ID string = tenant().tenantId
 output AZURE_SUBSCRIPTION_ID string = subscription().subscriptionId
@@ -387,6 +438,9 @@ output BACKEND_APP_URL string = backendApp.outputs.uri
 output MCP_SERVER_URI string = mcpServerApp.outputs.uri
 output MCP_SERVER_APP_URL string = mcpServerApp.outputs.uri
 output MCP_FLIGHT_SEARCH_TOOL_BASE_URL string = mcpServerApp.outputs.uri
+
+output FRONTEND_URI string = frontendApp.outputs.uri
+output FRONTEND_APP_URL string = frontendApp.outputs.uri
 
 output AZURE_OPENAI_DEPLOYMENT_NAME string = chatCompletionModel
 output AZURE_TEXT_MODEL_NAME string = chatCompletionModel //TODO: to be removed when the notebook is updated

@@ -17,6 +17,14 @@ services:
       path: ./Dockerfile
       context: ../
 
+  frontend:
+    project: src/frontend
+    language: js
+    host: containerapp
+    docker:
+      path: ./Dockerfile
+      context: ./
+
 infra:
   provider: bicep
   path: infra
