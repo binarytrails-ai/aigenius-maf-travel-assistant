@@ -12,12 +12,12 @@ var backend = builder.AddProject<Projects.ContosoTravelAgent_Host>("backend")
     .WaitFor(mcpServer)
     .WithEnvironment("MCP_FLIGHT_SEARCH_TOOL_BASE_URL", mcpServer.GetEndpoint("http"));
 
-// Frontend - Next.js application
-var frontend = builder.AddNodeApp("frontend", "../frontend", "start")
-    .WithHttpEndpoint(3000, env: "PORT")
-    .WithExternalHttpEndpoints()
-    .WithReference(backend)
-    .WaitFor(backend)
-    .WithEnvironment("BACKEND_AGENT_BASE_URL", backend.GetEndpoint("http"));
+// // Frontend - Next.js application (uses Dockerfile for container deployment)
+// var frontend = builder.AddDockerfile("frontend", "../frontend")
+//     .WithHttpEndpoint(3000, targetPort: 3000)
+//     .WithExternalHttpEndpoints()
+//     .WithReference(backend)
+//     .WaitFor(backend)
+//     .WithEnvironment("BACKEND_AGENT_BASE_URL", backend.GetEndpoint("http"));
 
 await builder.Build().RunAsync();

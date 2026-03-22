@@ -20,6 +20,7 @@ $cosmosDbDatabaseName = azd env get-value COSMOS_DB_DATABASE_NAME
 $cosmosDbChatHistoryContainer = azd env get-value COSMOS_DB_CHAT_HISTORY_CONTAINER
 $azureAIServicesEndpoint = azd env get-value AZURE_AI_SERVICES_ENDPOINT
 $azureAIServicesKey = azd env get-value AZURE_AI_SERVICES_KEY
+$mcpFlightSearchToolBaseUrl = azd env get-value MCP_FLIGHT_SEARCH_TOOL_BASE_URL
 
 Add-Content -Path $envFilePath -Value "AZURE_ENV_NAME=$azureEnvName"
 Add-Content -Path $envFilePath -Value "AZURE_LOCATION=$azureLocation"
@@ -36,6 +37,7 @@ Add-Content -Path $envFilePath -Value "COSMOS_DB_DATABASE_NAME=$cosmosDbDatabase
 Add-Content -Path $envFilePath -Value "COSMOS_DB_CHAT_HISTORY_CONTAINER=$cosmosDbChatHistoryContainer"
 Add-Content -Path $envFilePath -Value "AZURE_AI_SERVICES_ENDPOINT=$azureAIServicesEndpoint"
 Add-Content -Path $envFilePath -Value "AZURE_AI_SERVICES_KEY=$azureAIServicesKey"
+Add-Content -Path $envFilePath -Value "MCP_FLIGHT_SEARCH_TOOL_BASE_URL=$mcpFlightSearchToolBaseUrl"
 
 # Write-Host "[INFO] Please visit web app URL:"
 # Write-Host $serviceAPIUri -ForegroundColor Cyan

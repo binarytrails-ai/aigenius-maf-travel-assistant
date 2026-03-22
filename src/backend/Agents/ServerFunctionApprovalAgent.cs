@@ -7,6 +7,7 @@ using ContosoTravelAgent.Host.Models;
 using Microsoft.Agents.AI;
 using Microsoft.Extensions.AI;
 
+/// <summary>
 /// A delegating agent that handles function approval requests on the server side.
 /// Transforms between ToolApprovalRequestContent/ToolApprovalResponseContent
 /// and the request_approval tool call pattern for client communication.

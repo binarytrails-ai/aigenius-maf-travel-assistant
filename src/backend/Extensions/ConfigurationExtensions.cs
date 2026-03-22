@@ -41,6 +41,9 @@ public static class ConfigurationExtensions
         var mem0Endpoint = EnvironmentVariableHelper.GetConfigValue("MEM0_ENDPOINT", configuration, "https://api.mem0.ai");
         var mem0ApiKey = EnvironmentVariableHelper.GetConfigValue("MEM0_APIKEY", configuration);
 
+        // MCP tool configuration
+        var mcpFlightSearchToolBaseUrl = EnvironmentVariableHelper.GetConfigValue("MCP_FLIGHT_SEARCH_TOOL_BASE_URL", configuration, "http://localhost:5002");
+
         // Cosmos DB configuration
         var cosmosDbEndpoint = EnvironmentVariableHelper.GetConfigValue("COSMOS_DB_ENDPOINT", configuration);
         var cosmosDbConnectionString = EnvironmentVariableHelper.GetConfigValue("COSMOS_DB_CONNECTION_STRING", configuration);
@@ -85,6 +88,7 @@ public static class ConfigurationExtensions
             ApplicationInsightsConnectionString = applicationInsightsConnectionString,
             Mem0Endpoint = mem0Endpoint,
             Mem0ApiKey = mem0ApiKey,
+            McpFlightSearchToolBaseUrl = mcpFlightSearchToolBaseUrl,
             CosmosDbEndpoint = cosmosDbEndpoint,
             CosmosDbConnectionString = cosmosDbConnectionString,
             CosmosDbDatabaseName = cosmosDbDatabaseName,

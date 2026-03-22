@@ -2,12 +2,21 @@
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
-# Copy csproj and restore dependencies
-COPY ["ContosoTravel.McpServer.csproj", "./"]
-RUN dotnet restore "ContosoTravel.McpServer.csproj"
+# Copy ServiceDefaults first
+COPY ["ContosoTravel.ServiceDefaults/ContosoTravel.ServiceDefaults.csproj", "ContosoTravel.ServiceDefaults/"]
 
-# Copy everything else and build
-COPY . .
+# Copy mcp project
+COPY ["mcp/ContosoTravel.McpServer.csproj", "mcp/"]
+
+# Restore dependencies
+RUN dotnet restore "mcp/ContosoTravel.McpServer.csproj"
+
+# Copy everything else
+COPY ["ContosoTravel.ServiceDefaults/", "ContosoTravel.ServiceDefaults/"]
+COPY ["mcp/", "mcp/"]
+
+# Build and publish
+WORKDIR "/src/mcp"
 RUN dotnet publish "ContosoTravel.McpServer.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 # Runtime stage

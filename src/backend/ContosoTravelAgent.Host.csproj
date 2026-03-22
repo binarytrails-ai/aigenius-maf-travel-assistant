@@ -6,6 +6,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<UserSecretsId>f7085046-1fac-4b6b-a764-634f07d4df43</UserSecretsId>
+		<EnableSdkContainerSupport>true</EnableSdkContainerSupport>
 	</PropertyGroup>
 
 	<ItemGroup>

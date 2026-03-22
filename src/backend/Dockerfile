@@ -2,12 +2,21 @@
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
-# Copy csproj and restore dependencies
-COPY ["ContosoTravelAgent.Host.csproj", "./"]
-RUN dotnet restore "ContosoTravelAgent.Host.csproj"
+# Copy ServiceDefaults first
+COPY ["ContosoTravel.ServiceDefaults/ContosoTravel.ServiceDefaults.csproj", "ContosoTravel.ServiceDefaults/"]
 
-# Copy everything else and build
-COPY . .
+# Copy backend project
+COPY ["backend/ContosoTravelAgent.Host.csproj", "backend/"]
+
+# Restore dependencies
+RUN dotnet restore "backend/ContosoTravelAgent.Host.csproj"
+
+# Copy everything else
+COPY ["ContosoTravel.ServiceDefaults/", "ContosoTravel.ServiceDefaults/"]
+COPY ["backend/", "backend/"]
+
+# Build and publish
+WORKDIR "/src/backend"
 RUN dotnet publish "ContosoTravelAgent.Host.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 # Runtime stage
