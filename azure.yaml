@@ -1,31 +1,27 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
+name: agent-builder-workshop
 
-name: aigenius-maf-travel-assistant
 services:
+  mcp-server:
+    project: src/mcp
+    language: csharp
+    host: containerapp
+    docker:
+      path: ./Dockerfile
+      context: ../
+
   backend:
-    language: dotnet
-    project: ./src/backend
+    project: src/backend
+    language: csharp
     host: containerapp
     docker:
-      path: Dockerfile
-      context: .
-      registry: ${AZURE_CONTAINER_REGISTRY_ENDPOINT}
-  frontend:
-    language: js
-    project: ./src/frontend
-    host: containerapp
-    docker:
-      path: Dockerfile
-      context: .
-      registry: ${AZURE_CONTAINER_REGISTRY_ENDPOINT}
-  mcp:
-    language: dotnet
-    project: ./src/mcp
-    host: containerapp
-    docker:
-      path: Dockerfile
-      context: .
-      registry: ${AZURE_CONTAINER_REGISTRY_ENDPOINT}
+      path: ./Dockerfile
+      context: ../
+
+infra:
+  provider: bicep
+  path: infra
+  module: main
+
 hooks:
   preup:
     posix:
@@ -38,6 +34,7 @@ hooks:
       run: ./scripts/validate_env_vars.ps1
       interactive: true
       continueOnError: false
+
   postprovision:
     windows:
       shell: pwsh
