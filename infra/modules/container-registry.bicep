@@ -1,19 +1,26 @@
 param name string
-param location string
-param tags object
+param location string = resourceGroup().location
+param tags object = {}
+
+@description('Indicates whether admin user is enabled')
+param adminUserEnabled bool = false
+
+@description('Public network access setting')
+param publicNetworkAccess string = 'Enabled'
+
+@description('SKU settings')
+param sku object = {
+  name: 'Basic'
+}
 
 resource containerRegistry 'Microsoft.ContainerRegistry/registries@2023-07-01' = {
   name: name
   location: location
   tags: tags
-  sku: {
-    name: 'Basic'
-  }
+  sku: sku
   properties: {
-    adminUserEnabled: true
-    publicNetworkAccess: 'Enabled'
-    dataEndpointEnabled: false
-    networkRuleBypassOptions: 'AzureServices'
+    adminUserEnabled: adminUserEnabled
+    publicNetworkAccess: publicNetworkAccess
   }
 }
 

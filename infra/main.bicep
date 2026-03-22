@@ -37,12 +37,18 @@ var uniqueSuffixValue = substring(uniqueString(subscription().subscriptionId, rg
 // Resource names
 var resourceNames = {
   aiService: toLower('${abbr.aiServicesAccounts}${uniqueSuffixValue}')
+  keyVault: toLower('${abbr.keyVault}${uniqueSuffixValue}')
+  storageAccount: toLower('${abbr.storageStorageAccounts}${replace(uniqueSuffixValue, '-', '')}')
   aiFoundryAccount: toLower('${abbr.aiFoundryAccounts}${uniqueSuffixValue}')
   aiFoundryProject: toLower('${abbr.aiFoundryAccounts}proj-${uniqueSuffixValue}')
+  aiSearch: toLower('${abbr.aiSearchSearchServices}${replace(uniqueSuffixValue, '-', '')}')
   logAnalytics: toLower('log-${uniqueSuffixValue}')
   appInsights: toLower('appi-${uniqueSuffixValue}')
   cosmosDb: toLower('${abbr.cosmosDBAccounts}-${uniqueSuffixValue}')
-  containerRegistry: toLower('${abbr.containerRegistryRegistries}${replace(uniqueSuffixValue, '-', '')}')
+  containerRegistry: toLower('${abbr.containerRegistryRegistries}${uniqueSuffixValue}')
+  containerAppsEnvironment: toLower('${abbr.appManagedEnvironments}${uniqueSuffixValue}')
+  backendIdentity: toLower('id-backend-${uniqueSuffixValue}')
+  mcpIdentity: toLower('id-mcp-${uniqueSuffixValue}')
 }
 
 // Tags
@@ -58,28 +64,20 @@ resource rg 'Microsoft.Resources/resourceGroups@2022-09-01' = {
   tags: tags
 }
 
-// Deploy shared resources (Log Analytics and Application Insights)
-module shared 'modules/shared.bicep' = {
-  scope: rg
-  name: 'shared-${uniqueSuffixValue}'
-  params: {
-    location: location
-    tags: tags
-    logAnalyticsWorkspaceName: resourceNames.logAnalytics
-    appInsightsName: resourceNames.appInsights
-  }
-}
-
-// Deploy Azure Container Registry
-module containerRegistry 'modules/container-registry.bicep' = {
-  scope: rg
-  name: 'acr-${uniqueSuffixValue}'
-  params: {
-    name: resourceNames.containerRegistry
-    location: location
-    tags: tags
-  }
-}
+// // Deploy shared resources (Log Analytics, App Insights, AI Search)
+// module shared 'modules/shared.bicep' = {
+//   scope: rg
+//   name: 'search-${uniqueSuffixValue}'
+//   params: {
+//     aiSearchName: resourceNames.aiSearch
+//     storageAccountName: resourceNames.storageAccount
+//     keyVaultName: resourceNames.keyVault
+//     location: location
+//     tags: tags
+//     logAnalyticsWorkspaceName: resourceNames.logAnalytics
+//     appInsightsName: resourceNames.appInsights
+//   }
+// }
 
 //Create AI Foundry Account
 module aiFoundryAccount 'modules/ai-foundry-account.bicep' = {
@@ -145,37 +143,226 @@ module cosmosDb 'modules/cosmos-db.bicep' = {
   }
 }
 
-// Container image parameters (set by azd after build)
-param backendImageName string = ''
-param frontendImageName string = ''
-param mcpImageName string = ''
-
-// Deploy Container Apps (Frontend and Backend)
-module app 'modules/app.bicep' = {
+// Deploy Azure Container Registry for container images
+module containerRegistry 'modules/container-registry.bicep' = {
   scope: rg
-  name: 'app-${uniqueSuffixValue}'
+  name: 'acr-${uniqueSuffixValue}'
   params: {
-    resourcePrefix: resourcePrefix
-    uniqueSuffixValue: uniqueSuffixValue
+    name: resourceNames.containerRegistry
     location: location
     tags: tags
-    foundryProjectEndpoint: aiProject.outputs.endpoint
-    foundryProjectName: aiProject.outputs.name
-    openAIDeploymentName: chatCompletionModel
-    appInsightsConnectionString: shared.outputs.appInsightsConnectionString
-    cosmosDbEndpoint: cosmosDb.outputs.cosmosDbEndpoint
-    cosmosDbConnectionString: cosmosDb.outputs.cosmosDbConnectionString
-    cosmosDbDatabaseName: cosmosDb.outputs.cosmosDbDatabaseName
-    chatHistoryContainerName: cosmosDb.outputs.chatHistoryContainerName
-    aiServicesEndpoint: aiFoundryAccount.outputs.endpoint
-    aiServicesKey: aiFoundryAccount.outputs.apiKey
-    aiFoundryServiceEndpoint: 'https://${aiFoundryAccount.outputs.name}.services.ai.azure.com/'
-    logAnalyticsWorkspaceId: shared.outputs.logAnalyticsWorkspaceId
+    adminUserEnabled: false
+  }
+}
+
+// Deploy Container Apps Environment
+module containerAppsEnvironment 'modules/container-apps-environment.bicep' = {
+  scope: rg
+  name: 'cae-${uniqueSuffixValue}'
+  params: {
+    name: resourceNames.containerAppsEnvironment
+    location: location
+    tags: tags
+  }
+}
+
+// Deploy Managed Identity for Backend App
+module backendIdentity 'modules/managed-identity.bicep' = {
+  scope: rg
+  name: 'id-backend-${uniqueSuffixValue}'
+  params: {
+    name: resourceNames.backendIdentity
+    location: location
+    tags: tags
+  }
+}
+
+// Deploy Managed Identity for MCP Server App
+module mcpIdentity 'modules/managed-identity.bicep' = {
+  scope: rg
+  name: 'id-mcp-${uniqueSuffixValue}'
+  params: {
+    name: resourceNames.mcpIdentity
+    location: location
+    tags: tags
+  }
+}
+
+// Deploy Backend Container App
+module backendApp 'modules/containerapp.bicep' = {
+  scope: rg
+  name: 'backend-${uniqueSuffixValue}'
+  params: {
+    name: '${resourcePrefix}-backend-${uniqueSuffixValue}'
+    location: location
+    tags: union(tags, {
+      'azd-service-name': 'backend'
+    })
+    containerAppsEnvironmentName: containerAppsEnvironment.outputs.name
     containerRegistryName: containerRegistry.outputs.name
-    backendImageName: backendImageName
-    frontendImageName: frontendImageName
-    mcpImageName: mcpImageName
-    embeddingModelName: embeddingModelName
+    identityName: backendIdentity.outputs.name
+    identityType: 'UserAssigned'
+    targetPort: 8080
+    external: true
+    containerCpuCoreCount: '1.0'
+    containerMemory: '2.0Gi'
+    env: [
+      {
+        name: 'USE_GITHUB_MODELS'
+        value: 'false'
+      }
+      {
+        name: 'AZURE_AI_PROJECT_ENDPOINT'
+        value: aiProject.outputs.endpoint
+      }
+      {
+        name: 'AZURE_AI_PROJECT_NAME'
+        value: aiProject.outputs.name
+      }
+      {
+        name: 'AZURE_AI_FOUNDRY_SERVICE_ENDPOINT'
+        value: 'https://${aiFoundryAccount.outputs.name}.services.ai.azure.com/'
+      }
+      {
+        name: 'AZURE_AI_SERVICES_ENDPOINT'
+        value: aiFoundryAccount.outputs.endpoint
+      }
+      {
+        name: 'AZURE_AI_SERVICES_KEY'
+        value: aiFoundryAccount.outputs.apiKey
+      }
+      {
+        name: 'AZURE_OPENAI_DEPLOYMENT_NAME'
+        value: chatCompletionModel
+      }
+      {
+        name: 'AZURE_LOCATION'
+        value: location
+      }
+      {
+        name: 'AZURE_TENANT_ID'
+        value: tenant().tenantId
+      }
+      {
+        name: 'AZURE_SUBSCRIPTION_ID'
+        value: subscription().subscriptionId
+      }
+      {
+        name: 'COSMOS_DB_ENDPOINT'
+        value: cosmosDb.outputs.cosmosDbEndpoint
+      }
+      {
+        name: 'COSMOS_DB_CONNECTION_STRING'
+        value: cosmosDb.outputs.cosmosDbConnectionString
+      }
+      {
+        name: 'COSMOS_DB_DATABASE_NAME'
+        value: cosmosDb.outputs.cosmosDbDatabaseName
+      }
+      {
+        name: 'COSMOS_DB_CHAT_HISTORY_CONTAINER'
+        value: cosmosDb.outputs.chatHistoryContainerName
+      }
+      {
+        name: 'MCP_FLIGHT_SEARCH_TOOL_BASE_URL'
+        value: mcpServerApp.outputs.uri
+      }
+      {
+        name: 'PORT'
+        value: '8080'
+      }
+      {
+        name: 'ASPNETCORE_URLS'
+        value: 'http://+:8080'
+      }
+    ]
+  }
+}
+
+// Deploy MCP Server Container App
+module mcpServerApp 'modules/containerapp.bicep' = {
+  scope: rg
+  name: 'mcp-${uniqueSuffixValue}'
+  params: {
+    name: '${resourcePrefix}-mcp-${uniqueSuffixValue}'
+    location: location
+    tags: union(tags, {
+      'azd-service-name': 'mcp-server'
+    })
+    containerAppsEnvironmentName: containerAppsEnvironment.outputs.name
+    containerRegistryName: containerRegistry.outputs.name
+    identityName: mcpIdentity.outputs.name
+    identityType: 'UserAssigned'
+    targetPort: 8080
+    external: true
+    containerCpuCoreCount: '0.5'
+    containerMemory: '1.0Gi'
+    env: [
+      {
+        name: 'USE_GITHUB_MODELS'
+        value: 'false'
+      }
+      {
+        name: 'AZURE_AI_PROJECT_ENDPOINT'
+        value: aiProject.outputs.endpoint
+      }
+      {
+        name: 'AZURE_AI_PROJECT_NAME'
+        value: aiProject.outputs.name
+      }
+      {
+        name: 'AZURE_AI_FOUNDRY_SERVICE_ENDPOINT'
+        value: 'https://${aiFoundryAccount.outputs.name}.services.ai.azure.com/'
+      }
+      {
+        name: 'AZURE_AI_SERVICES_ENDPOINT'
+        value: aiFoundryAccount.outputs.endpoint
+      }
+      {
+        name: 'AZURE_AI_SERVICES_KEY'
+        value: aiFoundryAccount.outputs.apiKey
+      }
+      {
+        name: 'AZURE_OPENAI_DEPLOYMENT_NAME'
+        value: chatCompletionModel
+      }
+      {
+        name: 'AZURE_LOCATION'
+        value: location
+      }
+      {
+        name: 'AZURE_TENANT_ID'
+        value: tenant().tenantId
+      }
+      {
+        name: 'AZURE_SUBSCRIPTION_ID'
+        value: subscription().subscriptionId
+      }
+      {
+        name: 'COSMOS_DB_ENDPOINT'
+        value: cosmosDb.outputs.cosmosDbEndpoint
+      }
+      {
+        name: 'COSMOS_DB_CONNECTION_STRING'
+        value: cosmosDb.outputs.cosmosDbConnectionString
+      }
+      {
+        name: 'COSMOS_DB_DATABASE_NAME'
+        value: cosmosDb.outputs.cosmosDbDatabaseName
+      }
+      {
+        name: 'COSMOS_DB_CHAT_HISTORY_CONTAINER'
+        value: cosmosDb.outputs.chatHistoryContainerName
+      }
+      {
+        name: 'PORT'
+        value: '8080'
+      }
+      {
+        name: 'ASPNETCORE_URLS'
+        value: 'http://+:8080'
+      }
+    ]
   }
 }
 
@@ -183,11 +370,10 @@ output AZURE_LOCATION string = location
 output AZURE_TENANT_ID string = tenant().tenantId
 output AZURE_SUBSCRIPTION_ID string = subscription().subscriptionId
 output AZURE_RESOURCE_GROUP string = rg.name
-output AZURE_LOG_ANALYTICS_WORKSPACE_NAME string = shared.outputs.logAnalyticsWorkspaceName
-output AZURE_APP_INSIGHTS_NAME string = shared.outputs.appInsightsName
-output AZURE_APP_INSIGHTS_CONNECTION_STRING string = shared.outputs.appInsightsConnectionString
-output AZURE_CONTAINER_REGISTRY_ENDPOINT string = containerRegistry.outputs.loginServer
-output AZURE_CONTAINER_REGISTRY_NAME string = containerRegistry.outputs.name
+// output AZURE_STORAGE_ACCOUNT string = resourceNames.storageAccount
+// output AZURE_LOG_ANALYTICS_WORKSPACE_NAME string = shared.outputs.logAnalyticsWorkspaceName
+// output AZURE_APP_INSIGHTS_NAME string = shared.outputs.appInsightsName
+// output AZURE_APP_INSIGHTS_CONNECTION_STRING string = shared.outputs.appInsightsConnectionString
 
 output AZURE_AI_PROJECT_NAME string = aiProject.outputs.name
 output AZURE_AI_PROJECT_ENDPOINT string = aiProject.outputs.endpoint
@@ -195,9 +381,12 @@ output AZURE_AI_FOUNDRY_SERVICE_ENDPOINT string = 'https://${aiFoundryAccount.ou
 output AZURE_AI_SERVICES_ENDPOINT string = aiFoundryAccount.outputs.endpoint
 output AZURE_AI_SERVICES_KEY string = aiFoundryAccount.outputs.apiKey
 
-output BACKEND_APP_URL string = app.outputs.BACKEND_APP_URL
-output FRONTEND_APP_URL string = app.outputs.FRONTEND_APP_URL
-output MCP_SERVER_URL string = app.outputs.MCP_SERVER_URL
+output BACKEND_URI string = backendApp.outputs.uri
+output BACKEND_APP_URL string = backendApp.outputs.uri
+
+output MCP_SERVER_URI string = mcpServerApp.outputs.uri
+output MCP_SERVER_APP_URL string = mcpServerApp.outputs.uri
+output MCP_FLIGHT_SEARCH_TOOL_BASE_URL string = mcpServerApp.outputs.uri
 
 output AZURE_OPENAI_DEPLOYMENT_NAME string = chatCompletionModel
 output AZURE_TEXT_MODEL_NAME string = chatCompletionModel //TODO: to be removed when the notebook is updated
@@ -207,3 +396,9 @@ output COSMOS_DB_ENDPOINT string = cosmosDb.outputs.cosmosDbEndpoint
 output COSMOS_DB_CONNECTION_STRING string = cosmosDb.outputs.cosmosDbConnectionString
 output COSMOS_DB_DATABASE_NAME string = cosmosDb.outputs.cosmosDbDatabaseName
 output COSMOS_DB_CHAT_HISTORY_CONTAINER string = cosmosDb.outputs.chatHistoryContainerName
+
+output AZURE_CONTAINER_REGISTRY_NAME string = containerRegistry.outputs.name
+output AZURE_CONTAINER_REGISTRY_ENDPOINT string = containerRegistry.outputs.loginServer
+output AZURE_CONTAINER_APPS_ENVIRONMENT_NAME string = containerAppsEnvironment.outputs.name
+output AZURE_CONTAINER_APPS_ENVIRONMENT_ID string = containerAppsEnvironment.outputs.id
+output AZURE_CONTAINER_APPS_ENVIRONMENT_DEFAULT_DOMAIN string = containerAppsEnvironment.outputs.defaultDomain
