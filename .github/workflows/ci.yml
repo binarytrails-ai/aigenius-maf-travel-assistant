@@ -39,7 +39,6 @@ jobs:
           
           # Deploy all versions with separate pushes
           mike deploy --push --update-aliases --config-file docs/mkdocs.yml latest default
-          mike deploy --push --config-file docs/mkdocs-ai-genius.yml ai-genius
           
           # Set default
           mike set-default --push --config-file docs/mkdocs.yml latest

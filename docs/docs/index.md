@@ -1,14 +1,29 @@
-# Getting Started
+# Getting Started with Microsoft Agent Framework: Build Practical AI Agents
 
-Welcome to the AI Agent Builder Workshop!
+## Session Introduction
 
-In this hands-on workshop, you'll build **Travel Assistant**, an AI-powered agent that assists users plan trips, search flights, and provide personalized recommendations.
+AI agents are moving fast — but building one that delivers real value requires more than just prompts.
+
+In this session, you'll get a hands‑on introduction to the Microsoft Agent Framework, focusing on how to design and build practical AI agents that can reason, take actions, and integrate with real systems. You'll explore how agentic AI fits into modern application architectures and how developers can move from experimentation to production‑ready agents.
+
+## You Will Learn
+
+- Core concepts behind agentic AI and intelligent agents
+- How the Microsoft Agent Framework is structured and applied
+- How to build agents that interact with tools, APIs, and workflows
+- Best practices for creating practical, extensible AI agents
+
+---
+
+## What You'll Build
+
+In this workshop, you'll build a complete AI-powered travel assistant agent through progressive hands-on labs. Use the navigation menu to access the labs in sequence.
 
 ![Cover](../media/cover.png)
 
-## Foundation Labs
+### Foundation Labs
 
-If you're new to the Microsoft Agent Framework, we recommend starting with the foundation labs in `labs/00-foundations/`.
+If you're new to the Microsoft Agent Framework, we recommend starting with the foundation labs in `labs/00-foundations/`. 
 
 These standalone labs introduce core concepts through hands-on examples. The code in these labs is separate from the main travel assistant codebase, so you can experiment freely.
 
