@@ -19,7 +19,7 @@ builder.Services.AddSingleton(sp => new Microsoft.AspNetCore.Http.Json.JsonOptio
 builder.Services.AddLogging(logging =>
 {
     logging.AddConsole();
-    logging.SetMinimumLevel(LogLevel.Debug);
+    logging.SetMinimumLevel(LogLevel.Information);
 });
 
 builder.ConfigureOpenTelemetry(
