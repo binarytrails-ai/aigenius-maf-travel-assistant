@@ -112,6 +112,26 @@ public class ContosoTravelAgentBuilder
     public async Task<AIAgent> CreateAsync()
     {
         var mcpTools = await _mcpClient.ListToolsAsync();
+        
+        // Process MCP tools and wrap book_flight with approval requirement
+        var processedTools = new List<AITool>();
+        foreach (var tool in mcpTools)
+        {
+            var toolName = GetToolName(tool);
+            if (string.Equals(toolName, "book_flight", StringComparison.OrdinalIgnoreCase))
+            {
+#pragma warning disable MEAI001 // Type is for evaluation purposes only
+                // Wrap BookFlight with ApprovalRequiredAIFunction
+                AIFunction bookFlightWithApproval = new ApprovalRequiredAIFunction(tool);
+                processedTools.Add(bookFlightWithApproval);
+#pragma warning restore MEAI001
+            }
+            else
+            {
+                processedTools.Add(tool);
+            }
+        }
+        
         AIAgent agent = _chatClient.AsAIAgent(new ChatClientAgentOptions
         {
             Name = Constants.AgentName,
@@ -125,7 +145,7 @@ public class ContosoTravelAgentBuilder
                         AIFunctionFactory.Create(DateTimeTools.CalculateDateDifference),
                         AIFunctionFactory.Create(DateTimeTools.ValidateTravelDates),
                         AIFunctionFactory.Create(DateTimeTools.ValidateTravelDates),
-                        .. mcpTools]
+                        .. processedTools]
             },
         });
 
@@ -135,5 +155,12 @@ public class ContosoTravelAgentBuilder
         }).UseLogging(_loggerFactory).Build();
 
         return new ServerFunctionApprovalAgent(agent, _jsonSerializerOptions);
+    }
+
+    private string GetToolName(AITool tool)
+    {
+        // Use ToString to get the tool name
+        var name = tool.ToString();
+        return name ?? "Unknown";
     }
 }
