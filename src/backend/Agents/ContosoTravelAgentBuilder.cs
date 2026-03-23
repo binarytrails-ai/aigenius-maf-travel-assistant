@@ -1,4 +1,6 @@
-﻿using ContosoTravelAgent.Host.Tools;
+﻿#pragma warning disable MAAI001 // FileAgentSkillsProvider is experimental
+
+using ContosoTravelAgent.Host.Tools;
 using Microsoft.Agents.AI;
 using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.AI;
@@ -132,6 +134,10 @@ public class ContosoTravelAgentBuilder
             }
         }
         
+        // Initialize skills provider for progressive disclosure
+        var skillsPath = Path.Combine(Directory.GetCurrentDirectory(), "skills");
+        var skillsProvider = new FileAgentSkillsProvider(skillPath: skillsPath);
+        
         AIAgent agent = _chatClient.AsAIAgent(new ChatClientAgentOptions
         {
             Name = Constants.AgentName,
@@ -147,6 +153,7 @@ public class ContosoTravelAgentBuilder
                         AIFunctionFactory.Create(DateTimeTools.ValidateTravelDates),
                         .. processedTools]
             },
+            AIContextProviders = [skillsProvider],
         });
 
         agent = agent.AsBuilder().UseOpenTelemetry(Constants.ApplicationId, options =>
