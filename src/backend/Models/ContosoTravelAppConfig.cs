@@ -2,14 +2,6 @@ namespace ContosoTravelAgent.Host.Models;
 
 public record ContosoTravelAppConfig
 {
-    public bool UseGitHubModels { get; init; } = true;
-
-    // GitHub Models configuration
-    public string? GithubToken { get; init; }
-    public string GithubModelsBaseUrl { get; init; } = "https://models.inference.ai.azure.com";
-    public string GithubTextModelId { get; init; } = "gpt-4o";
-    public string GithubEmbeddingModelId { get; init; } = "openai/text-embedding-ada-002";
-
     // Azure AI configuration
     public string? AzureAIProjectEndpoint { get; init; }
     public string AzureAiFoundryServiceEndpoint { get; init; }
@@ -35,9 +27,5 @@ public record ContosoTravelAppConfig
     public string? CosmosDbFlightsContainer { get; init; }
 
     // MCP tool configuration for flight search
-
     public string McpFlightSearchToolBaseUrl { get; init; } = "http://localhost:5002";
-
-    public string Mem0Endpoint { get; init; } = "https://api.mem0.ai";
-    public string? Mem0ApiKey { get; init; }
 }

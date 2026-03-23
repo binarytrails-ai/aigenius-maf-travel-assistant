@@ -44,29 +44,16 @@ builder.Services.AddAGUI();
 IChatClient chatClient;
 OpenAI.Embeddings.EmbeddingClient embeddingClient;
 
-if (config.UseGitHubModels)
-{
-    Console.WriteLine("Using GitHub Models");
-    var clientOptions = new OpenAIClientOptions { Endpoint = new Uri(config.GithubModelsBaseUrl!) };
-    var openAiClient = new OpenAIClient(new ApiKeyCredential(config.GithubToken!), clientOptions);
-    embeddingClient = openAiClient.GetEmbeddingClient(config.GithubEmbeddingModelId!);
-    chatClient = openAiClient.GetChatClient(config.GithubTextModelId!).AsIChatClient().AsBuilder()
-        .UseOpenTelemetry(sourceName: Constants.ApplicationId, configure: (cfg) => cfg.EnableSensitiveData = true)
-        .Build();
-}
-else
-{
-    Console.WriteLine("Using Azure AI Models");
-    var azureOpenAIClient = new Azure.AI.OpenAI.AzureOpenAIClient(
-        new Uri(config.AzureAIServicesEndpoint!), new ApiKeyCredential(config.AzureAIServicesKey!));
+Console.WriteLine("Using Azure AI Models");
+var azureOpenAIClient = new Azure.AI.OpenAI.AzureOpenAIClient(
+    new Uri(config.AzureAIServicesEndpoint!), new ApiKeyCredential(config.AzureAIServicesKey!));
 
-    // Create Azure AI chat client
-    chatClient = azureOpenAIClient.GetChatClient(config.AzureTextModelName).AsIChatClient().AsBuilder()
-        .UseOpenTelemetry(sourceName: Constants.ApplicationId, configure: (cfg) => cfg.EnableSensitiveData = true)
-        .Build();
+// Create Azure AI chat client
+chatClient = azureOpenAIClient.GetChatClient(config.AzureTextModelName).AsIChatClient().AsBuilder()
+    .UseOpenTelemetry(sourceName: Constants.ApplicationId, configure: (cfg) => cfg.EnableSensitiveData = true)
+    .Build();
 
-    embeddingClient = azureOpenAIClient.GetEmbeddingClient(config.AzureEmbeddingModelName);
-}
+embeddingClient = azureOpenAIClient.GetEmbeddingClient(config.AzureEmbeddingModelName);
 
 builder.Services.AddChatClient(chatClient);
 builder.Services.AddSingleton(embeddingClient);
@@ -120,16 +107,6 @@ builder.Services.AddKeyedSingleton("ContosoTravelAgent", (sp, key) =>
     return factory.CreateAsync().Result;
 });
 
-//builder.Services.AddSingleton<ContosoTravelWorkflowAgentFactory>();
-//builder.Services.AddSingleton<TriageAgentFactory>();
-//builder.Services.AddSingleton<TripAdvisorAgentFactory>();
-//builder.Services.AddSingleton<FlightSearchAgentFactory>();
-//builder.Services.AddKeyedSingleton("ContosoTravelWorkflowAgent", (sp, key) =>
-//{
-//    var factory = sp.GetRequiredService<ContosoTravelWorkflowAgentFactory>();
-//    return factory.Create();
-//});
-
 var app = builder.Build();
 
 app.MapGet("/", () => Results.Ok(new { status = "healthy", service = "Travel Assistant API" }));
@@ -139,10 +116,6 @@ var travelBot = app.Services.GetRequiredKeyedService<AIAgent>("ContosoTravelAgen
 app.MapOpenAIChatCompletions(travelBot);
 // Map AGUI endpoint
 app.MapAGUI("/agent/contoso_travel_bot", travelBot);
-
-//var travelBotWorkflowAgent = app.Services.GetRequiredKeyedService<AIAgent>("ContosoTravelWorkflowAgent");
-//app.MapOpenAIChatCompletions(travelBotWorkflowAgent);
-//app.MapAGUI("/agent/contoso_travel_bot", travelBotWorkflowAgent);
 
 app.UseRequestContext();
 app.UseCors();

@@ -10,14 +10,6 @@ public static class ConfigurationExtensions
     {
         EnvironmentVariableHelper.LoadEnvironmentVariables();
 
-        var useGitHubModels = EnvironmentVariableHelper.GetBoolConfigValue("USE_GITHUB_MODELS", configuration);
-
-        // GitHub Models configuration
-        var githubToken = EnvironmentVariableHelper.GetConfigValue("GITHUB_TOKEN", configuration);
-        var githubModelsBaseUrl = EnvironmentVariableHelper.GetConfigValue("GITHUB_MODELS_BASE_URL", configuration, "https://models.inference.ai.azure.com");
-        var githubTextModelId = EnvironmentVariableHelper.GetConfigValue("GITHUB_TEXT_MODEL_ID", configuration, "gpt-4o");
-        var githubEmbeddingModelId = EnvironmentVariableHelper.GetConfigValue("GITHUB_EMBEDDING_MODEL_ID", configuration, "openai/text-embedding-ada-002");
-
         // Azure AI configuration
         var azureProjectEndpoint = EnvironmentVariableHelper.GetConfigValue("AZURE_AI_PROJECT_ENDPOINT", configuration);
         var azureAiFoundryServiceEndpoint = EnvironmentVariableHelper.GetConfigValue("AZURE_AI_FOUNDRY_SERVICE_ENDPOINT", configuration);
@@ -32,14 +24,10 @@ public static class ConfigurationExtensions
         var azureSearchEndpoint = EnvironmentVariableHelper.GetConfigValue("AZURE_SEARCH_SERVICE_ENDPOINT", configuration);
         var azureSearchAdminKey = EnvironmentVariableHelper.GetConfigValue("AZURE_AI_SEARCH_ADMIN_KEY", configuration);
         var otlpEndpoint = EnvironmentVariableHelper.GetConfigValue("OTEL_EXPORTER_OTLP_ENDPOINT", configuration);
-        
+
         // Application Insights - check both keys
         var applicationInsightsConnectionString = EnvironmentVariableHelper.GetConfigValue("APPLICATIONINSIGHTS_CONNECTION_STRING", configuration)
                                                   ?? configuration["ApplicationInsights:ConnectionString"];
-
-        // Mem0 configuration
-        var mem0Endpoint = EnvironmentVariableHelper.GetConfigValue("MEM0_ENDPOINT", configuration, "https://api.mem0.ai");
-        var mem0ApiKey = EnvironmentVariableHelper.GetConfigValue("MEM0_APIKEY", configuration);
 
         // MCP tool configuration
         var mcpFlightSearchToolBaseUrl = EnvironmentVariableHelper.GetConfigValue("MCP_FLIGHT_SEARCH_TOOL_BASE_URL", configuration, "http://localhost:5002");
@@ -52,14 +40,7 @@ public static class ConfigurationExtensions
         var cosmosDbUserProfileContainer = EnvironmentVariableHelper.GetConfigValue("COSMOS_DB_USER_PROFILE_CONTAINER", configuration);
         var cosmosDbFlightsContainer = EnvironmentVariableHelper.GetConfigValue("COSMOS_DB_FLIGHTS_CONTAINER", configuration, "Flights");
 
-        // Validate configuration based on mode
-        if (useGitHubModels && string.IsNullOrWhiteSpace(githubToken))
-        {
-            throw new InvalidOperationException
-                ("GitHub Models token not found. Set GITHUB_TOKEN in .env file.");
-        }
-
-        if (!useGitHubModels && string.IsNullOrWhiteSpace(azureProjectEndpoint))
+        if (string.IsNullOrWhiteSpace(azureProjectEndpoint))
         {
             throw new InvalidOperationException
                 ("Azure AI Project endpoint not found. Set AZURE_AI_PROJECT_ENDPOINT in .env file.");
@@ -67,11 +48,6 @@ public static class ConfigurationExtensions
 
         var config = new ContosoTravelAppConfig
         {
-            UseGitHubModels = useGitHubModels,
-            GithubToken = githubToken,
-            GithubModelsBaseUrl = githubModelsBaseUrl,
-            GithubTextModelId = githubTextModelId,
-            GithubEmbeddingModelId = githubEmbeddingModelId,
             AzureAIProjectEndpoint = azureProjectEndpoint,
             AzureAiFoundryServiceEndpoint = azureAiFoundryServiceEndpoint,
             AzureAIServicesEndpoint = azureAiServicesEndpoint,
@@ -86,8 +62,6 @@ public static class ConfigurationExtensions
             AzureAISearchAdminKey = azureSearchAdminKey,
             OtelExporterOtlpEndpoint = otlpEndpoint,
             ApplicationInsightsConnectionString = applicationInsightsConnectionString,
-            Mem0Endpoint = mem0Endpoint,
-            Mem0ApiKey = mem0ApiKey,
             McpFlightSearchToolBaseUrl = mcpFlightSearchToolBaseUrl,
             CosmosDbEndpoint = cosmosDbEndpoint,
             CosmosDbConnectionString = cosmosDbConnectionString,

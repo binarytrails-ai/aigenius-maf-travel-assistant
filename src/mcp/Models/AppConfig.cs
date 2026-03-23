@@ -5,12 +5,6 @@ namespace ContosoTravel.McpServer.Models;
 /// </summary>
 public record AppConfig
 {
-    // Azure OpenAI / GitHub Models configuration
-    public bool UseGitHubModels { get; init; } = true;
-    public string? GithubToken { get; init; }
-    public string GithubModelsBaseUrl { get; init; } = "https://models.inference.ai.azure.com";
-    public string GithubEmbeddingModelId { get; init; } = "openai/text-embedding-ada-002";
-    
     // Azure AI configuration
     public string? AzureAIServicesEndpoint { get; init; }
     public string? AzureAIServicesKey { get; init; }
