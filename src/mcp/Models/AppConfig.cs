@@ -16,6 +16,10 @@ public record AppConfig
     public string? AzureAIServicesKey { get; init; }
     public string AzureEmbeddingModelName { get; init; } = "text-embedding-ada-002";
 
+    // Observability configuration
+    public string? OtelExporterOtlpEndpoint { get; init; }
+    public string? ApplicationInsightsConnectionString { get; init; }
+
     // Cosmos DB configuration
     public string? CosmosDbEndpoint { get; init; }
     public string? CosmosDbConnectionString { get; init; }

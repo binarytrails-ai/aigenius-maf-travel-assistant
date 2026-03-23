@@ -21,7 +21,14 @@ builder.Services.AddLogging(logging =>
     logging.AddConsole();
     logging.SetMinimumLevel(LogLevel.Debug);
 });
-builder.AddOpenTelemetryLogging(config);
+
+builder.ConfigureOpenTelemetry(
+    serviceName: Constants.ApplicationId,
+    serviceVersion: "1.0.0",
+    otlpEndpoint: config.OtelExporterOtlpEndpoint,
+    applicationInsightsConnectionString: config.ApplicationInsightsConnectionString,
+    additionalSources: ["Microsoft.Agents.AI", "Microsoft.Extensions.AI"],
+    additionalMeters: ["Microsoft.Agents.AI", "Microsoft.Extensions.AI"]);
 
 builder.Services.AddCors(options =>
 {
@@ -106,10 +113,10 @@ builder.Services.AddKeyedSingleton<McpClient>("mcp-contoso-travel", (sp, obj) =>
 });
 
 // Register agent factories
-builder.Services.AddSingleton<ContosoTravelAgentFactory>();
+builder.Services.AddSingleton<ContosoTravelAgentBuilder>();
 builder.Services.AddKeyedSingleton("ContosoTravelAgent", (sp, key) =>
 {
-    var factory = sp.GetRequiredService<ContosoTravelAgentFactory>();
+    var factory = sp.GetRequiredService<ContosoTravelAgentBuilder>();
     return factory.CreateAsync().Result;
 });
 

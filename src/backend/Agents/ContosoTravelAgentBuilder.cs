@@ -7,7 +7,7 @@ using ModelContextProtocol.Client;
 
 namespace ContosoTravelAgent.Host.Agents;
 
-public class ContosoTravelAgentFactory
+public class ContosoTravelAgentBuilder
 {
     private readonly IChatClient _chatClient;
     private readonly EmbeddingClient _embeddingClient;
@@ -26,7 +26,7 @@ public class ContosoTravelAgentFactory
     /// <param name="jsonSerializerOptions">JSON serialization options.</param>
     /// <param name="loggerFactory">Logger factory.</param>
     /// <param name="cosmosDatabase">Cosmos DB database instance (optional).</param>
-    public ContosoTravelAgentFactory(
+    public ContosoTravelAgentBuilder(
         IChatClient chatClient,
         EmbeddingClient embeddingClient,
         IHttpContextAccessor httpContextAccessor,

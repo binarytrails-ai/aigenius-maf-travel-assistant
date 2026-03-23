@@ -35,6 +35,11 @@ public static class ConfigurationExtensions
         var azureAiServicesKey = EnvironmentVariableHelper.GetConfigValue("AZURE_AI_SERVICES_KEY", configuration);
         var embeddingModelName = EnvironmentVariableHelper.GetConfigValue("AZURE_EMBEDDING_MODEL_NAME", configuration, "text-embedding-ada-002");
 
+        // Observability configuration
+        var otlpEndpoint = EnvironmentVariableHelper.GetConfigValue("OTEL_EXPORTER_OTLP_ENDPOINT", configuration);
+        var applicationInsightsConnectionString = EnvironmentVariableHelper.GetConfigValue("APPLICATIONINSIGHTS_CONNECTION_STRING", configuration)
+                                                  ?? configuration["ApplicationInsights:ConnectionString"];
+
         // Cosmos DB configuration
         var cosmosDbEndpoint = EnvironmentVariableHelper.GetConfigValue("COSMOS_DB_ENDPOINT", configuration);
         var cosmosDbConnectionString = EnvironmentVariableHelper.GetConfigValue("COSMOS_DB_CONNECTION_STRING", configuration);
@@ -69,6 +74,8 @@ public static class ConfigurationExtensions
             AzureAIServicesEndpoint = azureAiServicesEndpoint,
             AzureAIServicesKey = azureAiServicesKey,
             AzureEmbeddingModelName = embeddingModelName,
+            OtelExporterOtlpEndpoint = otlpEndpoint,
+            ApplicationInsightsConnectionString = applicationInsightsConnectionString,
             CosmosDbEndpoint = cosmosDbEndpoint,
             CosmosDbConnectionString = cosmosDbConnectionString,
             CosmosDbDatabaseName = cosmosDbDatabaseName,

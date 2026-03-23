@@ -2,12 +2,16 @@ using ContosoTravel.McpServer.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configure logging
-builder.Logging.ClearProviders();
-builder.Logging.AddConsole();
-
 // Load configuration and register services
 var config = builder.Services.LoadMcpServerConfig(builder.Configuration);
+
+// Configure logging and OpenTelemetry
+builder.ConfigureOpenTelemetry(
+    serviceName: "ContosoTravel.McpServer",
+    serviceVersion: "1.0.0",
+    otlpEndpoint: config.OtelExporterOtlpEndpoint,
+    applicationInsightsConnectionString: config.ApplicationInsightsConnectionString);
+
 builder.Services.AddCosmosDb(config);
 builder.Services.AddEmbeddingClient(config);
 

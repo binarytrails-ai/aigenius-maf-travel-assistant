@@ -65,20 +65,17 @@ resource rg 'Microsoft.Resources/resourceGroups@2022-09-01' = {
   tags: tags
 }
 
-// // Deploy shared resources (Log Analytics, App Insights, AI Search)
-// module shared 'modules/shared.bicep' = {
-//   scope: rg
-//   name: 'search-${uniqueSuffixValue}'
-//   params: {
-//     aiSearchName: resourceNames.aiSearch
-//     storageAccountName: resourceNames.storageAccount
-//     keyVaultName: resourceNames.keyVault
-//     location: location
-//     tags: tags
-//     logAnalyticsWorkspaceName: resourceNames.logAnalytics
-//     appInsightsName: resourceNames.appInsights
-//   }
-// }
+// Deploy shared resources (Log Analytics, App Insights)
+module shared 'modules/shared.bicep' = {
+  scope: rg
+  name: 'shared-${uniqueSuffixValue}'
+  params: {
+    location: location
+    tags: tags
+    logAnalyticsWorkspaceName: resourceNames.logAnalytics
+    appInsightsName: resourceNames.appInsights
+  }
+}
 
 //Create AI Foundry Account
 module aiFoundryAccount 'modules/ai-foundry-account.bicep' = {
@@ -200,6 +197,7 @@ module frontendIdentity 'modules/managed-identity.bicep' = {
   }
 }
 
+
 // Deploy Backend Container App
 module backendApp 'modules/containerapp.bicep' = {
   scope: rg
@@ -278,6 +276,10 @@ module backendApp 'modules/containerapp.bicep' = {
       {
         name: 'MCP_FLIGHT_SEARCH_TOOL_BASE_URL'
         value: mcpServerApp.outputs.uri
+      }
+      {
+        name: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
+        value: shared.outputs.appInsightsConnectionString
       }
       {
         name: 'PORT'
@@ -367,6 +369,10 @@ module mcpServerApp 'modules/containerapp.bicep' = {
         value: cosmosDb.outputs.chatHistoryContainerName
       }
       {
+        name: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
+        value: shared.outputs.appInsightsConnectionString
+      }
+      {
         name: 'PORT'
         value: '8080'
       }
@@ -417,14 +423,14 @@ module frontendApp 'modules/containerapp.bicep' = {
   }
 }
 
+
 output AZURE_LOCATION string = location
 output AZURE_TENANT_ID string = tenant().tenantId
 output AZURE_SUBSCRIPTION_ID string = subscription().subscriptionId
 output AZURE_RESOURCE_GROUP string = rg.name
-// output AZURE_STORAGE_ACCOUNT string = resourceNames.storageAccount
-// output AZURE_LOG_ANALYTICS_WORKSPACE_NAME string = shared.outputs.logAnalyticsWorkspaceName
-// output AZURE_APP_INSIGHTS_NAME string = shared.outputs.appInsightsName
-// output AZURE_APP_INSIGHTS_CONNECTION_STRING string = shared.outputs.appInsightsConnectionString
+output AZURE_LOG_ANALYTICS_WORKSPACE_NAME string = shared.outputs.logAnalyticsWorkspaceName
+output AZURE_APP_INSIGHTS_NAME string = shared.outputs.appInsightsName
+output AZURE_APP_INSIGHTS_CONNECTION_STRING string = shared.outputs.appInsightsConnectionString
 
 output AZURE_AI_PROJECT_NAME string = aiProject.outputs.name
 output AZURE_AI_PROJECT_ENDPOINT string = aiProject.outputs.endpoint
@@ -441,6 +447,7 @@ output MCP_FLIGHT_SEARCH_TOOL_BASE_URL string = mcpServerApp.outputs.uri
 
 output FRONTEND_URI string = frontendApp.outputs.uri
 output FRONTEND_APP_URL string = frontendApp.outputs.uri
+
 
 output AZURE_OPENAI_DEPLOYMENT_NAME string = chatCompletionModel
 output AZURE_TEXT_MODEL_NAME string = chatCompletionModel //TODO: to be removed when the notebook is updated
