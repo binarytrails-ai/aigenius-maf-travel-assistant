@@ -1,9 +1,10 @@
-﻿using Microsoft.Agents.AI;
-using Microsoft.Extensions.AI;
+﻿using ContosoTravelAgent.Host.Tools;
+using Microsoft.Agents.AI;
 using Microsoft.Azure.Cosmos;
+using Microsoft.Extensions.AI;
+using ModelContextProtocol.Client;
 using OpenAI.Embeddings;
 using System.Text.Json;
-using ModelContextProtocol.Client;
 
 namespace ContosoTravelAgent.Host.Agents;
 
@@ -86,7 +87,6 @@ public class ContosoTravelAgentBuilder
 
     ## RESPONSE FORMAT EXAMPLES
 
-    **Example 1: First-time user (no profile preferences yet)**
     User: "I want to plan a trip"
     Assistant: "I'd love to help! What's your budget for this trip?"
     User: "Usually around $2,000"
@@ -111,9 +111,7 @@ public class ContosoTravelAgentBuilder
 
     public async Task<AIAgent> CreateAsync()
     {
-        // Get MCP tools from the flight search server
         var mcpTools = await _mcpClient.ListToolsAsync();
-
         AIAgent agent = _chatClient.AsAIAgent(new ChatClientAgentOptions
         {
             Name = Constants.AgentName,
@@ -121,7 +119,13 @@ public class ContosoTravelAgentBuilder
             {
                 ResponseFormat = ChatResponseFormat.Text,
                 Instructions = AgentInstructions,
-                Tools = [.. mcpTools]
+                Tools = [
+                        AIFunctionFactory.Create(UserContextTools.GetUserContext),
+                        AIFunctionFactory.Create(DateTimeTools.GetCurrentDate),
+                        AIFunctionFactory.Create(DateTimeTools.CalculateDateDifference),
+                        AIFunctionFactory.Create(DateTimeTools.ValidateTravelDates),
+                        AIFunctionFactory.Create(DateTimeTools.ValidateTravelDates),
+                        .. mcpTools]
             },
         });
 
@@ -130,6 +134,6 @@ public class ContosoTravelAgentBuilder
             options.EnableSensitiveData = true;
         }).UseLogging(_loggerFactory).Build();
 
-        return agent;
+        return new ServerFunctionApprovalAgent(agent, _jsonSerializerOptions);
     }
 }
