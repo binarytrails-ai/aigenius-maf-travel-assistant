@@ -89,13 +89,12 @@ public class ContosoTravelAgentBuilder
 
         var tools = await GetTools();
 
-        // Single skills provider that discovers all skills under the skills directory
-        var skillsPath = Path.Combine(Directory.GetCurrentDirectory(), "skills");
         var logger = _loggerFactory.CreateLogger<ContosoTravelAgentBuilder>();
-        logger.LogInformation("Skills path: {SkillsPath}", skillsPath);
-        logger.LogInformation("Skills directory exists: {Exists}", Directory.Exists(skillsPath));
 
-        var skillsProvider = new FileAgentSkillsProvider(skillPath: skillsPath, loggerFactory: _loggerFactory);
+        var skillsProvider = new FileAgentSkillsProvider(skillPaths: [
+        Path.Combine(AppContext.BaseDirectory, "skills/flight-booking"),
+        Path.Combine(AppContext.BaseDirectory, "skills/travel-advise")],
+        loggerFactory: _loggerFactory);
 
         var userProfileMemoryProvider = GetUserProfileMemoryProvider(userId);
         var contextProviders = new List<AIContextProvider> { skillsProvider, userProfileMemoryProvider };
