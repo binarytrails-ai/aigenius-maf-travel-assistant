@@ -19,6 +19,9 @@ param flightsContainerName string = 'Flights'
 @description('Cosmos DB container name for bookings')
 param bookingsContainerName string = 'Bookings'
 
+@description('Cosmos DB container name for user profiles')
+param userProfileContainerName string = 'UserProfiles'
+
 @description('Vector embedding dimensions')
 param vectorDimensions int = 3072
 
@@ -160,9 +163,44 @@ resource flightsContainer 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/co
   }
 }
 
+resource userProfileContainer 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2024-05-15' = {
+  parent: database
+  name: userProfileContainerName
+  properties: {
+    resource: {
+      id: userProfileContainerName
+      partitionKey: {
+        paths: [
+          '/UserId'
+        ]
+        kind: 'Hash'
+        version: 2
+      }
+      indexingPolicy: {
+        indexingMode: 'consistent'
+        automatic: true
+        includedPaths: [
+          {
+            path: '/*'
+          }
+        ]
+        excludedPaths: [
+          {
+            path: '/"_etag"/?'
+          }
+        ]
+      }
+    }
+    options: {
+      throughput: 400
+    }
+  }
+}
+
 output cosmosDbAccountId string = cosmosDbAccount.id
 output cosmosDbAccountName string = cosmosDbAccount.name
 output cosmosDbEndpoint string = cosmosDbAccount.properties.documentEndpoint
 output cosmosDbConnectionString string = cosmosDbAccount.listConnectionStrings().connectionStrings[0].connectionString
 output cosmosDbDatabaseName string = cosmosDbDatabaseName
 output chatHistoryContainerName string = chatHistoryContainerName
+output userProfileContainerName string = userProfileContainerName

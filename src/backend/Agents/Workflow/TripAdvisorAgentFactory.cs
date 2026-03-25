@@ -1,3 +1,4 @@
+using ContosoTravelAgent.Host.Models;
 using ContosoTravelAgent.Host.Services;
 using ContosoTravelAgent.Host.Tools;
 using Microsoft.Agents.AI;
@@ -14,12 +15,14 @@ public class TripAdvisorAgentFactory
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly Database? _cosmosDatabase;
     private readonly ILoggerFactory _loggerFactory;
+    private readonly ContosoTravelAppConfig _config;
 
     public TripAdvisorAgentFactory(
         IChatClient chatClient,
         EmbeddingClient embeddingClient,
         IHttpContextAccessor httpContextAccessor,
         ILoggerFactory loggerFactory,
+        ContosoTravelAppConfig config,
         Database? cosmosDatabase = null)
     {
         _chatClient = chatClient;
@@ -27,6 +30,7 @@ public class TripAdvisorAgentFactory
         _httpContextAccessor = httpContextAccessor;
         _cosmosDatabase = cosmosDatabase;
         _loggerFactory = loggerFactory;
+        _config = config;
     }
 
     private const string AgentInstructions = """
@@ -145,11 +149,14 @@ public class TripAdvisorAgentFactory
 
         var userProfileMemoryProvider = new UserProfileMemoryProvider(
             _chatClient,
+            _cosmosDatabase!,
+            _config.CosmosDbUserProfileContainer ?? "UserProfiles",
             new UserProfileMemoryProviderScope
             {
                 UserId = userId,
                 ApplicationId = Constants.ApplicationId
-            });
+            },
+            loggerFactory: _loggerFactory);
 
         var chatHistoryMemoryProvider = new CosmosDbChatHistoryProvider(
             _cosmosDatabase.Client,

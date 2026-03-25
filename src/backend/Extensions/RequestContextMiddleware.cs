@@ -32,6 +32,8 @@ internal sealed class RequestContextMiddleware
                     _logger.LogInformation("Extracted ThreadId: {ThreadId}", threadId);
                     // Store threadId in HttpContext.Items for use in agent/middleware
                     context.Items["ThreadId"] = threadId;
+                    // Use threadId as UserId for user profile tracking (each conversation thread is a user session)
+                    context.Items["UserId"] = threadId;
                 }
             }
             catch (Exception ex)

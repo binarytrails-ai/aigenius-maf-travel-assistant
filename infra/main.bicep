@@ -274,6 +274,10 @@ module backendApp 'modules/containerapp.bicep' = {
         value: cosmosDb.outputs.chatHistoryContainerName
       }
       {
+        name: 'COSMOS_DB_USER_PROFILE_CONTAINER'
+        value: cosmosDb.outputs.userProfileContainerName
+      }
+      {
         name: 'MCP_FLIGHT_SEARCH_TOOL_BASE_URL'
         value: mcpServerApp.outputs.uri
       }
@@ -457,6 +461,7 @@ output COSMOS_DB_ENDPOINT string = cosmosDb.outputs.cosmosDbEndpoint
 output COSMOS_DB_CONNECTION_STRING string = cosmosDb.outputs.cosmosDbConnectionString
 output COSMOS_DB_DATABASE_NAME string = cosmosDb.outputs.cosmosDbDatabaseName
 output COSMOS_DB_CHAT_HISTORY_CONTAINER string = cosmosDb.outputs.chatHistoryContainerName
+output COSMOS_DB_USER_PROFILE_CONTAINER string = cosmosDb.outputs.userProfileContainerName
 
 output AZURE_CONTAINER_REGISTRY_NAME string = containerRegistry.outputs.name
 output AZURE_CONTAINER_REGISTRY_ENDPOINT string = containerRegistry.outputs.loginServer

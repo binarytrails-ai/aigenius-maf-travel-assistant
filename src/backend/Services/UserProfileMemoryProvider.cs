@@ -1,7 +1,8 @@
 using ContosoTravelAgent.Host.Models;
 using Microsoft.Agents.AI;
+using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.AI;
-using System.Collections.Concurrent;
+using System.Net;
 using System.Text;
 using System.Text.Json;
 
@@ -10,10 +11,10 @@ namespace ContosoTravelAgent.Host.Services;
 internal sealed class UserProfileMemoryProvider : AIContextProvider
 {
     private const string DefaultContextPrompt = "=== TRAVELER PROFILE ===";
-    private static readonly ConcurrentDictionary<string, UserProfileMemory> _profileStore = new();
 
     private readonly IChatClient _chatClient;
-    private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly Database _cosmosDatabase;
+    private readonly string _containerName;
     private readonly string _contextPrompt;
     private readonly ILogger<UserProfileMemoryProvider>? _logger;
     private readonly UserProfileMemoryProviderScope _scope;
@@ -22,48 +23,125 @@ internal sealed class UserProfileMemoryProvider : AIContextProvider
     /// Initializes a new instance of the <see cref="UserProfileMemoryProvider"/> class.
     /// </summary>
     /// <param name="chatClient">The chat client for AI operations.</param>
+    /// <param name="cosmosDatabase">The Cosmos DB database.</param>
+    /// <param name="containerName">The container name for user profiles.</param>
     /// <param name="scope">Scope values to key the user information storage.</param>
     /// <param name="options">Provider options.</param>
     /// <param name="loggerFactory">Optional logger factory.</param>
     public UserProfileMemoryProvider(
         IChatClient chatClient,
+        Database cosmosDatabase,
+        string containerName,
         UserProfileMemoryProviderScope scope,
         UserProfileMemoryProviderOptions? options = null,
         ILoggerFactory? loggerFactory = null)
     {
         this._chatClient = chatClient ?? throw new ArgumentNullException(nameof(chatClient));
+        this._cosmosDatabase = cosmosDatabase ?? throw new ArgumentNullException(nameof(cosmosDatabase));
+        this._containerName = containerName ?? throw new ArgumentNullException(nameof(containerName));
         this._scope = new UserProfileMemoryProviderScope(scope);
         this._logger = loggerFactory?.CreateLogger<UserProfileMemoryProvider>();
         this._contextPrompt = options?.ContextPrompt ?? DefaultContextPrompt;
 
-        if (string.IsNullOrWhiteSpace(this._scope.ApplicationId)
-            && string.IsNullOrWhiteSpace(this._scope.AgentId)
-            && string.IsNullOrWhiteSpace(this._scope.UserId))
+        if (string.IsNullOrWhiteSpace(this._scope.UserId))
         {
-            throw new ArgumentException("At least one of ApplicationId, AgentId, or UserId must be provided for the scope.");
+            throw new ArgumentException("UserId must be provided for the scope.", nameof(scope));
         }
     }
 
-    public UserProfileMemory Profile
+    /// <summary>
+    /// Gets the user profile from Cosmos DB.
+    /// </summary>
+    private async Task<UserProfileMemory> GetProfileAsync(CancellationToken cancellationToken = default)
     {
-        get
+        try
         {
-            string key = this.GetStorageKey();
-            return _profileStore.GetOrAdd(key, _ => new UserProfileMemory());
+            var container = this._cosmosDatabase.GetContainer(this._containerName);
+            string documentId = this.GetDocumentId();
+            string partitionKey = this._scope.UserId!;
+
+            var response = await container.ReadItemAsync<UserProfileMemory>(
+                documentId,
+                new PartitionKey(partitionKey),
+                cancellationToken: cancellationToken);
+
+            return response.Resource;
         }
-        set
+        catch (CosmosException ex) when (ex.StatusCode == HttpStatusCode.NotFound)
         {
-            string key = this.GetStorageKey();
-            _profileStore[key] = value;
+            // Profile doesn't exist yet, create a new one
+            var newProfile = new UserProfileMemory
+            {
+                Id = this.GetDocumentId(),
+                UserId = this._scope.UserId,
+                ApplicationId = this._scope.ApplicationId,
+                AgentId = this._scope.AgentId
+            };
+            
+            return newProfile;
         }
+    }
+
+    /// <summary>
+    /// Saves the user profile to Cosmos DB.
+    /// </summary>
+    private async Task SaveProfileAsync(UserProfileMemory profile, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            var container = this._cosmosDatabase.GetContainer(this._containerName);
+            string partitionKey = this._scope.UserId!;
+
+            // Ensure the profile has the correct metadata
+            profile.Id = this.GetDocumentId();
+            profile.UserId = this._scope.UserId;
+            profile.ApplicationId = this._scope.ApplicationId;
+            profile.AgentId = this._scope.AgentId;
+
+            await container.UpsertItemAsync(
+                profile,
+                new PartitionKey(partitionKey),
+                cancellationToken: cancellationToken);
+        }
+        catch (CosmosException ex)
+        {
+            if (this._logger?.IsEnabled(LogLevel.Error) is true)
+            {
+                this._logger.LogError(
+                    ex,
+                    "UserProfileMemoryProvider: Failed to save profile to Cosmos DB. UserId: '{UserId}'.",
+                    this._scope.UserId);
+            }
+            throw;
+        }
+    }
+
+    /// <summary>
+    /// Gets the document ID based on the current scope.
+    /// </summary>
+    private string GetDocumentId()
+    {
+        // Use UserId as the primary identifier, with optional ApplicationId and AgentId
+        var parts = new List<string> { this._scope.UserId! };
+        
+        if (!string.IsNullOrWhiteSpace(this._scope.ApplicationId))
+        {
+            parts.Add(this._scope.ApplicationId);
+        }
+        
+        if (!string.IsNullOrWhiteSpace(this._scope.AgentId))
+        {
+            parts.Add(this._scope.AgentId);
+        }
+
+        return string.Join("_", parts);
     }
 
     /// <summary>
     /// Checks if the current profile has incomplete information.
     /// </summary>
-    private bool HasIncompleteProfile()
+    private bool HasIncompleteProfile(UserProfileMemory profile)
     {
-        UserProfileMemory profile = this.Profile;
         return string.IsNullOrEmpty(profile.TravelStyle)
             || string.IsNullOrEmpty(profile.BudgetRange)
             || profile.Interests?.Any() != true
@@ -80,8 +158,11 @@ internal sealed class UserProfileMemoryProvider : AIContextProvider
 
         try
         {
+            // Get current profile from Cosmos DB
+            UserProfileMemory currentProfile = await this.GetProfileAsync(cancellationToken);
+
             // Only extract if we have user messages and missing profile data
-            if (context.RequestMessages.Any(x => x.Role == ChatRole.User) && this.HasIncompleteProfile())
+            if (context.RequestMessages.Any(x => x.Role == ChatRole.User) && this.HasIncompleteProfile(currentProfile))
             {
                 if (this._logger?.IsEnabled(LogLevel.Debug) is true)
                 {
@@ -145,7 +226,6 @@ internal sealed class UserProfileMemoryProvider : AIContextProvider
                     """
                     }, cancellationToken: cancellationToken);
 
-                UserProfileMemory currentProfile = this.Profile;
                 bool profileUpdated = false;
 
                 // Update travel style (only if not set or explicitly changed)
@@ -227,10 +307,11 @@ internal sealed class UserProfileMemoryProvider : AIContextProvider
                     }
                 }
 
-                // Save updated profile to store
+                // Save updated profile to Cosmos DB
                 if (profileUpdated)
                 {
-                    this.Profile = currentProfile;
+                    await this.SaveProfileAsync(currentProfile, cancellationToken);
+                    
                     if (this._logger?.IsEnabled(LogLevel.Information) is true)
                     {
                         this._logger.LogInformation(
@@ -266,11 +347,12 @@ internal sealed class UserProfileMemoryProvider : AIContextProvider
         }
     }
 
-    protected override ValueTask<AIContext> ProvideAIContextAsync(InvokingContext context, CancellationToken cancellationToken = default)
+    protected override async ValueTask<AIContext> ProvideAIContextAsync(InvokingContext context, CancellationToken cancellationToken = default)
     {
         try
         {
-            UserProfileMemory profile = this.Profile;
+            // Get profile from Cosmos DB
+            UserProfileMemory profile = await this.GetProfileAsync(cancellationToken);
             StringBuilder instructions = new();
 
             // Check if we have meaningful profile data
@@ -352,13 +434,13 @@ internal sealed class UserProfileMemoryProvider : AIContextProvider
                     }
                 }
 
-                return new ValueTask<AIContext>(new AIContext
+                return new AIContext
                 {
                     Instructions = injectedInstructions
-                });
+                };
             }
 
-            return new ValueTask<AIContext>(new AIContext());
+            return new AIContext();
         }
         catch (Exception ex)
         {
@@ -371,16 +453,8 @@ internal sealed class UserProfileMemoryProvider : AIContextProvider
                     this._scope.AgentId,
                     this._scope.UserId);
             }
-            return new ValueTask<AIContext>(new AIContext());
+            return new AIContext();
         }
-    }
-
-    /// <summary>
-    /// Gets the composite storage key based on the current scope.
-    /// </summary>
-    private string GetStorageKey()
-    {
-        return $"{this._scope.ApplicationId ?? "null"}|{this._scope.AgentId ?? "null"}|{this._scope.UserId ?? "null"}";
     }
 }
 

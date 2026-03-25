@@ -1,3 +1,4 @@
+using ContosoTravelAgent.Host.Models;
 using ContosoTravelAgent.Host.Services;
 using ContosoTravelAgent.Host.Tools;
 using Microsoft.Agents.AI;
@@ -14,6 +15,8 @@ public class FlightSearchAgentFactory
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly JsonSerializerOptions _jsonSerializerOptions;
     private readonly ILoggerFactory _loggerFactory;
+    private readonly Database? _cosmosDatabase;
+    private readonly ContosoTravelAppConfig _config;
 
     public FlightSearchAgentFactory(
         IChatClient chatClient,
@@ -21,6 +24,7 @@ public class FlightSearchAgentFactory
         JsonSerializerOptions jsonSerializerOptions,
         IHttpContextAccessor httpContextAccessor,
         ILoggerFactory loggerFactory,
+        ContosoTravelAppConfig config,
         Database? cosmosDatabase = null)
     {
         _chatClient = chatClient;
@@ -28,6 +32,8 @@ public class FlightSearchAgentFactory
         _jsonSerializerOptions = jsonSerializerOptions;
         _httpContextAccessor = httpContextAccessor;
         _loggerFactory = loggerFactory;
+        _cosmosDatabase = cosmosDatabase;
+        _config = config;
     }
 
     private const string AgentInstructions = """
@@ -138,11 +144,14 @@ public class FlightSearchAgentFactory
             },
             AIContextProviders = [new UserProfileMemoryProvider(
                 _chatClient,
+                _cosmosDatabase!,
+                _config.CosmosDbUserProfileContainer ?? "UserProfiles",
                 new UserProfileMemoryProviderScope
                 {
                     UserId = userId,
                     ApplicationId = Constants.ApplicationId
-                })]
+                },
+                loggerFactory: _loggerFactory)]
         }, _loggerFactory);
 
         return new ServerFunctionApprovalAgent(agent, _jsonSerializerOptions);

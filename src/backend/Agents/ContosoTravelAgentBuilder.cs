@@ -1,5 +1,7 @@
 ﻿#pragma warning disable MAAI001 // FileAgentSkillsProvider is experimental
 
+using ContosoTravelAgent.Host.Models;
+using ContosoTravelAgent.Host.Services;
 using ContosoTravelAgent.Host.Tools;
 using Microsoft.Agents.AI;
 using Microsoft.Azure.Cosmos;
@@ -19,6 +21,7 @@ public class ContosoTravelAgentBuilder
     private readonly Database? _cosmosDatabase;
     private readonly ILoggerFactory _loggerFactory;
     private readonly McpClient _mcpClient;
+    private readonly ContosoTravelAppConfig _config;
 
     /// <summary>
     /// Initializes a new instance of the ContosoTravelAgentFactory class.
@@ -28,6 +31,8 @@ public class ContosoTravelAgentBuilder
     /// <param name="httpContextAccessor">HTTP context accessor.</param>
     /// <param name="jsonSerializerOptions">JSON serialization options.</param>
     /// <param name="loggerFactory">Logger factory.</param>
+    /// <param name="sp">Service provider for resolving dependencies.</param>
+    /// <param name="config">Application configuration.</param>
     /// <param name="cosmosDatabase">Cosmos DB database instance (optional).</param>
     public ContosoTravelAgentBuilder(
         IChatClient chatClient,
@@ -35,7 +40,8 @@ public class ContosoTravelAgentBuilder
         IHttpContextAccessor httpContextAccessor,
         JsonSerializerOptions jsonSerializerOptions,
         ILoggerFactory loggerFactory,
-       IServiceProvider sp,
+        IServiceProvider sp,
+        ContosoTravelAppConfig config,
         Database? cosmosDatabase = null)
     {
         _chatClient = chatClient;
@@ -45,6 +51,7 @@ public class ContosoTravelAgentBuilder
         _cosmosDatabase = cosmosDatabase;
         _loggerFactory = loggerFactory;
         _mcpClient = sp.GetRequiredKeyedService<McpClient>("mcp-contoso-travel");
+        _config = config;
     }
 
     private const string AgentInstructions = """
@@ -134,9 +141,32 @@ public class ContosoTravelAgentBuilder
             }
         }
         
+        // Get userId from HttpContext (fallback to threadId or default-user)
+        string userId = _httpContextAccessor.HttpContext?.Items["UserId"] as string 
+            ?? _httpContextAccessor.HttpContext?.Items["ThreadId"] as string 
+            ?? "default-user";
+        
         // Initialize skills provider for progressive disclosure
         var skillsPath = Path.Combine(Directory.GetCurrentDirectory(), "skills");
         var skillsProvider = new FileAgentSkillsProvider(skillPath: skillsPath);
+        
+        // Initialize context providers list
+        var contextProviders = new List<AIContextProvider> { skillsProvider };
+        
+        // Add UserProfileMemoryProvider if Cosmos DB is available
+        if (_cosmosDatabase != null)
+        {
+            contextProviders.Add(new UserProfileMemoryProvider(
+                _chatClient,
+                _cosmosDatabase,
+                _config.CosmosDbUserProfileContainer ?? "UserProfiles",
+                new UserProfileMemoryProviderScope
+                {
+                    UserId = userId,
+                    ApplicationId = Constants.ApplicationId
+                },
+                loggerFactory: _loggerFactory));
+        }
         
         AIAgent agent = _chatClient.AsAIAgent(new ChatClientAgentOptions
         {
@@ -153,7 +183,7 @@ public class ContosoTravelAgentBuilder
                         AIFunctionFactory.Create(DateTimeTools.ValidateTravelDates),
                         .. processedTools]
             },
-            AIContextProviders = [skillsProvider],
+            AIContextProviders = contextProviders,
         });
 
         agent = agent.AsBuilder().UseOpenTelemetry(Constants.ApplicationId, options =>
