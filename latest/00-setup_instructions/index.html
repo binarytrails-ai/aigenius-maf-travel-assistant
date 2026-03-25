@@ -350,28 +350,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#optional-set-up-aspire-dashboard-for-observability" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        (Optional) Set Up Aspire Dashboard for Observability
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#completed-source-code" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Completed Source Code
-      
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -624,28 +602,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#optional-set-up-aspire-dashboard-for-observability" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        (Optional) Set Up Aspire Dashboard for Observability
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#completed-source-code" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Completed Source Code
-      
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -737,11 +693,51 @@
 </ol>
 <hr>
 <h2 id="running-the-application-locally">Running the Application Locally<a class="headerlink" href="#running-the-application-locally" title="Permanent link">¶</a></h2>
-<p>To work through the labs, you need to run both the backend (.NET) and frontend (React) applications simultaneously.</p>
-<h3 id="1-start-the-backend-server">1. Start the Backend Server<a class="headerlink" href="#1-start-the-backend-server" title="Permanent link">¶</a></h3>
+<p>You have two options to run the application: using .NET Aspire (recommended) or starting each service manually.</p>
+<h3 id="option-a-using-net-aspire-recommended">Option A: Using .NET Aspire (Recommended)<a class="headerlink" href="#option-a-using-net-aspire-recommended" title="Permanent link">¶</a></h3>
+<p>.NET Aspire orchestrates all services (MCP server, backend, and frontend) with a single command and provides a dashboard for monitoring.</p>
+<ol>
+<li>
+<p><strong>Build the frontend application:</strong></p>
+<p>Navigate to the frontend folder and build the application:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>src/frontend
+npm<span class="w"> </span>install
+npm<span class="w"> </span>run<span class="w"> </span>build
+</code></pre></div>
+</li>
+<li>
+<p><strong>Start the Aspire AppHost:</strong></p>
+<p>Navigate to the AppHost folder and run the application:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>src/ContosoTravel.AppHost
+dotnet<span class="w"> </span>run
+</code></pre></div>
+<p>This will start all services and open the .NET Aspire dashboard in your browser, where you can:</p>
+<ul>
+<li>View logs from all services</li>
+<li>Monitor resource usage</li>
+<li>Access endpoints for each service</li>
+</ul>
+</li>
+</ol>
+<h3 id="option-b-manual-startup-individual-services">Option B: Manual Startup (Individual Services)<a class="headerlink" href="#option-b-manual-startup-individual-services" title="Permanent link">¶</a></h3>
+<p>If you prefer to start each service individually, follow these steps:</p>
+<h4 id="1-start-the-mcp-server">1. Start the MCP Server<a class="headerlink" href="#1-start-the-mcp-server" title="Permanent link">¶</a></h4>
 <ul>
 <li>
-<p>Navigate to the backend folder:</p>
+<p>Navigate to the MCP server folder:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>src/mcp
+</code></pre></div>
+</li>
+<li>
+<p>Start the MCP server by running the following command:</p>
+<div class="highlight"><pre><span></span><code>dotnet<span class="w"> </span>run
+</code></pre></div>
+</li>
+</ul>
+<h4 id="2-start-the-backend-server">2. Start the Backend Server<a class="headerlink" href="#2-start-the-backend-server" title="Permanent link">¶</a></h4>
+<ul>
+<li>
+<p>In a separate terminal, navigate to the backend folder:</p>
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>src/backend
 </code></pre></div>
 </li>
@@ -751,7 +747,7 @@
 </code></pre></div>
 </li>
 </ul>
-<h3 id="2-start-the-frontend-development-server">2. Start the Frontend Development Server<a class="headerlink" href="#2-start-the-frontend-development-server" title="Permanent link">¶</a></h3>
+<h4 id="3-start-the-frontend-server">3. Start the Frontend Server<a class="headerlink" href="#3-start-the-frontend-server" title="Permanent link">¶</a></h4>
 <ul>
 <li>
 <p>In a separate terminal, navigate to the frontend folder by running the following command:</p>
@@ -780,7 +776,9 @@
 <li><strong>GitHub Codespaces</strong>: When the frontend starts, Codespaces will automatically forward port 3000. 
         Go to the <strong>Ports</strong> panel in VS Code, find port <strong>3000</strong>, and click the <strong>globe icon</strong> (🌐) to open the frontend in your browser.</li>
 </ul>
-<h3 id="3-test-your-setup">3. Test Your Setup<a class="headerlink" href="#3-test-your-setup" title="Permanent link">¶</a></h3>
+<hr>
+<h3 id="test-your-setup">Test Your Setup<a class="headerlink" href="#test-your-setup" title="Permanent link">¶</a></h3>
+<p>Regardless of which option you chose, verify that everything is working correctly:</p>
 <ul>
 <li>
 <p><strong>API Testing</strong>: Navigate to the file <code>src/backend/ContosoTravelAgent.http</code> in the code repository.</p>
@@ -792,18 +790,6 @@
 <p>Send a few messages to verify that the frontend and backend are communicating correctly.</p>
 </li>
 </ul>
-<hr>
-<h2 id="optional-set-up-aspire-dashboard-for-observability">(Optional) Set Up Aspire Dashboard for Observability<a class="headerlink" href="#optional-set-up-aspire-dashboard-for-observability" title="Permanent link">¶</a></h2>
-<p>The .NET Aspire Dashboard provides a web-based UI for viewing OpenTelemetry traces, metrics, and logs in real-time. This is useful for monitoring your agent's behavior and debugging .</p>
-<p>Refer to the <a href="../Resources/aspire-dashboard-setup/">Aspire Dashboard Setup Guide</a> for detailed instructions on how to set up the dashboard locally using Docker.</p>
-<div class="admonition warning">
-<p class="admonition-title">GitHub Codespaces Limitations</p>
-<p>Running Docker containers in GitHub Codespaces may have limitations depending on your configuration. If you encounter issues running the Aspire Dashboard in Codespaces, you can skip this optional step and still complete all labs. The dashboard provides enhanced observability but is not required.</p>
-</div>
-<hr>
-<h2 id="completed-source-code">Completed Source Code<a class="headerlink" href="#completed-source-code" title="Permanent link">¶</a></h2>
-<p>The complete source code for all labs is available in the <code>completed</code> branch of the repository. You can switch to this branch at any time to view the final implementation.</p>
-<p><a href="https://github.com/binarytrails-ai/aigenius-maf-travel-assistant/tree/completed"><img alt="View Completed Code" src="https://img.shields.io/badge/View%20Completed%20Code-blue?logo=github&amp;style=for-the-badge"></a></p>
 <hr>
 
 
