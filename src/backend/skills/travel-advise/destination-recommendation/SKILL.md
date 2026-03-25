@@ -1,6 +1,6 @@
 ---
 name: destination-recommendation
-description: Suggests travel destinations within Australia and New Zealand based on preferences, budget, season, and interests with detailed information about each location
+description: Suggests travel destinations based on preferences, budget, season, and interests with detailed information about each location. Use this skill to help travelers plan their trips
 ---
 
 # Destination Recommendation Skill
@@ -10,6 +10,7 @@ You have access to destination information and travel planning tools to help tra
 ## When to Use This Skill
 
 Use this skill when the traveler:
+- Wants to plan a trip
 - Is unsure where to travel within Australia or New Zealand
 - Wants destination suggestions based on specific criteria
 - Asks "Where should I go?" or "What are good places to visit?"
