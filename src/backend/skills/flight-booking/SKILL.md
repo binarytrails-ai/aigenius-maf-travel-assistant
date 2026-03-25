@@ -1,6 +1,6 @@
 ---
 name: flight-booking
-description: Search for flights, present options, and handle flight bookings
+description: Load this skill when users ask to search for flights, compare flight options, or book flights. Handles flight search and booking capabilities.
 ---
 
 # Flight Booking Skill

@@ -94,7 +94,7 @@ try
     // var response1 = await agent.RunAsync(query1, session);
     // appLogger.LogInformation("Agent: {Response}", response1.Text);
 
-    // Example 2: Visa requirements (agent will load visa-recommendation skill)
+    // Example 2: Visa requirements (agent will load visa-assistance skill)
     appLogger.LogInformation("");
     appLogger.LogInformation("Example 2: Visa requirements");
     appLogger.LogInformation("----------------------------");
@@ -103,7 +103,7 @@ try
     var response2 = await agent.RunAsync(query2, session);
     appLogger.LogInformation("Agent: {Response}", response2.Text);
 
-    // // Example 3: Destination recommendation (agent will load destination-recommendation skill)
+    // // Example 3: Destination recommendation (agent will load trip-planner skill)
     // appLogger.LogInformation("");
     // appLogger.LogInformation("Example 3: Destination recommendations");
     // appLogger.LogInformation("--------------------------------------");
@@ -112,11 +112,11 @@ try
     // var response3 = await agent.RunAsync(query3, session);
     // appLogger.LogInformation("Agent: {Response}", response3.Text);
 
-    // // Example 4: Multi-skill query (combines weather, visa, and destination skills)
+    // // Example 4: Multi-skill query (combines weather, visa, and trip-planner skills)
     // appLogger.LogInformation("");
     // appLogger.LogInformation("Example 4: Combined travel planning");
     // appLogger.LogInformation("------------------------------------");
-    // var query4 = "I want to visit Singapore in March. What's the weather like, do I need a visa if I'm from the UK, and what are the must-see attractions?";
+    // var query4 = "I want to visit New Zealand in March. What's the weather like, do I need a visa if I'm from the UK, and what are the must-see attractions?";
     // appLogger.LogInformation("User: {Query}", query4);
     // var response4 = await agent.RunAsync(query4, session);
     // appLogger.LogInformation("Agent: {Response}", response4.Text);

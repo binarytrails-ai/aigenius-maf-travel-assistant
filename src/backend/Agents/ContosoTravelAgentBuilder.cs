@@ -70,7 +70,6 @@ public class ContosoTravelAgentBuilder
     - Show genuine enthusiasm about helping travelers explore
     - Be concise for simple queries, detailed when planning requires it
     - Paint vivid pictures of destinations to inspire travelers
-    - When you lack specific information, consult your skills and tools
 
     ## RESPONSE GUIDELINES
     - Gather necessary context before making recommendations
@@ -91,11 +90,14 @@ public class ContosoTravelAgentBuilder
 
         var logger = _loggerFactory.CreateLogger<ContosoTravelAgentBuilder>();
 
-        var skillsProvider = new FileAgentSkillsProvider(skillPaths: [
-        Path.Combine(AppContext.BaseDirectory, "skills/flight-booking"),
-        Path.Combine(AppContext.BaseDirectory, "skills/travel-advise")],
-        loggerFactory: _loggerFactory);
+        var skillPaths = new[]
+        {
+            Path.Combine(AppContext.BaseDirectory, "skills/flight-booking"),
+            Path.Combine(AppContext.BaseDirectory, "skills/trip-planner"),
+            Path.Combine(AppContext.BaseDirectory, "skills/visa-assistance")
+        };
 
+        var skillsProvider = new FileAgentSkillsProvider(skillPaths: skillPaths, loggerFactory: _loggerFactory);
         var userProfileMemoryProvider = GetUserProfileMemoryProvider(userId);
         var contextProviders = new List<AIContextProvider> { skillsProvider, userProfileMemoryProvider };
 

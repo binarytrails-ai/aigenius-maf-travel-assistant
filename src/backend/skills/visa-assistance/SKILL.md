@@ -1,11 +1,11 @@
 ---
-name: visa-recommendation
-description: Provides visa requirements, entry regulations, and travel document guidance for international destinations
+name: visa-assistance
+description: Load this skill when users ask about visas, entry requirements, travel documents, or passport validity. Provides comprehensive visa requirements and entry regulations for international destinations.
 ---
 
-# Visa Recommendation Skill
+# Visa Assistance Skill
 
-You have access to visa requirement information and entry regulations to help travelers understand what documents they need for international travel. Reference the [visa requirements documentation](references/VISA_REQUIREMENTS.md) for detailed country-specific information.
+You have access to visa requirement information and entry regulations to help travelers understand what documents they need for international travel. Reference the [visa requirements documentation](references/visa-requirements.md) for detailed country-specific information.
 
 ## When to Use This Skill
 

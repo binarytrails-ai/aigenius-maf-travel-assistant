@@ -32,9 +32,9 @@ Skills are under the `./skills` folder, one sub-directory per skill:
 skills/
   weather-info/
     SKILL.md          ← name, description, and instructions
-  visa-recommendation/
+  visa-assistance/
     SKILL.md
-  destination-recommendation/
+  trip-planner/
     SKILL.md
 ```
 
