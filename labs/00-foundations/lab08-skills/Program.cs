@@ -57,7 +57,7 @@ if (chatClient == null)
 //   2. Load - full instructions loaded on-demand via load_skill tool
 //   3. Read resources - supplementary files loaded via read_skill_resource tool
 var skillsProvider = new FileAgentSkillsProvider(
-    skillPath: Path.Combine(Directory.GetCurrentDirectory(), "labs/00-foundations/lab07-skills/skills"));
+    skillPath: Path.Combine(Directory.GetCurrentDirectory(), "labs/00-foundations/lab08-skills/skills"));
 
 appLogger.LogInformation("FileAgentSkillsProvider created, discovering skills from ./skills directory");
 
