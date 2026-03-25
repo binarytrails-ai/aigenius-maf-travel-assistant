@@ -87,11 +87,58 @@ Before running the application, you should load your database with sample data w
 
 ## Running the Application Locally
 
-To work through the labs, you need to run both the backend (.NET) and frontend (React) applications simultaneously.
+You have two options to run the application: using .NET Aspire (recommended) or starting each service manually.
 
-### 1. Start the Backend Server
+### Option A: Using .NET Aspire (Recommended)
 
-- Navigate to the backend folder:
+.NET Aspire orchestrates all services (MCP server, backend, and frontend) with a single command and provides a dashboard for monitoring.
+
+1. **Build the frontend application:**
+
+    Navigate to the frontend folder and build the application:
+
+    ```bash
+    cd src/frontend
+    npm install
+    npm run build
+    ```
+
+2. **Start the Aspire AppHost:**
+
+    Navigate to the AppHost folder and run the application:
+
+    ```bash
+    cd src/ContosoTravel.AppHost
+    dotnet run
+    ```
+
+    This will start all services and open the .NET Aspire dashboard in your browser, where you can:
+
+    - View logs from all services
+    - Monitor resource usage
+    - Access endpoints for each service
+
+### Option B: Manual Startup (Individual Services)
+
+If you prefer to start each service individually, follow these steps:
+
+#### 1. Start the MCP Server
+
+- Navigate to the MCP server folder:
+
+    ```bash
+    cd src/mcp
+    ```
+
+- Start the MCP server by running the following command:
+
+    ```bash
+    dotnet run
+    ```
+
+#### 2. Start the Backend Server
+
+- In a separate terminal, navigate to the backend folder:
 
     ```bash
     cd src/backend
@@ -103,7 +150,7 @@ To work through the labs, you need to run both the backend (.NET) and frontend (
     dotnet run
     ```
 
-### 2. Start the Frontend Development Server
+#### 3. Start the Frontend Server
 
 - In a separate terminal, navigate to the frontend folder by running the following command:
 
@@ -135,10 +182,13 @@ To work through the labs, you need to run both the backend (.NET) and frontend (
    - **GitHub Codespaces**: When the frontend starts, Codespaces will automatically forward port 3000. 
         Go to the **Ports** panel in VS Code, find port **3000**, and click the **globe icon** (🌐) to open the frontend in your browser.
 
-### 3. Test Your Setup
+---
+
+### Test Your Setup
+
+Regardless of which option you chose, verify that everything is working correctly:
 
 - **API Testing**: Navigate to the file `src/backend/ContosoTravelAgent.http` in the code repository.
-
   
     This file contains HTTP requests that you can use to interact with the backend API. To send a request, click on the `Send Request` link above each request in the file.
 
@@ -148,24 +198,5 @@ To work through the labs, you need to run both the backend (.NET) and frontend (
     Click on the `New Chat` button to start a new conversation with the travel assistant. 
     
     Send a few messages to verify that the frontend and backend are communicating correctly.
-
----
-
-## (Optional) Set Up Aspire Dashboard for Observability
-
-The .NET Aspire Dashboard provides a web-based UI for viewing OpenTelemetry traces, metrics, and logs in real-time. This is useful for monitoring your agent's behavior and debugging .
-
-Refer to the [Aspire Dashboard Setup Guide](./Resources/aspire-dashboard-setup.md) for detailed instructions on how to set up the dashboard locally using Docker.
-
-!!! warning "GitHub Codespaces Limitations"
-    Running Docker containers in GitHub Codespaces may have limitations depending on your configuration. If you encounter issues running the Aspire Dashboard in Codespaces, you can skip this optional step and still complete all labs. The dashboard provides enhanced observability but is not required.
-
----
-
-## Completed Source Code
-
-The complete source code for all labs is available in the `completed` branch of the repository. You can switch to this branch at any time to view the final implementation.
-
-[![View Completed Code](https://img.shields.io/badge/View%20Completed%20Code-blue?logo=github&style=for-the-badge)](https://github.com/binarytrails-ai/aigenius-maf-travel-assistant/tree/completed)
 
 ---
