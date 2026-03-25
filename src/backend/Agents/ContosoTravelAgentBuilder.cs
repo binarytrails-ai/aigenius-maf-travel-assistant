@@ -91,6 +91,10 @@ public class ContosoTravelAgentBuilder
 
         // Single skills provider that discovers all skills under the skills directory
         var skillsPath = Path.Combine(Directory.GetCurrentDirectory(), "skills");
+        var logger = _loggerFactory.CreateLogger<ContosoTravelAgentBuilder>();
+        logger.LogInformation("Skills path: {SkillsPath}", skillsPath);
+        logger.LogInformation("Skills directory exists: {Exists}", Directory.Exists(skillsPath));
+
         var skillsProvider = new FileAgentSkillsProvider(skillPath: skillsPath, loggerFactory: _loggerFactory);
 
         var userProfileMemoryProvider = GetUserProfileMemoryProvider(userId);

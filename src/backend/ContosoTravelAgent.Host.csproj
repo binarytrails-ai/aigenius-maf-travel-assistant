@@ -64,6 +64,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<None Include="skills\**\*" CopyToOutputDirectory="PreserveNewest" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <ProjectReference Include="..\ContosoTravel.ServiceDefaults\ContosoTravel.ServiceDefaults.csproj" />
 	</ItemGroup>
 </Project>
