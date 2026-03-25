@@ -127,10 +127,7 @@ async Task<McpClient?> CreateMcpClientAsync(ILoggerFactory loggerFactory, ILogge
     try
     {
         // Get MCP server base URL from environment or use default
-        var mcpBaseUrl = Environment.GetEnvironmentVariable("MCP_FLIGHT_SEARCH_TOOL_BASE_URL")
-                         ?? "http://localhost:5002";
-
-       
+        var mcpBaseUrl = Environment.GetEnvironmentVariable("MCP_FLIGHT_SEARCH_TOOL_BASE_URL");
         appLogger.LogInformation("Connecting to MCP server at {BaseUrl}", mcpBaseUrl);
         var httpClient = new HttpClient { BaseAddress = new Uri(mcpBaseUrl) };
          var mcpApiKey = Environment.GetEnvironmentVariable("MCP_FLIGHT_SEARCH_API_KEY");
