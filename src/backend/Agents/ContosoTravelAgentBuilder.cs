@@ -59,115 +59,43 @@ public class ContosoTravelAgentBuilder
     Introduce yourself as "Contoso Travel Assistant" and help travelers with all their travel needs!
 
     # ROLE
-    - Help travelers discover destinations
-    - Offer travel advice on destinations, timing, activities, and costs
+    - Help travelers discover destinations and plan trips
+    - Provide travel advice on destinations, visas, timing, and costs
+    - Use your skills and tools to access detailed travel information
     - Be friendly, enthusiastic, conversational, and knowledgeable about travel
 
-    ## TOOLS
+    ## CONVERSATION STYLE
+    - Have natural, flowing conversations - don't interrogate or rush through questions
+    - Ask follow-up questions to understand preferences better (no more than TWO at a time)
+    - Show genuine enthusiasm about helping travelers explore
+    - Be concise for simple queries, detailed when planning requires it
+    - Paint vivid pictures of destinations to inspire travelers
+    - When you lack specific information, consult your skills and tools
 
-    ## HELPING WITH TRAVEL
-
-    **Destination Recommendations:**
-    - **Require at least TWO preferences before suggesting destinations:**
-        * Budget range (e.g., "2000-3000 AUD", "budget-friendly", "luxury")
-        * Travel style (e.g., "adventure", "relaxation", "family", "romantic", "cultural")
-        * Interests/activities (e.g., "hiking", "beaches", "history", "food", "wildlife")
-    - ALL destination recommendations MUST be within Australia and New Zealand
-    - Suggest destinations across different Australian states and territories
-    - Include cities, regions, natural attractions, and coastal areas within Australia and New Zealand
-    - Don't interrogate - have a natural conversation
-    - Have a conversation about options, pros/cons, best times to visit
-    - **Paint vivid pictures:** "The Great Barrier Reef offers vibrant coral reefs and tropical islands..."
-    - **Provide context:** "May is perfect - warm weather, fewer crowds, lower prices"
-
-    ## CONVERSATION GUIDANCE
-    - Have natural conversations - don't rush or force a structured process
-    - Ask follow-up questions to understand preferences better
-    - When gathering missing details, ask no more than TWO questions at a time
-    - Prefer asking for the single most impactful missing detail first
-    - If unsure about specific facts (visas, restrictions), say: "I recommend checking official sources for the most current [topic] information."
-
-    ## RESPONSE STYLE
-    - **Be conversational:** Natural, friendly dialogue that flows organically
-    - **Show enthusiasm:** Express genuine excitement about helping them explore
-    - **Ask thoughtful questions:** Dig deeper to understand what they truly want
-    - **Be concise for simple queries:** Quick, helpful answers for straightforward questions
-    - **Close naturally:** End informational responses without suggesting additional actions
-
-    ## RESPONSE FORMAT EXAMPLES
-
-    User: "I want to plan a trip"
-    Assistant: "I'd love to help! What's your budget for this trip?"
-    User: "Usually around $2,000"
-    Assistant: "Great! What kind of experiences do you enjoy?"
-    User: "I love hiking and coastal walks"
-    Assistant: "Sounds wonderful! Based on your interests, here are some destinations that combine hiking with coastal beauty:
-
-    • **Great Ocean Road, Victoria**
-      - Dramatic coastal cliffs and rainforest trails
-      - Perfect for: Scenic coastal walks, wildlife spotting
-      - Best time: October-April
-      - Budget: Well within $2,000
-
-    • **Sunshine Coast, Queensland**
-      - Beach trails and hinterland rainforest hikes
-      - Perfect for: Relaxed coastal atmosphere, great food scene
-      - Best time: Year-round (mild winters)
-      - Budget: Mid-range, fits your budget
-
-    Which of these appeals to you?"
+    ## RESPONSE GUIDELINES
+    - Gather necessary context before making recommendations
+    - Provide practical, actionable travel advice
+    - Explain pros/cons and trade-offs when presenting options
+    - Include timing, budget, and logistics considerations
+    - Close naturally without forcing next steps on informational queries
     """;
 
     public async Task<AIAgent> CreateAsync()
     {
-        var mcpTools = await _mcpClient.ListToolsAsync();
-        
-        // Process MCP tools and wrap book_flight with approval requirement
-        var processedTools = new List<AITool>();
-        foreach (var tool in mcpTools)
-        {
-            var toolName = GetToolName(tool);
-            if (string.Equals(toolName, "book_flight", StringComparison.OrdinalIgnoreCase))
-            {
-#pragma warning disable MEAI001 // Type is for evaluation purposes only
-                // Wrap BookFlight with ApprovalRequiredAIFunction
-                AIFunction bookFlightWithApproval = new ApprovalRequiredAIFunction(tool);
-                processedTools.Add(bookFlightWithApproval);
-#pragma warning restore MEAI001
-            }
-            else
-            {
-                processedTools.Add(tool);
-            }
-        }
-        
         // Get userId from HttpContext (fallback to threadId or default-user)
-        string userId = _httpContextAccessor.HttpContext?.Items["UserId"] as string 
-            ?? _httpContextAccessor.HttpContext?.Items["ThreadId"] as string 
+        string userId = _httpContextAccessor.HttpContext?.Items["UserId"] as string
+            ?? _httpContextAccessor.HttpContext?.Items["ThreadId"] as string
             ?? "default-user";
-        
-        // Initialize skills provider for progressive disclosure
+
+        var tools = await GetTools();
+
+        // Single skills provider that discovers all skills under the skills directory
         var skillsPath = Path.Combine(Directory.GetCurrentDirectory(), "skills");
-        var skillsProvider = new FileAgentSkillsProvider(skillPath: skillsPath);
-        
-        // Initialize context providers list
-        var contextProviders = new List<AIContextProvider> { skillsProvider };
-        
-        // Add UserProfileMemoryProvider if Cosmos DB is available
-        if (_cosmosDatabase != null)
-        {
-            contextProviders.Add(new UserProfileMemoryProvider(
-                _chatClient,
-                _cosmosDatabase,
-                _config.CosmosDbUserProfileContainer ?? "UserProfiles",
-                new UserProfileMemoryProviderScope
-                {
-                    UserId = userId,
-                    ApplicationId = Constants.ApplicationId
-                },
-                loggerFactory: _loggerFactory));
-        }
-        
+        var skillsProvider = new FileAgentSkillsProvider(skillPath: skillsPath, loggerFactory: _loggerFactory);
+
+        var userProfileMemoryProvider = GetUserProfileMemoryProvider(userId);
+        var contextProviders = new List<AIContextProvider> { skillsProvider, userProfileMemoryProvider };
+
         AIAgent agent = _chatClient.AsAIAgent(new ChatClientAgentOptions
         {
             Name = Constants.AgentName,
@@ -181,7 +109,7 @@ public class ContosoTravelAgentBuilder
                         AIFunctionFactory.Create(DateTimeTools.CalculateDateDifference),
                         AIFunctionFactory.Create(DateTimeTools.ValidateTravelDates),
                         AIFunctionFactory.Create(DateTimeTools.ValidateTravelDates),
-                        .. processedTools]
+                        .. tools]
             },
             AIContextProviders = contextProviders,
         });
@@ -194,10 +122,46 @@ public class ContosoTravelAgentBuilder
         return new ServerFunctionApprovalAgent(agent, _jsonSerializerOptions);
     }
 
+    private async Task<List<AITool>> GetTools()
+    {
+        var mcpTools = await _mcpClient.ListToolsAsync();
+        var processedTools = new List<AITool>();
+        foreach (var tool in mcpTools)
+        {
+            var toolName = GetToolName(tool);
+            if (string.Equals(toolName, "book_flight", StringComparison.OrdinalIgnoreCase))
+            {
+                // Wrap BookFlight with ApprovalRequiredAIFunction
+                AIFunction bookFlightWithApproval = new ApprovalRequiredAIFunction(tool);
+                processedTools.Add(bookFlightWithApproval);
+            }
+            else
+            {
+                processedTools.Add(tool);
+            }
+        }
+
+        return processedTools;
+    }
+
     private string GetToolName(AITool tool)
     {
         // Use ToString to get the tool name
         var name = tool.ToString();
         return name ?? "Unknown";
+    }
+
+    private UserProfileMemoryProvider GetUserProfileMemoryProvider(string userId)
+    {
+        return new UserProfileMemoryProvider(
+            _chatClient,
+            _cosmosDatabase!,
+            _config.CosmosDbUserProfileContainer ?? "UserProfiles",
+            new UserProfileMemoryProviderScope
+            {
+                UserId = userId,
+                ApplicationId = Constants.ApplicationId
+            },
+            loggerFactory: _loggerFactory);
     }
 }
