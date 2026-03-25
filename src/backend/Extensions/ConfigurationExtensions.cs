@@ -31,6 +31,7 @@ public static class ConfigurationExtensions
 
         // MCP tool configuration
         var mcpFlightSearchToolBaseUrl = EnvironmentVariableHelper.GetConfigValue("MCP_FLIGHT_SEARCH_TOOL_BASE_URL", configuration, "http://localhost:5002");
+        var mcpFlightSearchApiKey = EnvironmentVariableHelper.GetConfigValue("MCP_FLIGHT_SEARCH_API_KEY", configuration);
 
         // Cosmos DB configuration
         var cosmosDbEndpoint = EnvironmentVariableHelper.GetConfigValue("COSMOS_DB_ENDPOINT", configuration);
@@ -63,6 +64,7 @@ public static class ConfigurationExtensions
             OtelExporterOtlpEndpoint = otlpEndpoint,
             ApplicationInsightsConnectionString = applicationInsightsConnectionString,
             McpFlightSearchToolBaseUrl = mcpFlightSearchToolBaseUrl,
+            McpFlightSearchApiKey = mcpFlightSearchApiKey,
             CosmosDbEndpoint = cosmosDbEndpoint,
             CosmosDbConnectionString = cosmosDbConnectionString,
             CosmosDbDatabaseName = cosmosDbDatabaseName,

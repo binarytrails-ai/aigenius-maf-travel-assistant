@@ -24,6 +24,63 @@ An MCP (Model Context Protocol) server that provides flight search capabilities 
 | `USE_GITHUB_MODELS` | Use GitHub Models for embeddings | No |
 | `GITHUB_TOKEN` | GitHub token for GitHub Models | Required if USE_GITHUB_MODELS=true |
 | `AZURE_AI_SERVICES_ENDPOINT` | Azure AI Services endpoint | Required if not using GitHub Models |
+| `MCP_FLIGHT_SEARCH_API_KEY` | API key for authentication | Yes (or configure in appsettings.json) |
+
+## Authentication
+
+The MCP server uses API Key authentication to secure all endpoints. Clients must include a valid API key in the request header.
+
+### Configuration
+
+Configure the API key in one of three ways:
+
+1. **appsettings.json** (production):
+   ```json
+   {
+     "ApiKey": {
+       "Value": "your-secure-api-key-here",
+       "HeaderName": "X-API-KEY"
+     }
+   }
+   ```
+
+2. **appsettings.Development.json** (local development):
+   ```json
+   {
+     "ApiKey": {
+       "Value": "F3FF9AB9-AF9E-42CA-916F-23BEFE7AA546",
+       "HeaderName": "X-API-KEY"
+     }
+   }
+   ```
+
+3. **Environment Variable**:
+   ```bash
+   export MCP_FLIGHT_SEARCH_API_KEY="your-secure-api-key"
+   ```
+
+### Making Authenticated Requests
+
+All requests to the MCP server must include the API key in the header:
+
+```bash
+curl -H "X-API-KEY: your-secure-api-key-here" https://your-server.com/mcp
+```
+
+For MCP clients, configure the header in your client configuration:
+
+```json
+{
+  "mcpServers": {
+    "contoso-travel": {
+      "url": "https://your-deployed-server.com/mcp",
+      "headers": {
+        "X-API-KEY": "your-secure-api-key-here"
+      }
+    }
+  }
+}
+```
 
 ## Building
 

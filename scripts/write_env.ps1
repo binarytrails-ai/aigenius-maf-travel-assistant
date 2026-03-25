@@ -21,6 +21,7 @@ $cosmosDbChatHistoryContainer = azd env get-value COSMOS_DB_CHAT_HISTORY_CONTAIN
 $azureAIServicesEndpoint = azd env get-value AZURE_AI_SERVICES_ENDPOINT
 $azureAIServicesKey = azd env get-value AZURE_AI_SERVICES_KEY
 $mcpFlightSearchToolBaseUrl = azd env get-value MCP_FLIGHT_SEARCH_TOOL_BASE_URL
+$mcpFlightSearchApiKey = "F3FF9AB9-AF9E-42CA-916F-23BEFE7AA546"
 $applicationInsightsConnectionString = azd env get-value AZURE_APP_INSIGHTS_CONNECTION_STRING
 
 Add-Content -Path $envFilePath -Value "AZURE_ENV_NAME=$azureEnvName"
@@ -39,6 +40,7 @@ Add-Content -Path $envFilePath -Value "COSMOS_DB_CHAT_HISTORY_CONTAINER=$cosmosD
 Add-Content -Path $envFilePath -Value "AZURE_AI_SERVICES_ENDPOINT=$azureAIServicesEndpoint"
 Add-Content -Path $envFilePath -Value "AZURE_AI_SERVICES_KEY=$azureAIServicesKey"
 Add-Content -Path $envFilePath -Value "MCP_FLIGHT_SEARCH_TOOL_BASE_URL=$mcpFlightSearchToolBaseUrl"
+Add-Content -Path $envFilePath -Value "MCP_FLIGHT_SEARCH_API_KEY=$mcpFlightSearchApiKey"
 Add-Content -Path $envFilePath -Value "APPLICATIONINSIGHTS_CONNECTION_STRING=$applicationInsightsConnectionString"
 
 # Write-Host "[INFO] Please visit web app URL:"

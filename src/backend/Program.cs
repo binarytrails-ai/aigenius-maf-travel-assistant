@@ -72,6 +72,7 @@ builder.Services.AddSingleton(sp =>
 builder.Services.AddHttpClient("mcp-contoso-travel", client =>
 {
     client.BaseAddress = new Uri(config.McpFlightSearchToolBaseUrl);
+    client.DefaultRequestHeaders.Add("X-API-KEY", config.McpFlightSearchApiKey);
 });
 
 builder.Services.AddKeyedSingleton<McpClient>("mcp-contoso-travel", (sp, obj) =>

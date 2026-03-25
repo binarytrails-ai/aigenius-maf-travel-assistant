@@ -22,11 +22,15 @@ The MCP client connects to the server, discovers available tools, and makes them
 
 ### Connecting to an MCP Server
 
-The lab uses HTTP transport to connect to the MCP server. Here's how it works:
+The lab uses HTTP transport to connect to the MCP server with API key authentication. Here's how it works:
 
 ```csharp
-// Create HTTP client (must remain alive for the duration of the MCP session)
+// Get API key from environment or use default dev key
+var mcpApiKey = Environment.GetEnvironmentVariable("MCP_FLIGHT_SEARCH_API_KEY");
+
+// Create HTTP client with API key header
 var httpClient = new HttpClient { BaseAddress = new Uri(mcpBaseUrl) };
+httpClient.DefaultRequestHeaders.Add("X-API-KEY", mcpApiKey);
 
 // Configure HTTP transport
 var transportOptions = new HttpClientTransportOptions
@@ -39,6 +43,8 @@ var transport = new HttpClientTransport(transportOptions, httpClient, loggerFact
 // Create MCP client
 var client = await McpClient.CreateAsync(transport, clientOptions, loggerFactory);
 ```
+
+The API key (`X-API-KEY` header) authenticates your client with the MCP server. Without a valid API key, the server will reject the connection.
 
 ### Discovering Tools from the MCP Server
 
@@ -91,6 +97,8 @@ dotnet run
 ```
 
 Leave this terminal running. The server will listen on `http://localhost:5002`.
+
+The server uses API key authentication. By default, the lab uses the development API key `F3FF9AB9-AF9E-42CA-916F-23BEFE7AA546` (configured in `appsettings.Development.json`). You can override this by setting the `MCP_FLIGHT_SEARCH_API_KEY` environment variable.
 
 ### Step 1: Navigate to the Lab Folder
 

@@ -28,4 +28,5 @@ public record ContosoTravelAppConfig
 
     // MCP tool configuration for flight search
     public string McpFlightSearchToolBaseUrl { get; init; } = "http://localhost:5002";
+    public string McpFlightSearchApiKey { get; init; }
 }

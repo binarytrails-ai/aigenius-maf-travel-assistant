@@ -27,6 +27,11 @@ param embeddingModelVersion string = '2'
 param embeddingModelSkuName string = 'GlobalStandard'
 param embeddingModelCapacity int = 120
 
+// MCP Server authentication
+@secure()
+@description('API key for MCP Flight Search server authentication')
+param mcpFlightSearchApiKey string
+
 // Load standard Azure abbreviations
 var abbr = json(loadTextContent('./abbreviations.json'))
 
@@ -282,6 +287,10 @@ module backendApp 'modules/containerapp.bicep' = {
         value: mcpServerApp.outputs.uri
       }
       {
+        name: 'MCP_FLIGHT_SEARCH_API_KEY'
+        value: mcpFlightSearchApiKey
+      }
+      {
         name: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
         value: shared.outputs.appInsightsConnectionString
       }
@@ -371,6 +380,10 @@ module mcpServerApp 'modules/containerapp.bicep' = {
       {
         name: 'COSMOS_DB_CHAT_HISTORY_CONTAINER'
         value: cosmosDb.outputs.chatHistoryContainerName
+      }
+      {
+        name: 'MCP_FLIGHT_SEARCH_API_KEY'
+        value: mcpFlightSearchApiKey
       }
       {
         name: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
