@@ -1,4 +1,4 @@
-# Setting Up Your Environment for the Workshop
+# Setting Up Your Environment
 
 ## Prerequisites
 
@@ -9,11 +9,11 @@
 
 ## Setup Source Code Repository
 
-1. From your browser, navigate to the [aigenius-maf-travel-assistant](https://github.com/binarytrails-ai/aigenius-maf-travel-assistant) repository on GitHub. This repository has all the code and resources for the workshop.
+1. From your browser, navigate to the [aigenius-maf-travel-assistant](https://github.com/binarytrails-ai/aigenius-maf-travel-assistant) repository on GitHub. This repository has all the code and resources for the session.
 1. Fork this repository to your own GitHub account. </br>
    [![Fork on GitHub](https://img.shields.io/badge/Fork%20Repo-blue?logo=github&style=for-the-badge)](https://github.com/binarytrails-ai/aigenius-maf-travel-assistant/fork)
 
-1. The recommended way to work through this workshop is with **GitHub Codespaces**, which provides a ready-to-use environment with all required tools. </br>Alternatively, you can use a Visual Studio Code to run the workshop locally.</br></br>
+1. The recommended way to work through this session is with **GitHub Codespaces**, which provides a ready-to-use environment with all required tools. </br>Alternatively, you can use a Visual Studio Code to run the application locally.</br></br>
 **Using GitHub Codespaces**: Once you've forked the repository, navigate to your forked repository on GitHub and click the green **Code** button, then select the **Codespaces** tab and click **Create codespace on main**.
 
     The Codespace will be pre-configured with all the necessary dependencies and tools to run the labs.

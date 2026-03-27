@@ -1,12 +1,12 @@
 # Getting Started with Microsoft Agent Framework: Build Practical AI Agents
 
-## Session Introduction
+## Session Information
 
 AI agents are moving fast — but building one that delivers real value requires more than just prompts.
 
-In this session, you'll get a hands‑on introduction to the Microsoft Agent Framework, focusing on how to design and build practical AI agents that can reason, take actions, and integrate with real systems. You'll explore how agentic AI fits into modern application architectures and how developers can move from experimentation to production‑ready agents.
+In this session, you'll get a hands-on introduction to the Microsoft Agent Framework, focusing on how to design and build practical AI agents that can reason, take actions, and integrate with real systems. You'll explore how agentic AI fits into modern application architectures and how developers can move from experimentation to production-ready agents.
 
-## You Will Learn
+### You Will Learn
 
 - Core concepts behind agentic AI and intelligent agents
 - How the Microsoft Agent Framework is structured and applied
@@ -15,51 +15,80 @@ In this session, you'll get a hands‑on introduction to the Microsoft Agent Fra
 
 ---
 
-## What You'll Build
+## Application Overview
 
-In this workshop, you'll build a complete AI-powered travel assistant agent through progressive hands-on labs. Use the navigation menu to access the labs in sequence.
+This repository provides a reference implementation of an AI-powered travel assistant built with the Microsoft Agent Framework. It demonstrates the following key capabilities:
 
-![Cover](../media/cover.png)
+!!! tip "New to the Microsoft Agent Framework?"
+    Start with the foundation labs in [labs/00-foundations](https://github.com/binarytrails-ai/aigenius-maf-travel-assistant/tree/main/labs/00-foundations). 
+    
+    These standalone examples introduce core concepts of Microsoft Agent Framework in a simplified context.
 
-### Foundation Labs
+- **Agent Hosting** - Deploy agents using the AG-UI protocol for seamless integration with AI interfaces
+- **Personalization** - Store and retrieve user preferences for personalized experiences
+- **AI Skills** - File-based skills for extending agent capabilities with custom logic and resources on demand
+- **MCP Integration** - Connect to Model Context Protocol (MCP) servers with secure authentication
+- **Human-in-the-Loop** - Approve or Reject agent actions in real-time for safe and controlled execution
+- **Multi-Agent Orchestration** - Coordinate specialized agents to handle complex, multi-step travel planning tasks
 
-If you're new to the Microsoft Agent Framework, we recommend starting with the foundation labs in `labs/00-foundations/`. 
+![Travel Assistant Demo](../media/demo-placeholder.gif)
+*Placeholder: Demo of the travel assistant in action*
 
-These standalone labs introduce core concepts through hands-on examples. The code in these labs is separate from the main travel assistant codebase, so you can experiment freely.
+---
 
-1. [**Basic Agent**](https://github.com/binarytrails-ai/aigenius-maf-travel-assistant/blob/main/labs/00-foundations/lab01-basic-agent/README.md) - Create your first agent with multi-turn conversations
-2. [**Context Provider**](https://github.com/binarytrails-ai/aigenius-maf-travel-assistant/blob/main/labs/00-foundations/lab02-context/README.md) - Add dynamic context to agent responses
-3. [**RAG (Retrieval Augmented Generation)**](https://github.com/binarytrails-ai/aigenius-maf-travel-assistant/blob/main/labs/00-foundations/lab03-rag/README.md) - Implement semantic search over documents
-4. [**Long-Term Memory**](https://github.com/binarytrails-ai/aigenius-maf-travel-assistant/blob/main/labs/00-foundations/lab04-longterm-memory/README.md) - Persist user preferences across sessions
-5. [**Tools and Function Calling**](https://github.com/binarytrails-ai/aigenius-maf-travel-assistant/blob/main/labs/00-foundations/lab05-tools/README.md) - Enable agents to perform actions and call external APIs
-6. [**Middleware**](https://github.com/binarytrails-ai/aigenius-maf-travel-assistant/blob/main/labs/00-foundations/lab06-middleware/README.md) - Add PII filtering and cross-cutting concerns
-7. [**Skills**](https://github.com/binarytrails-ai/aigenius-maf-travel-assistant/blob/main/labs/00-foundations/lab07-skills/README.md) - Use file-based skills for progressive disclosure of capabilities
-8. [**Hosting**](https://github.com/binarytrails-ai/aigenius-maf-travel-assistant/blob/main/labs/00-foundations/lab08-host/README.md) - Expose agents as web services with OpenAI-compatible endpoints
+## Architecture
 
-### Travel Assistant
+![Architecture Diagram](media/architecture.png)
 
-The codebase for the workshop is organized into two main parts: the backend (.NET) and the frontend (React).
+### Key Components
 
-```text
-src/
-├── backend/    # .NET backend code
-└── frontend/   # React frontend code
-```
-
-## Technologies You'll Use
-
-- **Microsoft Agent Framework** - SDK for building intelligent, context-aware agents with built-in support for orchestration, memory management, and tool integration.
-
-- **Azure AI Foundry** - Used for accessing Azure OpenAI models for inference and generating embeddings.
-- **Azure Cosmos DB** - NoSQL database service used for storing agent memory and application data.
-- **.NET/C#** - Backend development of the agent's logic and API.
-- **OpenTelemetry** - A standard for observability, used for tracing and monitoring the agent's execution.
-- **React** - Frontend development for the user interface.
+**Frontend (Container App)** - User interface built with CopilotKit, providing a chat-based experience for interacting with the travel assistant agent.
+**Backend API (Container App)** - .NET 10 Asp.NET Core API that hosts the Travel Assistant agent using Microsoft Agent Framework. The API publishes the agent via the AG-UI protocol for frontend integration and manages agent execution, state, and tool interactions.
+**MCP Server (Container App)** - A sample MCP server implementation to manage flight data and booking. 
+**Cosmos DB** - Azure Cosmos DB instance for storing user preferences, and other application data.
+**Azure AI Foundry** - Provides access to Azure OpenAI models for agent reasoning and response generation.
+**Observability** - OpenTelemetry for distributed tracing and Azure Monitor for centralized logging and monitoring of agent interactions.
 
 ---
 
 ## Let's Get Started
 
-Head over to the [Environment Setup](./00-setup_instructions.md) page for instructions on setting up your workshop environment.
+Head over to the [Environment Setup](./00-setup_instructions.md) page for instructions on setting up your development environment and running the travel assistant application.
 
-Happy coding!
+Once you have the application up and running, you can explore the following scenarios:
+
+### Flight Booking with Approval Workflow
+
+This scenario demonstrates the Human-in-the-Loop capability where the agent requests approval before executing actions.
+
+**Step 1: Search for Flights**
+
+Start a conversation with:
+
+```
+Find flights from Melbourne to Wellington leaving next Friday
+```
+
+The agent will search available flights and present options with details such as departure time, airline, and price.
+
+**Step 2: Request a Booking**
+
+Continue the conversation:
+
+```
+Book the second flight option for me
+```
+
+The agent will display a booking confirmation request and wait for your approval.
+
+**Step 3: Approve the Action**
+
+Click the **Approve** button when the approval dialog appears in the UI.
+
+The agent will complete the booking and provide confirmation with flight details and a booking reference number.
+
+---
+
+## Additional Resources
+
+Refer to the [Learning Resources](./resources.md) page for more resources on Microsoft Agent Framework, code samples, and related technologies.

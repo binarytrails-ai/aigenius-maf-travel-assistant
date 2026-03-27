@@ -6,11 +6,10 @@ site_url: https://binarytrails-ai.github.io/aigenius-maf-travel-assistant
 nav:
   - Welcome: index.md
   - Environment Setup: 00-setup_instructions.md
-  - "Finishing Up": finishing-up.md
+  - Aspire Dashboard Setup: Resources/aspire-dashboard-setup.md
+  - Finishing Up: finishing-up.md
   - Learning Resources: resources.md
-  - Additional Resources:
-    - Aspire Dashboard Setup: Resources/aspire-dashboard-setup.md
-  - Feedback: feedback.md
+  # - Feedback: feedback.md
 
 plugins:
   - glightbox
