@@ -36,7 +36,7 @@ Use this skill when travelers:
 **When sufficient info is provided, PROCEED with recommendations - do not ask clarifying questions.**
 
 ### Destinations Reference
-See [destinations.md](destinations.md) for the full list of Australian and New Zealand destinations organized by category (Adventure/Outdoors, Beaches/Coastal, Wildlife, Cultural/Urban, Family).
+See [destinations.md](references/destinations.md) for the full list of Australian and New Zealand destinations organized by category (Adventure/Outdoors, Beaches/Coastal, Wildlife, Cultural/Urban, Family).
 
 ## Conversation Guidelines
 
