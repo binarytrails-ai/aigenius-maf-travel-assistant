@@ -20,7 +20,6 @@ Use this skill when travelers:
 
 ### Geographic Scope - MANDATORY
 - **ALL destination recommendations MUST be within Australia and New Zealand**
-- Suggest destinations across different Australian states and territories
 - Include cities, regions, natural attractions, and coastal areas within Australia and New Zealand
 - Do NOT recommend destinations outside of Australia and New Zealand
 
