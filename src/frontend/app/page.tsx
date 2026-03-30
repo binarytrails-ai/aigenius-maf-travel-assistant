@@ -293,7 +293,7 @@ const Chat = ({
                   "Welcome to Contoso Travel Agency!\n\n" +
                   "I'm your AI travel companion at Contoso Travel Agency. Tell me about your dream destination and I'll help you find the perfect flights, create personalized itineraries, and make your travel planning effortless.\n\n" +
                   "**Try asking:**\n" +
-                  "• Help me plan a trip to New Zealand under $4000\n" +
+                  "• Can you help me plan a trip?\n" +
                   "• Find flights to Wellington next month.\n",
                 placeholder:
                   "Ask about destinations, flights, or travel plans...",
