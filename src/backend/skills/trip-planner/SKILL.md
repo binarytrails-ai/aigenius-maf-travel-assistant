@@ -20,51 +20,23 @@ Use this skill when travelers:
 
 ### Geographic Scope - MANDATORY
 - **ALL destination recommendations MUST be within Australia and New Zealand**
-- Suggest destinations across different Australian states and territories
 - Include cities, regions, natural attractions, and coastal areas within Australia and New Zealand
 - Do NOT recommend destinations outside of Australia and New Zealand
 
 ### Preference Requirements
-**Require at least TWO preferences before suggesting destinations:**
+**Once you have at least TWO of these preferences, proceed with destination recommendations:**
 - Budget range (e.g., "2000-3000 AUD", "budget-friendly", "luxury")
 - Travel style (e.g., "adventure", "relaxation", "family", "romantic", "cultural")
 - Interests/activities (e.g., "hiking", "beaches", "history", "food", "wildlife")
 
-### Australian and New Zealand Destinations by Category
+**DO NOT ask about:**
+- Whether they want Australia/New Zealand or international (always assume Australia/New Zealand)
+- Trip duration (assume 5-7 days if not specified, mention this assumption briefly)
 
-**Adventure/Outdoors:**
-- Great Ocean Road, Victoria - Dramatic coastal cliffs and rainforest trails
-- Blue Mountains, NSW - World Heritage wilderness and hiking
-- Kakadu National Park, NT - Ancient landscapes and Indigenous culture
-- Tasmania Wilderness - Cradle Mountain, Overland Track
-- Queenstown, New Zealand - Adventure capital with bungee, hiking, skiing
+**When sufficient info is provided, PROCEED with recommendations - do not ask clarifying questions.**
 
-**Beaches/Coastal:**
-- Great Barrier Reef, Queensland - Vibrant coral reefs and tropical islands
-- Sunshine Coast, Queensland - Relaxed beaches and hinterland rainforests
-- Byron Bay, NSW - Iconic surf town with wellness culture
-- Margaret River, Western Australia - Stunning coastline with wine country
-- Coromandel Peninsula, New Zealand - White sand beaches and native bush
-
-**Wildlife:**
-- Kangaroo Island, South Australia - Wildlife sanctuary experiences
-- Phillip Island, Victoria - Penguin parades and coastal nature
-- Ningaloo Reef, Western Australia - Whale sharks and manta rays
-- Rottnest Island, Western Australia - Quokkas and marine life
-- Kaikoura, New Zealand - Whale watching and seal colonies
-
-**Cultural/Urban:**
-- Melbourne, Victoria - Arts, coffee culture, laneways
-- Sydney, NSW - Iconic harbor, beaches, diverse neighborhoods
-- Hobart, Tasmania - Heritage, MONA, food scene
-- Auckland, New Zealand - Polynesian culture meets modern city
-- Wellington, New Zealand - Creative capital with museums and cafes
-
-**Family:**
-- Gold Coast, Queensland - Theme parks and beaches
-- Port Douglas, Queensland - Reef access with family-friendly resorts
-- Canberra, ACT - Educational attractions and outdoor spaces
-- Bay of Islands, New Zealand - Dolphins, beaches, island hopping
+### Destinations Reference
+See [destinations.md](destinations.md) for the full list of Australian and New Zealand destinations organized by category (Adventure/Outdoors, Beaches/Coastal, Wildlife, Cultural/Urban, Family).
 
 ## Conversation Guidelines
 
