@@ -1,7 +1,5 @@
 # Finishing Up
 
-Congratulations on completing the workshop!🎉
-
 Here are some final steps to wrap up your experience.
 
 ## Delete Azure Resources
@@ -26,7 +24,7 @@ To avoid ongoing charges, delete your Azure resource group.
 
 ## Save Your Changes to GitHub  
 
-If you have made changes to the workshop files, you can save them to your forked GitHub repository.
+If you have made changes to the files, you can save them to your forked GitHub repository.
 
 ---
 

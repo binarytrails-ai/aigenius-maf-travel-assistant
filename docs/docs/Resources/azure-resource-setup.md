@@ -1,6 +1,6 @@
-# Setting Up Azure Azure Resources for the Workshop
+# Setting Up Azure Resources
 
-In this guide, you will set up the necessary Azure resources required to complete the labs in this workshop. The labs utilize models and services from Azure AI Foundry.
+In this guide, you will deploy the application infrastructure to Azure using the Azure Developer CLI.
 
 ---
 

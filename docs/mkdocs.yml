@@ -1,16 +1,15 @@
-site_name: AI Agent Builder Workshop
-site_description: A workshop to learn about how to build and manage AI Agents using Microsoft Agent Framework. 
+site_name: Build Practical AI Agents using Microsoft Agent Framework
+site_description: The site contains all the materials for the workshop "Build Practical AI Agents using Microsoft Agent Framework" conducted at Microsoft AI Genius (Season 4, May 2026).
 site_author: Rakesh Lakshminarayanana
 site_url: https://binarytrails-ai.github.io/aigenius-maf-travel-assistant
 
 nav:
   - Welcome: index.md
   - Environment Setup: 00-setup_instructions.md
-  - "Finishing Up": finishing-up.md
+  - Aspire Dashboard Setup: Resources/aspire-dashboard-setup.md
+  - Finishing Up: finishing-up.md
   - Learning Resources: resources.md
-  - Additional Resources:
-    - Aspire Dashboard Setup: Resources/aspire-dashboard-setup.md
-  - Feedback: feedback.md
+  # - Feedback: feedback.md
 
 plugins:
   - glightbox
