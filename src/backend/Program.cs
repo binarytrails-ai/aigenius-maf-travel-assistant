@@ -1,11 +1,14 @@
 using ContosoTravelAgent.Host;
 using ContosoTravelAgent.Host.Agents;
+using ContosoTravelAgent.Host.Agents.Workflow;
 using ContosoTravelAgent.Host.Extensions;
+using ContosoTravelAgent.Host.Models;
 using Microsoft.Agents.AI;
 using Microsoft.Agents.AI.Hosting.AGUI.AspNetCore;
 using Microsoft.Extensions.AI;
 using OpenAI;
 using System.ClientModel;
+using System.Text.Json;
 using ModelContextProtocol.Client;
 using ModelContextProtocol.Protocol;
 
@@ -108,6 +111,28 @@ builder.Services.AddKeyedSingleton("ContosoTravelAgent", (sp, key) =>
     return factory.CreateAsync().Result;
 });
 
+// Register workflow agent factories
+builder.Services.AddSingleton<TriageAgentFactory>();
+builder.Services.AddSingleton<TripAdvisorAgentFactory>();
+builder.Services.AddSingleton<FlightSearchAgentFactory>(sp =>
+{
+    var chatClient = sp.GetRequiredService<IChatClient>();
+    var mcpClient = sp.GetRequiredKeyedService<McpClient>("mcp-contoso-travel");
+    var jsonOptions = sp.GetRequiredService<JsonSerializerOptions>();
+    var httpContextAccessor = sp.GetRequiredService<IHttpContextAccessor>();
+    var loggerFactory = sp.GetRequiredService<ILoggerFactory>();
+    var config = sp.GetRequiredService<ContosoTravelAppConfig>();
+    var cosmosDatabase = sp.GetRequiredService<Microsoft.Azure.Cosmos.Database>();
+    return new FlightSearchAgentFactory(
+        chatClient, mcpClient, jsonOptions, httpContextAccessor, loggerFactory, config, cosmosDatabase);
+});
+builder.Services.AddSingleton<ContosoTravelWorkflowAgentFactory>();
+builder.Services.AddKeyedSingleton("ContosoTravelWorkflowAgent", (sp, key) =>
+{
+    var factory = sp.GetRequiredService<ContosoTravelWorkflowAgentFactory>();
+    return factory.CreateAsync().Result;
+});
+
 var app = builder.Build();
 
 app.MapGet("/", () => Results.Ok(new { status = "healthy", service = "Travel Assistant API" }));
@@ -117,6 +142,10 @@ var travelBot = app.Services.GetRequiredKeyedService<AIAgent>("ContosoTravelAgen
 app.MapOpenAIChatCompletions(travelBot);
 // Map AGUI endpoint
 app.MapAGUI("/agent/contoso_travel_bot", travelBot);
+
+// Map workflow agent endpoint
+var workflowBot = app.Services.GetRequiredKeyedService<AIAgent>("ContosoTravelWorkflowAgent");
+app.MapAGUI("/agent/contoso_travel_workflow", workflowBot);
 
 app.UseRequestContext();
 app.UseCors();

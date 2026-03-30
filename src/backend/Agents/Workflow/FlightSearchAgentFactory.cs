@@ -1,9 +1,12 @@
+#pragma warning disable MAAI001 // FileAgentSkillsProvider is experimental
+
 using ContosoTravelAgent.Host.Models;
 using ContosoTravelAgent.Host.Services;
 using ContosoTravelAgent.Host.Tools;
 using Microsoft.Agents.AI;
 using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.AI;
+using ModelContextProtocol.Client;
 using System.Text.Json;
 
 namespace ContosoTravelAgent.Host.Agents.Workflow;
@@ -11,7 +14,7 @@ namespace ContosoTravelAgent.Host.Agents.Workflow;
 public class FlightSearchAgentFactory
 {
     private readonly IChatClient _chatClient;
-    private readonly FlightFinderTools _flightFinderTools;
+    private readonly McpClient _mcpClient;
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly JsonSerializerOptions _jsonSerializerOptions;
     private readonly ILoggerFactory _loggerFactory;
@@ -20,7 +23,7 @@ public class FlightSearchAgentFactory
 
     public FlightSearchAgentFactory(
         IChatClient chatClient,
-        FlightFinderTools flightFinderTools,
+        McpClient mcpClient,
         JsonSerializerOptions jsonSerializerOptions,
         IHttpContextAccessor httpContextAccessor,
         ILoggerFactory loggerFactory,
@@ -28,7 +31,7 @@ public class FlightSearchAgentFactory
         Database? cosmosDatabase = null)
     {
         _chatClient = chatClient;
-        _flightFinderTools = flightFinderTools;
+        _mcpClient = mcpClient;
         _jsonSerializerOptions = jsonSerializerOptions;
         _httpContextAccessor = httpContextAccessor;
         _loggerFactory = loggerFactory;
@@ -118,42 +121,93 @@ public class FlightSearchAgentFactory
     Let me know if any of these options work for you, or if you'd like to see more choices!"
     """;
 
-    public AIAgent Create()
+    public async Task<AIAgent> CreateAsync()
     {
         // Get userId at creation time since agents are created per-request
         string userId = _httpContextAccessor.HttpContext?.Items["UserId"] as string ?? "default-user";
 
-        var agent = _chatClient.AsAIAgent(new ChatClientAgentOptions
+        // Get MCP tools for flight operations
+        var mcpTools = await GetMcpToolsAsync();
+
+        // Set up skills provider for flight-booking skill
+        var skillPaths = new[]
+        {
+            Path.Combine(AppContext.BaseDirectory, "skills/flight-booking")
+        };
+        var skillsProvider = new FileAgentSkillsProvider(skillPaths: skillPaths, loggerFactory: _loggerFactory);
+
+        // Set up user profile memory provider
+        var userProfileMemoryProvider = new UserProfileMemoryProvider(
+            _chatClient,
+            _cosmosDatabase!,
+            _config.CosmosDbUserProfileContainer ?? "UserProfiles",
+            new UserProfileMemoryProviderScope
+            {
+                UserId = userId,
+                ApplicationId = Constants.ApplicationId
+            },
+            loggerFactory: _loggerFactory);
+
+        AIAgent agent = _chatClient.AsAIAgent(new ChatClientAgentOptions
         {
             Name = "flight_search_agent",
-            Description = "Searches and recommends flights for a chosen destination. Helps users compare flight options, validate travel dates.",
+            Description = "Searches and recommends flights for a chosen destination. Helps users compare flight options, validate travel dates, and book flights.",
             ChatOptions = new()
             {
                 Instructions = AgentInstructions,
                 Tools = [
-                        AIFunctionFactory.Create(DateTimeTools.GetCurrentDate),
-                        AIFunctionFactory.Create(DateTimeTools.CalculateDateDifference),
-                        AIFunctionFactory.Create(DateTimeTools.ValidateTravelDates),
-                        AIFunctionFactory.Create(UserContextTools.GetUserContext), AIFunctionFactory.Create(DateTimeTools.ValidateTravelDates),
-                        #pragma warning disable MEAI001
-                        new ApprovalRequiredAIFunction(
-                            AIFunctionFactory.Create(_flightFinderTools.SearchFlights)
-                        )
-                        #pragma warning restore MEAI001
+                    AIFunctionFactory.Create(DateTimeTools.GetCurrentDate),
+                    AIFunctionFactory.Create(DateTimeTools.CalculateDateDifference),
+                    AIFunctionFactory.Create(DateTimeTools.ValidateTravelDates),
+                    AIFunctionFactory.Create(UserContextTools.GetUserContext),
+                    .. mcpTools
                 ]
             },
-            AIContextProviders = [new UserProfileMemoryProvider(
-                _chatClient,
-                _cosmosDatabase!,
-                _config.CosmosDbUserProfileContainer ?? "UserProfiles",
-                new UserProfileMemoryProviderScope
-                {
-                    UserId = userId,
-                    ApplicationId = Constants.ApplicationId
-                },
-                loggerFactory: _loggerFactory)]
+            AIContextProviders = [skillsProvider, userProfileMemoryProvider]
         }, _loggerFactory);
 
+        // Apply OpenTelemetry and logging
+        agent = agent.AsBuilder()
+            .UseOpenTelemetry(Constants.ApplicationId, options =>
+            {
+                options.EnableSensitiveData = true;
+            })
+            .UseLogging(_loggerFactory)
+            .Build();
+
         return new ServerFunctionApprovalAgent(agent, _jsonSerializerOptions);
+    }
+
+    private async Task<List<AITool>> GetMcpToolsAsync()
+    {
+        var mcpTools = await _mcpClient.ListToolsAsync();
+        var processedTools = new List<AITool>();
+
+        foreach (var tool in mcpTools)
+        {
+            var toolName = GetToolName(tool);
+
+            // Only include flight-related tools for this agent
+            if (string.Equals(toolName, "search_flights", StringComparison.OrdinalIgnoreCase))
+            {
+                processedTools.Add(tool);
+            }
+            else if (string.Equals(toolName, "book_flight", StringComparison.OrdinalIgnoreCase))
+            {
+                // Wrap book_flight with approval requirement
+                #pragma warning disable MEAI001
+                AIFunction bookFlightWithApproval = new ApprovalRequiredAIFunction(tool);
+                #pragma warning restore MEAI001
+                processedTools.Add(bookFlightWithApproval);
+            }
+        }
+
+        return processedTools;
+    }
+
+    private static string GetToolName(AITool tool)
+    {
+        var name = tool.ToString();
+        return name ?? "Unknown";
     }
 }

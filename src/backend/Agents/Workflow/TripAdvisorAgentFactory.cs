@@ -1,33 +1,35 @@
+#pragma warning disable MAAI001 // FileAgentSkillsProvider is experimental
+
 using ContosoTravelAgent.Host.Models;
 using ContosoTravelAgent.Host.Services;
 using ContosoTravelAgent.Host.Tools;
 using Microsoft.Agents.AI;
 using Microsoft.Extensions.AI;
 using Microsoft.Azure.Cosmos;
-using OpenAI.Embeddings;
+using System.Text.Json;
 
 namespace ContosoTravelAgent.Host.Agents.Workflow;
 
 public class TripAdvisorAgentFactory
 {
     private readonly IChatClient _chatClient;
-    private readonly EmbeddingClient _embeddingClient;
     private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly JsonSerializerOptions _jsonSerializerOptions;
     private readonly Database? _cosmosDatabase;
     private readonly ILoggerFactory _loggerFactory;
     private readonly ContosoTravelAppConfig _config;
 
     public TripAdvisorAgentFactory(
         IChatClient chatClient,
-        EmbeddingClient embeddingClient,
         IHttpContextAccessor httpContextAccessor,
+        JsonSerializerOptions jsonSerializerOptions,
         ILoggerFactory loggerFactory,
         ContosoTravelAppConfig config,
         Database? cosmosDatabase = null)
     {
         _chatClient = chatClient;
-        _embeddingClient = embeddingClient;
         _httpContextAccessor = httpContextAccessor;
+        _jsonSerializerOptions = jsonSerializerOptions;
         _cosmosDatabase = cosmosDatabase;
         _loggerFactory = loggerFactory;
         _config = config;
@@ -147,6 +149,14 @@ public class TripAdvisorAgentFactory
         // Get userId at creation time since agents are created per-request
         string userId = _httpContextAccessor.HttpContext?.Items["UserId"] as string ?? "default-user";
 
+        // Set up skills provider for trip-planner and visa-assistance skills
+        var skillPaths = new[]
+        {
+            Path.Combine(AppContext.BaseDirectory, "skills/trip-planner"),
+            Path.Combine(AppContext.BaseDirectory, "skills/visa-assistance")
+        };
+        var skillsProvider = new FileAgentSkillsProvider(skillPaths: skillPaths, loggerFactory: _loggerFactory);
+
         var userProfileMemoryProvider = new UserProfileMemoryProvider(
             _chatClient,
             _cosmosDatabase!,
@@ -158,45 +168,38 @@ public class TripAdvisorAgentFactory
             },
             loggerFactory: _loggerFactory);
 
-        var chatHistoryMemoryProvider = new CosmosDbChatHistoryProvider(
-            _cosmosDatabase.Client,
-            _cosmosDatabase.Id,
-            containerName: "ChatHistory",
-            partitionKeyPath: "/ApplicationId",
-            storageScope: new()
-            {
-                UserId = userId,
-                ApplicationId = Constants.ApplicationId
-            },
-            embeddingGenerator: _embeddingClient.AsIEmbeddingGenerator(),
-            searchScope: new()
-            {
-                UserId = userId,
-                ApplicationId = Constants.ApplicationId
-            },
-            options: new ChatHistoryMemoryProviderOptions()
-            {
-                ContextPrompt = "## Memories\nConsider the following memories when answering user questions:",
-                EnableSensitiveTelemetryData = true,
-                MaxResults = 10
-            },
-            loggerFactory: _loggerFactory);
+        var contextProviders = new List<AIContextProvider>
+        {
+            skillsProvider,
+            userProfileMemoryProvider
+        };
 
-        return _chatClient.AsAIAgent(new ChatClientAgentOptions
+        AIAgent agent = _chatClient.AsAIAgent(new ChatClientAgentOptions
         {
             Name = "trip_advisor_agent",
-            Description = "Provides personalized destination recommendations and travel advice for Contoso Travel Agency.",
+            Description = "Provides personalized destination recommendations, travel advice, and visa information for Contoso Travel Agency.",
             ChatOptions = new()
             {
                 Instructions = AgentInstructions,
                 Tools = [
-                        AIFunctionFactory.Create(DateTimeTools.GetCurrentDate),
-                        AIFunctionFactory.Create(DateTimeTools.CalculateDateDifference),
-                        AIFunctionFactory.Create(DateTimeTools.ValidateTravelDates),
-                        AIFunctionFactory.Create(UserContextTools.GetUserContext)
+                    AIFunctionFactory.Create(DateTimeTools.GetCurrentDate),
+                    AIFunctionFactory.Create(DateTimeTools.CalculateDateDifference),
+                    AIFunctionFactory.Create(DateTimeTools.ValidateTravelDates),
+                    AIFunctionFactory.Create(UserContextTools.GetUserContext)
                 ]
             },
-            AIContextProviders = [new CompositeMemoryProvider([userProfileMemoryProvider, chatHistoryMemoryProvider])]
+            AIContextProviders = contextProviders
         }, _loggerFactory);
+
+        // Apply OpenTelemetry and logging
+        agent = agent.AsBuilder()
+            .UseOpenTelemetry(Constants.ApplicationId, options =>
+            {
+                options.EnableSensitiveData = true;
+            })
+            .UseLogging(_loggerFactory)
+            .Build();
+
+        return new ServerFunctionApprovalAgent(agent, _jsonSerializerOptions);
     }
 }

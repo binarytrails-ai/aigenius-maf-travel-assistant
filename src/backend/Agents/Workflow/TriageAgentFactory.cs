@@ -7,17 +7,20 @@ namespace ContosoTravelAgent.Host.Agents.Workflow;
 public class TriageAgentFactory
 {
     private readonly IChatClient _chatClient;
+    private readonly ILoggerFactory _loggerFactory;
 
     public TriageAgentFactory(
         IChatClient chatClient,
-        IHttpContextAccessor httpContextAccessor)
+        IHttpContextAccessor httpContextAccessor,
+        ILoggerFactory loggerFactory)
     {
         _chatClient = chatClient;
+        _loggerFactory = loggerFactory;
     }
 
     public AIAgent Create()
     {
-        return _chatClient.CreateAIAgent(new ChatClientAgentOptions
+        AIAgent agent = _chatClient.AsAIAgent(new ChatClientAgentOptions
         {
             Name = "triage_agent",
             Description = "Routes travel requests to the appropriate specialist agent",
@@ -77,5 +80,14 @@ public class TriageAgentFactory
                 ]
             }
         });
+
+        // Apply OpenTelemetry and logging for observability
+        return agent.AsBuilder()
+            .UseOpenTelemetry(Constants.ApplicationId, options =>
+            {
+                options.EnableSensitiveData = true;
+            })
+            .UseLogging(_loggerFactory)
+            .Build();
     }
 }

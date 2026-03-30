@@ -10,16 +10,12 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Compile Remove="Agents\Workflow\**" />
 		<Compile Remove="Controllers\**" />
 		<Compile Remove="Mem0\**" />
-		<Content Remove="Agents\Workflow\**" />
 		<Content Remove="Controllers\**" />
 		<Content Remove="Mem0\**" />
-		<EmbeddedResource Remove="Agents\Workflow\**" />
 		<EmbeddedResource Remove="Controllers\**" />
 		<EmbeddedResource Remove="Mem0\**" />
-		<None Remove="Agents\Workflow\**" />
 		<None Remove="Controllers\**" />
 		<None Remove="Mem0\**" />
 	</ItemGroup>
