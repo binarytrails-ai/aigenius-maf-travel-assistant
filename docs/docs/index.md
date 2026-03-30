@@ -42,20 +42,18 @@ This repository provides a reference implementation of an AI-powered travel assi
 
 ### Key Components
 
-**Frontend (Container App)** - User interface built with CopilotKit, providing a chat-based experience for interacting with the travel assistant agent.
-**Backend API (Container App)** - .NET 10 Asp.NET Core API that hosts the Travel Assistant agent using Microsoft Agent Framework. The API publishes the agent via the AG-UI protocol for frontend integration and manages agent execution, state, and tool interactions.
-**MCP Server (Container App)** - A sample MCP server implementation to manage flight data and booking. 
-**Cosmos DB** - Azure Cosmos DB instance for storing user preferences, and other application data.
-**Azure AI Foundry** - Provides access to Azure OpenAI models for agent reasoning and response generation.
-**Observability** - OpenTelemetry for distributed tracing and Azure Monitor for centralized logging and monitoring of agent interactions.
+- **Frontend (Container App)** - User interface built with CopilotKit to interact with the travel assistant agent.
+- **Backend API (Container App)** - .NET 10 Asp.NET Core API that hosts the Travel Assistant agent. The API publishes the agent via the AG-UI protocol for frontend integration and manages agent execution, state, and tool interactions.
+- **MCP Server (Container App)** - MCP server implementation to manage flight data and booking.
+- **Cosmos DB** - Azure Cosmos DB instance for storing user preferences, and other application data.
+- **Azure AI Foundry** - Provides access to Azure OpenAI models.
+- **Observability** - OpenTelemetry for distributed tracing and Azure Monitor for centralized logging and monitoring of agent interactions.
 
 ---
 
 ## Let's Get Started
 
-Head over to the [Environment Setup](./00-setup_instructions.md) page for instructions on setting up your development environment and running the travel assistant application.
-
-Once you have the application up and running, you can explore the following scenarios:
+Head over to the [Environment Setup](./00-setup_instructions.md) page for instructions on setting up your development environment and running the travel assistant application. Once you have the application up and running, you can explore the following scenarios:
 
 ### Flight Booking with Approval Workflow
 
