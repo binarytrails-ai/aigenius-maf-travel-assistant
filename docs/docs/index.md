@@ -33,9 +33,6 @@ This repository provides a reference implementation of an AI-powered travel assi
 - **Human-in-the-Loop** - Approve or Reject agent actions in real-time for safe and controlled execution
 - **Multi-Agent Orchestration** - Coordinate specialized agents to handle complex, multi-step travel planning tasks
 
-![Travel Assistant Demo](../media/demo-placeholder.gif)
-*Placeholder: Demo of the travel assistant in action*
-
 ---
 
 ## Architecture

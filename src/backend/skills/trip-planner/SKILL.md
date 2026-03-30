@@ -35,8 +35,13 @@ Use this skill when travelers:
 
 **When sufficient info is provided, PROCEED with recommendations - do not ask clarifying questions.**
 
-### Destinations Reference
-See [destinations.md](references/destinations.md) for the full list of Australian and New Zealand destinations organized by category (Adventure/Outdoors, Beaches/Coastal, Wildlife, Cultural/Urban, Family).
+### Destinations Reference - MANDATORY
+**Before providing destination recommendations, you MUST:**
+1. Use `read_skill_resource` to load [references/destinations.md](references/destinations.md)
+2. ONLY recommend destinations from this reference file
+3. Match recommendations to the user's stated preferences (interests, budget, travel style)
+
+The reference contains destinations organized by category: Adventure/Outdoors, Beaches/Coastal, Wildlife, Cultural/Urban, Family.
 
 ## Conversation Guidelines
 
