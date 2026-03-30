@@ -73,7 +73,11 @@ Hi! Can you help me plan a trip?
 
 **Step 2: Answer the Agent's Questions**
 
-Respond to the agent's questions to build your profile.
+Respond to the agent's questions to build your profile. For example:
+
+```
+I want to plan a trip with a budget of around $2,000. I love hiking and outdoor activities.
+```
 
 *Expected Response:* Agent provides personalized destination recommendations and stores your profile information (travel style, budget, interests, past trips, places to visit).
 
@@ -105,10 +109,10 @@ The agent will search available flights and present options with details such as
 
 **Step 2: Request a Booking**
 
-Continue the conversation:
+After reviewing the flight options, ask the agent to book a specific flight. For example:
 
 ```
-Book the second flight option for me
+Book the flight QF107
 ```
 
 The agent will display a booking confirmation request and wait for your approval.
