@@ -1,5 +1,7 @@
 # Getting Started with Microsoft Agent Framework: Build Practical AI Agents
 
+![aigenius](media/aigenius.png)
+
 ## Session Information
 
 AI agents are moving fast — but building one that delivers real value requires more than just prompts.
@@ -54,6 +56,38 @@ This repository provides a reference implementation of an AI-powered travel assi
 ## Let's Get Started
 
 Head over to the [Environment Setup](./00-setup_instructions.md) page for instructions on setting up your development environment and running the travel assistant application. Once you have the application up and running, you can explore the following scenarios:
+
+### Personalization with User Preferences
+
+This scenario demonstrates how the agent stores and retrieves user preferences to provide personalized travel recommendations.
+
+**Step 1: Initial Conversation - Building Profile**
+
+Start the conversation with:
+
+```
+Hi! Can you help me plan a trip?
+```
+
+*Expected Response:* Agent greets you and asks about your travel preferences (e.g., budget, travel style, interests).
+
+**Step 2: Answer the Agent's Questions**
+
+Respond to the agent's questions to build your profile.
+
+*Expected Response:* Agent provides personalized destination recommendations and stores your profile information (travel style, budget, interests, past trips, places to visit).
+
+**Step 3: Test Profile Memory**
+
+Start a new conversation by clicking on **New Chat** in the frontend UI, then ask:
+
+```
+I want to plan my next vacation
+```
+
+*Expected Response:* Agent references your stored profile and provides personalized recommendations based on your preferences.
+
+---
 
 ### Flight Booking with Approval Workflow
 
