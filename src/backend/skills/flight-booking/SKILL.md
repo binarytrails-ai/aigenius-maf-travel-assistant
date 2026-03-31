@@ -70,7 +70,9 @@ Use this skill when the traveler:
 2. **Required Booking Information**:
    - Flight number (exact match from search results)
    - Travel date (must be a valid date in the future)
-   - Number of passengers (defaults to 1)
+   - Passenger's first name
+   - Passenger's last name
+   - Passenger's passport number
 
 3. **After Booking**:
    - Present the confirmation details clearly:
@@ -128,14 +130,15 @@ Use this skill when the traveler:
 3. Present budget options sorted by price
 4. Highlight savings and value
 
-**User**: "Book the Qantas flight for 2 passengers"
+**User**: "Book the Qantas flight for me"
 **Action**:
 1. Verify the exact flight number from previous search
 2. Confirm travel date
-3. Call `book_flight` with flight number, date, and numberOfPassengers=2
-4. Show confirmation details after successful booking
+3. Ask for passenger details (first name, last name, passport number) if not already provided
+4. Call `book_flight` with flight number, date, and passenger details
+5. Show confirmation details after successful booking
 
 ## Tools Available
 
 - `search_flights(origin, destination, maxBudget?, userPreferences?)` - Search for available flights
-- `book_flight(flightNumber, travelDate, numberOfPassengers)` - Book a flight
+- `book_flight(flightNumber, travelDate, firstName, lastName, passportNumber)` - Book a flight with passenger details

@@ -66,7 +66,7 @@ builder.Services.AddSingleton(sp =>
         config.CosmosDbConnectionString,
         new Microsoft.Azure.Cosmos.CosmosClientOptions
         {
-            UseSystemTextJsonSerializerWithOptions = System.Text.Json.JsonSerializerOptions.Default
+            UseSystemTextJsonSerializerWithOptions = JsonSerializerOptions.Default
         });
     return cosmosClient.GetDatabase(config.CosmosDbDatabaseName);
 });
@@ -116,21 +116,21 @@ builder.Services.AddKeyedSingleton("ContosoTravelAgent", (sp, key) =>
 //builder.Services.AddSingleton<TripAdvisorAgentFactory>();
 //builder.Services.AddSingleton<FlightBookingAgentFactory>(sp =>
 //{
-//   var chatClient = sp.GetRequiredService<IChatClient>();
-//   var mcpClient = sp.GetRequiredKeyedService<McpClient>("mcp-contoso-travel");
-//   var jsonOptions = sp.GetRequiredService<JsonSerializerOptions>();
-//   var httpContextAccessor = sp.GetRequiredService<IHttpContextAccessor>();
-//   var loggerFactory = sp.GetRequiredService<ILoggerFactory>();
-//   var config = sp.GetRequiredService<ContosoTravelAppConfig>();
-//   var cosmosDatabase = sp.GetRequiredService<Microsoft.Azure.Cosmos.Database>();
-//   return new FlightBookingAgentFactory(
-//       chatClient, mcpClient, jsonOptions, httpContextAccessor, loggerFactory, config, cosmosDatabase);
+//    var chatClient = sp.GetRequiredService<IChatClient>();
+//    var mcpClient = sp.GetRequiredKeyedService<McpClient>("mcp-contoso-travel");
+//    var jsonOptions = sp.GetRequiredService<JsonSerializerOptions>();
+//    var httpContextAccessor = sp.GetRequiredService<IHttpContextAccessor>();
+//    var loggerFactory = sp.GetRequiredService<ILoggerFactory>();
+//    var config = sp.GetRequiredService<ContosoTravelAppConfig>();
+//    var cosmosDatabase = sp.GetRequiredService<Microsoft.Azure.Cosmos.Database>();
+//    return new FlightBookingAgentFactory(
+//        chatClient, mcpClient, jsonOptions, httpContextAccessor, loggerFactory, config, cosmosDatabase);
 //});
 //builder.Services.AddSingleton<ContosoTravelWorkflowAgentFactory>();
 //builder.Services.AddKeyedSingleton("ContosoTravelWorkflowAgent", (sp, key) =>
 //{
-//   var factory = sp.GetRequiredService<ContosoTravelWorkflowAgentFactory>();
-//   return factory.CreateAsync().Result;
+//    var factory = sp.GetRequiredService<ContosoTravelWorkflowAgentFactory>();
+//    return factory.CreateAsync().Result;
 //});
 
 var app = builder.Build();

@@ -63,7 +63,7 @@ public class TripAdvisorAgentFactory
     - Reference user profile naturally when available
     """;
 
-    public AIAgent Create()
+    public Task<AIAgent> CreateAsync()
     {
         // Get userId at creation time since agents are created per-request
         string userId = _httpContextAccessor.HttpContext?.Items["UserId"] as string ?? "default-user";
@@ -119,6 +119,6 @@ public class TripAdvisorAgentFactory
             .UseLogging(_loggerFactory)
             .Build();
 
-        return agent;
+        return Task.FromResult(agent);
     }
 }

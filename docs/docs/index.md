@@ -122,6 +122,14 @@ The agent will complete the booking and provide confirmation with flight details
 
 ---
 
+Other prompts to try:
+
+1. What are the entry requirements for Canada?
+2. I need a direct flight to Sydney with good entertainment options
+3. Find me the cheapest flight from Melbourne to Auckland this weekend
+4. Help me plan a week-long trip to Queenstown with flights
+
+
 ## Additional Resources
 
 Refer to the [Learning Resources](./resources.md) page for more resources on Microsoft Agent Framework, code samples, and related technologies.

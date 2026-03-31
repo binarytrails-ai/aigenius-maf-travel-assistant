@@ -5,7 +5,7 @@ description: Load this skill when users ask about visas, entry requirements, tra
 
 # Visa Assistance Skill
 
-You have access to visa requirement information and entry regulations to help travelers understand what documents they need for international travel. Reference the [visa requirements documentation](references/visa-requirements.md) for detailed country-specific information.
+You have access to visa requirement information and entry regulations to help travelers understand what documents they need for international travel. Reference the [references/visa-requirements.md](references/visa-requirements.md) for detailed country-specific information.
 
 ## When to Use This Skill
 
@@ -40,11 +40,11 @@ Use this skill when the traveler:
 
 **User**: "I'm from Australia going to Canada for 2 weeks"
 **Action**:
-1. Reference VISA_REQUIREMENTS.md for Canada
+1. Reference [references/visa-requirements.md](references/visa-requirements.md) for Canada
 2. Explain eTA requirement for Australians
 3. Provide application process and timeline
 4. Mention costs and validity period
 
 **User**: "How long does it take to get a Japanese visa?"
 **Action**:
-1. Reference visa processing times from VISA_REQUIREMENTS.md
+1. Reference visa processing times from [references/visa-requirements.md](references/visa-requirements.md)
