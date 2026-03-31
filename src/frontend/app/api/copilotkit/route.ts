@@ -21,7 +21,8 @@ const runtime = new CopilotRuntime({
     // CopilotKit automatically maintains the conversation history and passes it
     // to the agent through the RunAgentInput which includes all messages
     contoso_agent: new HttpAgent({ 
-      url: `${backendUrl}/agent/contoso_travel_bot`,
+       url: `${backendUrl}/agent/contoso_travel_bot`,
+      //url: `${backendUrl}/agent/contoso_travel_workflow`,
       debug: true // Enable detailed AG-UI protocol logs
     }),
   },

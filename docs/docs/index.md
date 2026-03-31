@@ -63,7 +63,7 @@ This scenario demonstrates how the agent stores and retrieves user preferences t
 Start the conversation with:
 
 ```
-Hi! Can you help me plan a trip?
+Can you help me plan a trip?
 ```
 
 *Expected Response:* Agent greets you and asks about your travel preferences (e.g., budget, travel style, interests).

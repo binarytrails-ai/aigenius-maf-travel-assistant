@@ -25,27 +25,32 @@ public class ContosoTravelWorkflowAgentFactory
     {
         var triageAgentFactory = _serviceProvider.GetRequiredService<TriageAgentFactory>();
         var tripAdvisorAgentFactory = _serviceProvider.GetRequiredService<TripAdvisorAgentFactory>();
-        var flightSearchAgentFactory = _serviceProvider.GetRequiredService<FlightSearchAgentFactory>();
+        var flightSearchAgentFactory = _serviceProvider.GetRequiredService<FlightBookingAgentFactory>();
 
         var triageAgent = triageAgentFactory.Create();
         var tripAdvisorAgent = tripAdvisorAgentFactory.Create();
         var flightSearchAgent = await flightSearchAgentFactory.CreateAsync();
 
         var workflow = AgentWorkflowBuilder.CreateHandoffBuilderWith(triageAgent)
-            // Triage to specialists - based on routing guidelines
+            // Initial routing from triage to specialists
             .WithHandoff(triageAgent, tripAdvisorAgent,
-                "User asks general travel questions (costs, best time to visit, what to see) OR asks questions about existing trips OR wants to plan a new trip OR asks about visas, entry requirements, or travel documents.")
+                "User asks about destinations, trip planning, visa requirements, or general travel advice.")
             .WithHandoff(triageAgent, flightSearchAgent,
-                "User wants to search for flights, find flights, look for flights, book flights, or asks about flight options, prices, schedules, or travel dates. Includes requests like 'find flights from X to Y', 'show me flights', 'search flights'.")
-            // Allow cross-agent handoffs for seamless conversation flow
+                "User asks about flights, booking flights, approves a flight booking, or any flight-related continuation including approval responses.")
+            // Bidirectional handoffs between specialists for topic changes
             .WithHandoff(tripAdvisorAgent, flightSearchAgent,
-                "User is ready to search for flights after discussing destination options. User mentions specific dates, wants to book, or says 'find flights', 'search flights', 'show me flights'.")
+                "User wants to search for flights or book a flight now.")
             .WithHandoff(flightSearchAgent, tripAdvisorAgent,
-                "User wants to go back to trip planning, asks about destinations, activities, visa requirements, or needs more travel advice.")
+                "User asks about destinations, places to visit, or travel advice.")
+            // Return to triage only when explicitly asked or conversation complete
+            .WithHandoff(tripAdvisorAgent, triageAgent,
+                "User explicitly asks for a different type of help or says they're done with trip planning.")
+            .WithHandoff(flightSearchAgent, triageAgent,
+                "User explicitly asks for a different type of help or says they're done with flight booking.")
             .Build();
 
         // The workflow is already an AIAgent type, can be used directly
-        AIAgent workflowAgent = workflow;
+        AIAgent workflowAgent = workflow.AsAIAgent();
 
         // Apply OpenTelemetry and logging
         workflowAgent = workflowAgent.AsBuilder()
