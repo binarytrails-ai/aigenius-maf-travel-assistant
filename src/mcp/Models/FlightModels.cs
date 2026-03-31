@@ -205,8 +205,14 @@ public record FlightBookResponse
     [JsonPropertyName("travelDate")]
     public required DateTime TravelDate { get; init; }
     
-    [JsonPropertyName("numberOfPassengers")]
-    public required int NumberOfPassengers { get; init; }
+    [JsonPropertyName("firstName")]
+    public required string FirstName { get; init; }
+    
+    [JsonPropertyName("lastName")]
+    public required string LastName { get; init; }
+    
+    [JsonPropertyName("passportNumber")]
+    public required string PassportNumber { get; init; }
     
     [JsonPropertyName("status")]
     public required string Status { get; init; }

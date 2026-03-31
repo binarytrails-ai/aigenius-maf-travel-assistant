@@ -29,21 +29,13 @@ public static class UserContextTools
                 email = "john.doe@contoso.com",
                 dateOfBirth = "1985-06-15",
                 defaultOrigin = "Melbourne",
-                timeZone = "Australia/Melbourne (AEDT/AEST)",
-                preferredLanguage = "English",
-                preferredCurrency = "AUD",
                 passportInfo = new
                 {
                     country = "Australia",
-                    expiryDate = "2028-03-20"
+                    expiryDate = "2028-03-20",
+                    passportNumber = "M12345678"
                 },
-                preferences = new
-                {
-                    seatPreference = "Window",
-                    mealPreference = "Vegetarian",
-                    DietaryRequirements = new[] { "Vegetarian" },
-                    accessibilityNeeds = "None"
-                }
+
             },
             message = "User's default departure city is Melbourne (MEL)"
         };

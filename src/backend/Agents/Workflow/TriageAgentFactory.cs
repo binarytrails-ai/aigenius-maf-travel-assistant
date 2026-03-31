@@ -33,7 +33,7 @@ public class TriageAgentFactory
         _loggerFactory = loggerFactory;
     }
 
-    public AIAgent Create()
+    public Task<AIAgent> CreateAsync()
     {
         AIAgent agent = _chatClient.AsAIAgent(new ChatClientAgentOptions
         {
@@ -49,12 +49,14 @@ public class TriageAgentFactory
             }
         });
 
-        return agent.AsBuilder()
+        agent = agent.AsBuilder()
             .UseOpenTelemetry(Constants.ApplicationId, options =>
             {
                 options.EnableSensitiveData = true;
             })
             .UseLogging(_loggerFactory)
             .Build();
+
+        return Task.FromResult(agent);
     }
 }

@@ -4,6 +4,7 @@ using ContosoTravelAgent.Host.Models;
 using ContosoTravelAgent.Host.Services;
 using ContosoTravelAgent.Host.Tools;
 using Microsoft.Agents.AI;
+using Microsoft.Agents.AI.Workflows;
 using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.AI;
 using ModelContextProtocol.Client;
@@ -112,15 +113,17 @@ public class FlightBookingAgentFactory
         }, _loggerFactory);
 
         // Apply OpenTelemetry and logging
+        var logger = _loggerFactory.CreateLogger<FlightBookingAgentFactory>();
         agent = agent.AsBuilder()
             .UseOpenTelemetry(Constants.ApplicationId, options =>
             {
                 options.EnableSensitiveData = true;
             })
             .UseLogging(_loggerFactory)
+            .Use(FunctionCallMiddleware)
             .Build();
 
-        return agent;
+        return new ServerFunctionApprovalAgent(agent, _jsonSerializerOptions);
     }
 
     private async Task<List<AITool>> GetMcpToolsAsync()
@@ -131,7 +134,6 @@ public class FlightBookingAgentFactory
         foreach (var tool in mcpTools)
         {
             var toolName = GetToolName(tool);
-
             if (string.Equals(toolName, "book_flight", StringComparison.OrdinalIgnoreCase))
             {
                 // Wrap BookFlight with ApprovalRequiredAIFunction
@@ -151,5 +153,15 @@ public class FlightBookingAgentFactory
     {
         var name = tool.ToString();
         return name ?? "Unknown";
+    }
+
+    async ValueTask<object?> FunctionCallMiddleware(AIAgent agent, FunctionInvocationContext context, Func<FunctionInvocationContext,
+        CancellationToken, ValueTask<object?>> next, CancellationToken cancellationToken)
+    {
+        Console.WriteLine($"Function Name: {context!.Function.Name} - Middleware 1 Pre-Invoke");
+        var result = await next(context, cancellationToken);
+        Console.WriteLine($"Function Name: {context!.Function.Name} - Middleware 1 Post-Invoke");
+
+        return result;
     }
 }
