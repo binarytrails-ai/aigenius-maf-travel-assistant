@@ -1,15 +1,15 @@
 // Add NuGet package references
 #:package Azure.AI.OpenAI@2.1.0
-#:package Azure.Identity@1.18.0
-#:package Microsoft.Agents.AI@1.0.0-rc2
-#:package Microsoft.Agents.AI.Abstractions@1.0.0-rc2
-#:package Microsoft.Extensions.AI@10.3.0
-#:package Microsoft.Extensions.AI.OpenAI@10.3.0
-#:package ModelContextProtocol@1.0.0
+#:package Azure.Identity@1.20.0
+#:package Microsoft.Agents.AI@1.0.0
+#:package Microsoft.Agents.AI.Abstractions@1.0.0
+#:package Microsoft.Extensions.AI@10.4.1
+#:package Microsoft.Extensions.AI.OpenAI@10.4.1
+#:package ModelContextProtocol@1.2.0
 #:package DotNetEnv@3.1.1
-#:package OpenTelemetry@1.10.0
-#:package OpenTelemetry.Exporter.OpenTelemetryProtocol@1.10.0
-#:package OpenTelemetry.Extensions.Hosting@1.10.0
+#:package OpenTelemetry@1.15.1
+#:package OpenTelemetry.Exporter.OpenTelemetryProtocol@1.15.1
+#:package OpenTelemetry.Extensions.Hosting@1.15.1
 #:package Microsoft.Extensions.Logging@10.0.0
 #:package Microsoft.Extensions.Logging.Console@10.0.0
 #:package Microsoft.Extensions.DependencyInjection@10.0.0
@@ -85,14 +85,15 @@ appLogger.LogInformation("Agent created with {ToolCount} tools", tools.Count);
 try
 {
     var session = await agent.CreateSessionAsync();
-    var userInput = "Please book flight QF107 for December 25, 2026 for 2 passengers.";
+    var userInput = "Please book flight QF107 for December 25, 2026 for 2 passengers. The passenger details are: First Name: John, Last Name: Doe, Passport Number: AB1234567.";
     Console.WriteLine($"User: {userInput}");
     appLogger.LogInformation("User: {UserInput}", userInput);
     var response = await agent.RunAsync(userInput, session);
 
 #pragma warning disable MEAI001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
-    List<FunctionApprovalRequestContent> approvalRequests = response.Messages.SelectMany
-    (m => m.Contents).OfType<FunctionApprovalRequestContent>().ToList();
+    var approvalRequests =
+     response.Messages.SelectMany(m => m.Contents).OfType<ToolApprovalRequestContent>().ToList();
+
 #pragma warning restore MEAI001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
 
     while (approvalRequests.Count > 0)
@@ -101,7 +102,7 @@ try
         List<ChatMessage> userInputResponses = approvalRequests
             .ConvertAll(functionApprovalRequest =>
             {
-                Console.WriteLine($"The agent would like to invoke the following function, please reply Y to approve: Name {functionApprovalRequest.FunctionCall.Name}");
+                Console.WriteLine($"The agent would like to invoke the following function, please reply Y to approve: Name {((FunctionCallContent)functionApprovalRequest.ToolCall).Name}");
                 return new ChatMessage(ChatRole.User, [functionApprovalRequest.CreateResponse
                 (Console.ReadLine()?.Equals("Y", StringComparison.OrdinalIgnoreCase) ?? false)]);
             });
@@ -110,7 +111,7 @@ try
         response = await agent.RunAsync(userInputResponses, session);
 
 #pragma warning disable MEAI001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
-        approvalRequests = response.Messages.SelectMany(m => m.Contents).OfType<FunctionApprovalRequestContent>().ToList();
+        approvalRequests = response.Messages.SelectMany(m => m.Contents).OfType<ToolApprovalRequestContent>().ToList();
 #pragma warning restore MEAI001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
 
     }
