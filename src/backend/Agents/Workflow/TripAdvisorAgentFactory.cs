@@ -74,7 +74,7 @@ public class TripAdvisorAgentFactory
             Path.Combine(AppContext.BaseDirectory, "skills/trip-planner"),
             Path.Combine(AppContext.BaseDirectory, "skills/visa-assistance")
         };
-        var skillsProvider = new FileAgentSkillsProvider(skillPaths: skillPaths, loggerFactory: _loggerFactory);
+        var skillsProvider = new AgentSkillsProvider(skillPaths: skillPaths, loggerFactory: _loggerFactory);
 
         var userProfileMemoryProvider = new UserProfileMemoryProvider(
             _chatClient,

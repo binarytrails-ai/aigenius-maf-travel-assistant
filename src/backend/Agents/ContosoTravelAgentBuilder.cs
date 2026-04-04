@@ -96,7 +96,7 @@ public class ContosoTravelAgentBuilder
             Path.Combine(AppContext.BaseDirectory, "skills/visa-assistance")
         };
 
-        var skillsProvider = new FileAgentSkillsProvider(skillPaths: skillPaths, loggerFactory: _loggerFactory);
+        var skillsProvider = new AgentSkillsProvider(skillPaths: skillPaths, loggerFactory: _loggerFactory);
         var userProfileMemoryProvider = GetUserProfileMemoryProvider(userId);
         var contextProviders = new List<AIContextProvider> { skillsProvider, userProfileMemoryProvider };
 

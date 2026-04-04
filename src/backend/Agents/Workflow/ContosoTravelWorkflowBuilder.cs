@@ -27,11 +27,13 @@ public class ContosoTravelWorkflowAgentFactory
         var tripAdvisorAgent = await tripAdvisorAgentFactory.CreateAsync();
         var flightSearchAgent = await flightSearchAgentFactory.CreateAsync();
 
+#pragma warning disable MAAIW001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
         var workflow = AgentWorkflowBuilder.CreateHandoffBuilderWith(triageAgent)
             .WithHandoffs(triageAgent, [tripAdvisorAgent, flightSearchAgent])
             .WithHandoffs(tripAdvisorAgent, [flightSearchAgent, triageAgent])
             .WithHandoffs(flightSearchAgent, [tripAdvisorAgent, triageAgent])
             .Build();
+#pragma warning restore MAAIW001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
 
         // The workflow is already an AIAgent type, can be used directly
         AIAgent workflowAgent = workflow.AsAIAgent();
