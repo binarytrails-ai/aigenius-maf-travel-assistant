@@ -229,4 +229,8 @@ Thailand:
             Instructions = "Use the following travel knowledge when answering questions:\n\n" + TravelKnowledge
         });
     }
+
+    protected override async ValueTask StoreAIContextAsync(InvokedContext context, CancellationToken cancellationToken = default)
+    {
+    }
 }
