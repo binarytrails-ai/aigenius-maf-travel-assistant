@@ -12,18 +12,19 @@ const serviceAdapter = new ExperimentalEmptyAdapter();
 
 // 2. Create the CopilotRuntime instance and utilize the Microsoft Agent Framework
 //    AG-UI integration to setup the connection.
-const backendUrl = process.env.BACKEND_AGENT_BASE_URL || "http://localhost:5001";
-console.log('[CopilotKit] Backend URL:', backendUrl);
+const backendUrl =
+  process.env.BACKEND_AGENT_BASE_URL || "http://localhost:5001";
+console.log("[CopilotKit] Backend URL:", backendUrl);
 
 const runtime = new CopilotRuntime({
   agents: {
     // The HttpAgent will receive messages and threadId from CopilotKit runtime
     // CopilotKit automatically maintains the conversation history and passes it
     // to the agent through the RunAgentInput which includes all messages
-    contoso_agent: new HttpAgent({ 
-       url: `${backendUrl}/agent/contoso_travel_bot`,
+    contoso_agent: new HttpAgent({
+      url: `${backendUrl}/agent/contoso_travel_bot`,
       //url: `${backendUrl}/agent/contoso_travel_workflow`,
-      debug: true // Enable detailed AG-UI protocol logs
+      debug: true, // Enable detailed AG-UI protocol logs
     }),
   },
 });

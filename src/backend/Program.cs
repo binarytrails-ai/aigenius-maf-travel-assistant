@@ -139,7 +139,7 @@ app.MapGet("/", () => Results.Ok(new { status = "healthy", service = "Travel Ass
 app.MapGet("/health", () => Results.Ok(new { status = "healthy" }));
 
 var travelBot = app.Services.GetRequiredKeyedService<AIAgent>("ContosoTravelAgent");
-app.MapOpenAIChatCompletions(travelBot);
+app.MapOpenAIChatCompletions(travelBot, "/ContosoTravelAgent/v1/chat/completions");
 // Map AGUI endpoint
 app.MapAGUI("/agent/contoso_travel_bot", travelBot);
 
