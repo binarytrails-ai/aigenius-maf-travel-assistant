@@ -7,15 +7,15 @@
 
 // Add NuGet package references
 #:package Azure.AI.OpenAI@2.1.0
-#:package Azure.Identity@1.18.0
-#:package Microsoft.Agents.AI@1.0.0-rc2
-#:package Microsoft.Agents.AI.Abstractions@1.0.0-rc2
-#:package Microsoft.Extensions.AI@10.3.0
-#:package Microsoft.Extensions.AI.OpenAI@10.3.0
+#:package Azure.Identity@1.20.0
+#:package Microsoft.Agents.AI@1.0.0
+#:package Microsoft.Agents.AI.Abstractions@1.0.0
+#:package Microsoft.Extensions.AI@10.4.1
+#:package Microsoft.Extensions.AI.OpenAI@10.4.1
 #:package DotNetEnv@3.1.1
-#:package OpenTelemetry@1.10.0
-#:package OpenTelemetry.Exporter.OpenTelemetryProtocol@1.10.0
-#:package OpenTelemetry.Extensions.Hosting@1.10.0
+#:package OpenTelemetry@1.15.1
+#:package OpenTelemetry.Exporter.OpenTelemetryProtocol@1.15.1
+#:package OpenTelemetry.Extensions.Hosting@1.15.1
 #:package Microsoft.Extensions.Logging@10.0.0
 #:package Microsoft.Extensions.Logging.Console@10.0.0
 #:package Microsoft.Extensions.DependencyInjection@10.0.0

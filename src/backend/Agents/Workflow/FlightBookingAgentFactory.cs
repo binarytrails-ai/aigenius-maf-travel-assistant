@@ -80,7 +80,7 @@ public class FlightBookingAgentFactory
         {
             Path.Combine(AppContext.BaseDirectory, "skills/flight-booking")
         };
-        var skillsProvider = new FileAgentSkillsProvider(skillPaths: skillPaths, loggerFactory: _loggerFactory);
+        var skillsProvider = new AgentSkillsProvider(skillPaths: skillPaths, loggerFactory: _loggerFactory);
 
         // Set up user profile memory provider
         var userProfileMemoryProvider = new UserProfileMemoryProvider(

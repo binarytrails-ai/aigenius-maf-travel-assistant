@@ -139,9 +139,22 @@ app.MapGet("/", () => Results.Ok(new { status = "healthy", service = "Travel Ass
 app.MapGet("/health", () => Results.Ok(new { status = "healthy" }));
 
 var travelBot = app.Services.GetRequiredKeyedService<AIAgent>("ContosoTravelAgent");
-app.MapOpenAIChatCompletions(travelBot);
+app.MapOpenAIChatCompletions(travelBot, "/ContosoTravelAgent/v1/chat/completions");
 // Map AGUI endpoint
 app.MapAGUI("/agent/contoso_travel_bot", travelBot);
+
+//app.MapPost("/agent/contoso_travel_bot", async (HttpContext context) =>
+//{
+//    using var reader = new StreamReader(context.Request.Body);
+//    var body = await reader.ReadToEndAsync();
+//    var request = JsonSerializer.Deserialize<ChatRequest>(body);
+
+//    if (request?.Messages == null || !request.Messages.Any())
+//        return Results.BadRequest("Messages are required");
+
+//    var response = await travelBot.InvokeAsync(request.Messages, cancellationToken: context.RequestAborted);
+//    return Results.Ok(new { response = response.Content });
+//});
 
 //// Map workflow agent endpoint
 //var workflowBot = app.Services.GetRequiredKeyedService<AIAgent>("ContosoTravelWorkflowAgent");
