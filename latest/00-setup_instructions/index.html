@@ -599,15 +599,16 @@
 </ol>
 <hr>
 <h2 id="load-sample-data">Load Sample Data<a class="headerlink" href="#load-sample-data" title="Permanent link">¶</a></h2>
-<p>Before running the application, you should load your database with sample data which includes chat history and flight information. This will allow you to test the agent's memory capabilities and the flight search tool in later labs.</p>
+<p>Before running the application, you should load your database with sample data required by the application.</p>
 <ol>
-<li>Navigate to <code>notebooks/cosmosdb-insert.ipynb</code> in your workspace</li>
-<li>Run the notebook cells to connect to your Azure Cosmos DB instance and insert sample records. You can run the cells in two ways:<ul>
-<li><strong>Option 1 - Run All</strong>: Click the "Run All" button at the top of the notebook to execute all cells sequentially</li>
-<li><strong>Option 2 - Run Individual Cells</strong>: Click the play button next to each cell to run them one by one</li>
-</ul>
+<li>
+<p>Run the following command in your terminal to execute the seeding script. You can also use the Play button in Visual Studio Code to run the script directly from the editor.</p>
+<div class="highlight"><pre><span></span><code>dotnet<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>scripts/seed-cosmosdb/Program.cs
+</code></pre></div>
 </li>
-<li>Verify that the data has been inserted successfully by checking the output messages in the notebook. You should see confirmation messages for each record inserted.</li>
+<li>
+<p>Verify that the data has been inserted successfully by checking the output messages in the terminal. You should see confirmation messages for each record inserted.</p>
+</li>
 </ol>
 <hr>
 <h2 id="running-the-application-locally">Running the Application Locally<a class="headerlink" href="#running-the-application-locally" title="Permanent link">¶</a></h2>
