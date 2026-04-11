@@ -1,0 +1,152 @@
+[
+  {
+    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "ApplicationId": "ContosoTravelApp",
+    "AgentId": "default",
+    "UserId": "user-001",
+    "ThreadId": "thread-001",
+    "Role": "user",
+    "Content": "I'm planning a trip to Sydney next month. Can you help me find good hotels near Circular Quay?",
+    "CreatedAt": "2026-01-25T10:00:00Z"
+  },
+  {
+    "id": "7b8c9d2e-4a3b-4c5d-8e9f-1a2b3c4d5e6f",
+    "ApplicationId": "ContosoTravelApp",
+    "AgentId": "default",
+    "UserId": "user-001",
+    "ThreadId": "thread-001",
+    "Role": "assistant",
+    "Content": "I'd be happy to help you plan your Sydney trip! What's your budget range for accommodation, and do you prefer staying near the Opera House or Darling Harbour?",
+    "CreatedAt": "2026-01-25T10:02:00Z"
+  },
+  {
+    "id": "9f1e2d3c-4b5a-6c7d-8e9f-0a1b2c3d4e5f",
+    "ApplicationId": "ContosoTravelApp",
+    "AgentId": "default",
+    "UserId": "user-001",
+    "ThreadId": "thread-001",
+    "Role": "user",
+    "Content": "Budget is around $300 AUD per night. I'd love to be near the Opera House with harbour views.",
+    "CreatedAt": "2026-01-25T10:05:00Z"
+  },
+  {
+    "id": "2c4e6a8b-1d3f-5e7g-9h0i-3j5k7l9m1n3o",
+    "ApplicationId": "ContosoTravelApp",
+    "AgentId": "default",
+    "UserId": "user-002",
+    "ThreadId": "thread-002",
+    "Role": "user",
+    "Content": "What are the best attractions to visit in Melbourne? I'm into art and coffee culture.",
+    "CreatedAt": "2026-01-27T14:00:00Z"
+  },
+  {
+    "id": "5e8d2f4b-9c1a-3d7e-6f0g-8h2i4j6k8l0m",
+    "ApplicationId": "ContosoTravelApp",
+    "AgentId": "default",
+    "UserId": "user-002",
+    "ThreadId": "thread-002",
+    "Role": "assistant",
+    "Content": "Melbourne is perfect for you! Visit the National Gallery of Victoria, explore the laneways for incredible coffee (try Dukes, Market Lane, and Patricia Coffee), check out street art in Hosier Lane, and visit the Arts Centre Melbourne. Don't miss the Queen Victoria Market for a true Melbourne experience!",
+    "CreatedAt": "2026-01-27T14:03:00Z"
+  },
+  {
+    "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "ApplicationId": "ContosoTravelApp",
+    "AgentId": "default",
+    "UserId": "user-001",
+    "ThreadId": "thread-003",
+    "Role": "user",
+    "Content": "I need to book a flight from Melbourne to Brisbane for next week. Can you help me find options?",
+    "CreatedAt": "2026-01-23T09:00:00Z"
+  },
+  {
+    "id": "b2c3d4e5-f6g7-8901-bcde-f12345678901",
+    "ApplicationId": "ContosoTravelApp",
+    "AgentId": "default",
+    "UserId": "user-001",
+    "ThreadId": "thread-003",
+    "Role": "assistant",
+    "Content": "I found several great flight options for you! Qantas has a direct flight departing Melbourne at 9:00 AM, arriving at Brisbane at 11:20 AM for $189 AUD. Virgin Australia also has a direct flight at 7:30 AM for $175 AUD. Both are excellent choices with good on-time records.",
+    "CreatedAt": "2026-01-23T09:02:00Z"
+  },
+  {
+    "id": "c3d4e5f6-g7h8-9012-cdef-234567890123",
+    "ApplicationId": "ContosoTravelApp",
+    "AgentId": "default",
+    "UserId": "user-001",
+    "ThreadId": "thread-003",
+    "Role": "user",
+    "Content": "The Qantas flight sounds perfect. Can you book it for me?",
+    "CreatedAt": "2026-01-23T09:05:00Z"
+  },
+  {
+    "id": "d4e5f6g7-h8i9-0123-defg-345678901234",
+    "ApplicationId": "ContosoTravelApp",
+    "AgentId": "default",
+    "UserId": "user-001",
+    "ThreadId": "thread-003",
+    "Role": "assistant",
+    "Content": "Great choice! I've booked the Qantas flight QF624 departing Melbourne on February 8th at 9:00 AM. Your confirmation number is QF8K2M7. The flight arrives at Brisbane Domestic Terminal at 11:20 AM local time.",
+    "CreatedAt": "2026-01-23T09:07:00Z"
+  },
+  {
+    "id": "g7h8i9j0-k1l2-3456-ghij-678901234567",
+    "ApplicationId": "ContosoTravelApp",
+    "AgentId": "default",
+    "UserId": "user-002",
+    "ThreadId": "thread-005",
+    "Role": "user",
+    "Content": "Can you recommend some good restaurants in Sydney? I love fresh seafood and Australian cuisine.",
+    "CreatedAt": "2026-01-26T11:00:00Z"
+  },
+  {
+    "id": "h8i9j0k1-l2m3-4567-hijk-789012345678",
+    "ApplicationId": "ContosoTravelApp",
+    "AgentId": "default",
+    "UserId": "user-002",
+    "ThreadId": "thread-005",
+    "Role": "assistant",
+    "Content": "For incredible seafood, I highly recommend Aria Sydney at Circular Quay with stunning harbour views - their barramundi is legendary! Also try Saint Peter in Paddington for sustainable Australian seafood, and The Fish Market for casual fresh catches. For fine dining, Quay Restaurant has 3 hats and amazing Opera House views.",
+    "CreatedAt": "2026-01-26T11:02:00Z"
+  },
+  {
+    "id": "k1l2m3n4-o5p6-7890-klmn-012345678901",
+    "ApplicationId": "ContosoTravelApp",
+    "AgentId": "default",
+    "UserId": "default-user",
+    "ThreadId": "thread-006",
+    "Role": "user",
+    "Content": "I'm looking for flights from Perth to Sydney in June. What are my options?",
+    "CreatedAt": "2026-01-24T15:00:00Z"
+  },
+  {
+    "id": "l2m3n4o5-p6q7-8901-lmno-123456789012",
+    "ApplicationId": "ContosoTravelApp",
+    "AgentId": "default",
+    "UserId": "default-user",
+    "ThreadId": "thread-006",
+    "Role": "assistant",
+    "Content": "For June flights from Perth to Sydney, I found Qantas with a direct flight departing at 8:30 AM, arriving at 3:45 PM for $289 AUD. Virgin Australia has a direct flight at 10:15 AM for $265 AUD, arriving at 5:30 PM. Both are comfortable 5-hour flights across the country.",
+    "CreatedAt": "2026-01-24T15:03:00Z"
+  },
+  {
+    "id": "o5p6q7r8-s9t0-1234-opqr-456789012345",
+    "ApplicationId": "ContosoTravelApp",
+    "AgentId": "default",
+    "UserId": "user-001",
+    "ThreadId": "thread-007",
+    "Role": "user",
+    "Content": "What are some good restaurants near Circular Quay in Sydney?",
+    "CreatedAt": "2026-01-22T12:00:00Z"
+  },
+  {
+    "id": "p6q7r8s9-t0u1-2345-pqrs-567890123456",
+    "ApplicationId": "ContosoTravelApp",
+    "AgentId": "default",
+    "UserId": "user-001",
+    "ThreadId": "thread-007",
+    "Role": "assistant",
+    "Content": "Near Circular Quay, I recommend Bennelong (fine dining inside the Opera House), Quay Restaurant with stunning harbour views, Opera Bar for more casual waterfront dining, and Cafe Sydney for modern Australian cuisine. For a romantic dinner with Opera House views, Aria is excellent. Book in advance for all of these!",
+    "CreatedAt": "2026-01-22T12:02:00Z"
+  }
+]
