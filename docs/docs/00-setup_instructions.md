@@ -75,16 +75,15 @@ This command will:
 
 ## Load Sample Data
 
-Before running the application, you should load your database with sample data which includes chat history and flight information. This will allow you to test the agent's memory capabilities and the flight search tool in later labs.
+Before running the application, you should load your database with sample data required by the application.
 
-1. Navigate to `scripts/seed-cosmosdb/Program.cs` in your code editor. This file contains the code to connect to your Azure Cosmos DB instance and insert sample records.
-2. Run the following command in your terminal to execute the seeding script. You can also use the Play button in Visual Studio Code to run the script directly from the editor.
+1. Run the following command in your terminal to execute the seeding script. You can also use the Play button in Visual Studio Code to run the script directly from the editor.
 
     ```bash
     dotnet run --project scripts/seed-cosmosdb/Program.cs
     ```
 
-3. Verify that the data has been inserted successfully by checking the output messages in the terminal. You should see confirmation messages for each record inserted.
+2. Verify that the data has been inserted successfully by checking the output messages in the terminal. You should see confirmation messages for each record inserted.
 
 ---
 
