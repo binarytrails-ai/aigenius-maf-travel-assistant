@@ -74,7 +74,7 @@ try
 {
     AgentSession session = await agent.CreateSessionAsync();
 
-    var userInput1 = "What is the best time to visit Japan?";
+    var userInput1 = "Can you recommend some travel destinations?";
     appLogger.LogInformation("User: {UserInput}", userInput1);
 
     var response1 = await agent.RunAsync(userInput1, session);
@@ -188,33 +188,50 @@ internal sealed class TravelKnowledgeContext : AIContextProvider
     private const string TravelKnowledge = @"
 DESTINATION HIGHLIGHTS:
 
-Australia:
-- Sydney: Iconic Opera House, Harbour Bridge, beautiful beaches like Bondi
-- Great Barrier Reef: World's largest coral reef system, excellent diving and snorkeling
-- Melbourne: Cultural capital, street art, coffee culture, and sports events
-- Uluru: Sacred rock formation in the heart of the outback
-- Best time to visit: September to November (spring) and March to May (autumn)
+## Adventure/Outdoors
+| Destination | Location | Description |
+|-------------|----------|-------------|
+| Great Ocean Road | Victoria | Dramatic coastal cliffs and rainforest trails |
+| Blue Mountains | NSW | World Heritage wilderness and hiking |
+| Kakadu National Park | NT | Ancient landscapes and Indigenous culture |
+| Tasmania Wilderness | Tasmania | Cradle Mountain, Overland Track |
+| Queenstown | New Zealand | Adventure capital with bungee, hiking, skiing |
 
-Japan:
-- Tokyo: Bustling metropolis with traditional temples, modern tech, and amazing food
-- Kyoto: Ancient temples, traditional gardens, geisha districts
-- Mount Fuji: Iconic mountain, best viewed in winter months
-- Osaka: Food lover's paradise, historic castles
-- Best time to visit: March to May (cherry blossoms) and September to November (fall foliage)
+## Beaches/Coastal
+| Destination | Location | Description |
+|-------------|----------|-------------|
+| Great Barrier Reef | Queensland | Vibrant coral reefs and tropical islands |
+| Sunshine Coast | Queensland | Relaxed beaches and hinterland rainforests |
+| Byron Bay | NSW | Iconic surf town with wellness culture |
+| Margaret River | Western Australia | Stunning coastline with wine country |
+| Coromandel Peninsula | New Zealand | White sand beaches and native bush |
 
-France:
-- Paris: Eiffel Tower, Louvre Museum, Notre-Dame, charming cafés
-- French Riviera: Nice, Cannes, Monaco - stunning Mediterranean coastline
-- Provence: Lavender fields, wine regions, historic villages
-- Loire Valley: Magnificent châteaux and vineyards
-- Best time to visit: April to June and September to October
+## Wildlife
+| Destination | Location | Description |
+|-------------|----------|-------------|
+| Kangaroo Island | South Australia | Wildlife sanctuary experiences |
+| Phillip Island | Victoria | Penguin parades and coastal nature |
+| Ningaloo Reef | Western Australia | Whale sharks and manta rays |
+| Rottnest Island | Western Australia | Quokkas and marine life |
+| Kaikoura | New Zealand | Whale watching and seal colonies |
 
-Thailand:
-- Bangkok: Grand Palace, bustling markets, street food, temples
-- Chiang Mai: Mountain temples, night bazaars, elephant sanctuaries
-- Phuket: Beautiful beaches, diving, island hopping
-- Krabi: Limestone cliffs, clear waters, rock climbing
-- Best time to visit: November to February (cool and dry season)
+## Cultural/Urban
+| Destination | Location | Description |
+|-------------|----------|-------------|
+| Melbourne | Victoria | Arts, coffee culture, laneways |
+| Sydney | NSW | Iconic harbor, beaches, diverse neighborhoods |
+| Hobart | Tasmania | Heritage, MONA, food scene |
+| Auckland | New Zealand | Polynesian culture meets modern city |
+| Wellington | New Zealand | Creative capital with museums and cafes |
+
+## Family
+| Destination | Location | Description |
+|-------------|----------|-------------|
+| Gold Coast | Queensland | Theme parks and beaches |
+| Port Douglas | Queensland | Reef access with family-friendly resorts |
+| Canberra | ACT | Educational attractions and outdoor spaces |
+| Bay of Islands | New Zealand | Dolphins, beaches, island hopping |
+
 ";
 
     public TravelKnowledgeContext() : base(null, null) { }

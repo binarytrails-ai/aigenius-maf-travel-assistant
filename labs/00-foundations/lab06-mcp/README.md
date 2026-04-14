@@ -1,6 +1,6 @@
 # Lab 06: MCP Client - Using MCP Tools in an Agent
 
-In this lab, you will update your travel assistant agent to use tools from an MCP server. You will connect to the server, retrieve the available tools, and configure your agent to use them.
+In this lab, you will learn how to use tools from an MCP server. You will connect to the server, retrieve the available tools, and configure your agent to use them.
 
 - ✅ Connect to an MCP server using HTTP transport
 - ✅ Retrieve tools from an MCP server dynamically
@@ -87,19 +87,6 @@ The server reads from the same `data/flights_data.json` file but exposes this da
 
 ## Instructions
 
-### Step 0: Start the MCP Server
-
-**Before running the lab**, you must start the MCP server in a separate terminal:
-
-```bash
-cd src/mcp
-dotnet run
-```
-
-Leave this terminal running. The server will listen on `http://localhost:5002`.
-
-The server uses API key authentication. By default, the lab uses the development API key `F3FF9AB9-AF9E-42CA-916F-23BEFE7AA546` (configured in `appsettings.Development.json`). You can override this by setting the `MCP_FLIGHT_SEARCH_API_KEY` environment variable.
-
 ### Step 1: Navigate to the Lab Folder
 
 ```bash
@@ -120,13 +107,10 @@ Or in Visual Studio Code, open Program.cs and click the **"Run"** button that ap
 
 You should see:
 
-1. The agent connecting to the MCP server at `http://localhost:5002`
+1. The agent connecting to the MCP server defined in your `.env` file as `MCP_FLIGHT_SEARCH_TOOL_BASE_URL` and authenticating with the API key `MCP_FLIGHT_SEARCH_API_KEY`
 2. Retrieved tool count logged (e.g., "Retrieved 4 tools from MCP server")
 3. The user query: "Can you find me flights from Melbourne to Auckland?"
 4. The agent automatically calling the `SearchFlights` tool from the MCP server
-5. A conversational response presenting the flight results
-
-Notice how the agent uses the remote tool seamlessly — there's no difference from the agent's perspective between local and remote tools.
 
 ---
 

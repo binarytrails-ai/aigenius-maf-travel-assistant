@@ -91,9 +91,6 @@ You should see the agent provide responses that incorporate the additional conte
 - Ask about a destination that is NOT in the knowledge block, such as `"What should I see in Brazil?"`.
 - Observe how the agent falls back to its general training data — the context provider only supplements, it does not restrict.
 
-**Make the context query-aware**
-- Modify `ProvideAIContextAsync` to inspect the user's message via `context.AIContext` and return only the relevant destination section instead of the full knowledge block. This reduces token usage and is closer to how a real RAG retrieval step works.
-
 **Add a second context provider**
 - Create a second class (e.g. `UserPreferencesContext`) that returns a budget preference or dietary restriction as additional instructions.
 - Register both providers in `AIContextProviders = [travelContext, userPrefsContext]` and ask a question that requires both sources.

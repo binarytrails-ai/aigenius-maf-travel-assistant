@@ -74,17 +74,6 @@ This loop:
 
 ## Instructions
 
-### Step 0: Start the MCP Server
-
-**Before running the lab**, you must start the MCP server in a separate terminal:
-
-```bash
-cd src/mcp
-dotnet run
-```
-
-Leave this terminal running. The server will listen on `http://localhost:5002`.
-
 ### Step 1: Navigate to the Lab Folder
 
 ```bash
@@ -105,14 +94,16 @@ Or in Visual Studio Code, open Program.cs and click the **"Run"** button that ap
 
 You should see:
 
-1. **Approval prompt** — The console displays:
+1. The agent connecting to the MCP server defined in your `.env` file as `MCP_FLIGHT_SEARCH_TOOL_BASE_URL` and authenticating with the API key `MCP_FLIGHT_SEARCH_API_KEY`
+
+2. **Approval prompt** — The console displays:
 
    ```
    The agent would like to invoke the following function, please reply Y to approve: Name book_flight
    ```
 
-2. **Waiting for input** — The program waits for you to type Y or N. Type `Y` and press Enter to approve the booking.
-3. The agent executes the `book_flight` tool and confirms the booking with details.
+3. **Waiting for input** — The program waits for you to type Y or N. Type `Y` and press Enter to approve the booking.
+4. The agent executes the `book_flight` tool and confirms the booking with details.
 
 ### Step 4: Try Denying Approval
 
