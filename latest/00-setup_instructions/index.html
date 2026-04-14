@@ -575,10 +575,6 @@
 <span class="n">azd</span> <span class="n">env</span> <span class="nb">select </span><span class="n">dev</span>
 <span class="n">azd</span> <span class="n">env</span> <span class="nb">set </span><span class="n">AZURE_LOCATION</span> <span class="n">australiaeast</span>
 </code></pre></div>
-<div class="admonition note">
-<p class="admonition-title">Azure Location</p>
-<p>You can change <code>australiaeast</code> to any Azure region that supports AI Foundry. Common options include: <code>eastus</code>, <code>westus2</code>, <code>westeurope</code>, <code>southeastasia</code>.</p>
-</div>
 <h3 id="3-provision-and-deploy">3. Provision and Deploy<a class="headerlink" href="#3-provision-and-deploy" title="Permanent link">¶</a></h3>
 <p>Deploy all required Azure resources using a single command:</p>
 <div class="highlight"><pre><span></span><code><span class="n">azd</span> <span class="n">up</span>
@@ -603,7 +599,7 @@
 <ol>
 <li>
 <p>Run the following command in your terminal to execute the seeding script. You can also use the Play button in Visual Studio Code to run the script directly from the editor.</p>
-<div class="highlight"><pre><span></span><code>dotnet<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>scripts/seed-cosmosdb/Program.cs
+<div class="highlight"><pre><span></span><code>dotnet<span class="w"> </span>run<span class="w"> </span>scripts/seed-cosmosdb/Program.cs
 </code></pre></div>
 </li>
 <li>
@@ -638,66 +634,9 @@ dotnet<span class="w"> </span>run
 </ul>
 </li>
 </ol>
-<h3 id="option-b-manual-startup-individual-services">Option B: Manual Startup (Individual Services)<a class="headerlink" href="#option-b-manual-startup-individual-services" title="Permanent link">¶</a></h3>
-<p>If you prefer to start each service individually, follow these steps:</p>
-<h4 id="1-start-the-mcp-server">1. Start the MCP Server<a class="headerlink" href="#1-start-the-mcp-server" title="Permanent link">¶</a></h4>
-<ul>
-<li>
-<p>Navigate to the MCP server folder:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>src/mcp
-</code></pre></div>
-</li>
-<li>
-<p>Start the MCP server by running the following command:</p>
-<div class="highlight"><pre><span></span><code>dotnet<span class="w"> </span>run
-</code></pre></div>
-</li>
-</ul>
-<h4 id="2-start-the-backend-server">2. Start the Backend Server<a class="headerlink" href="#2-start-the-backend-server" title="Permanent link">¶</a></h4>
-<ul>
-<li>
-<p>In a separate terminal, navigate to the backend folder:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>src/backend
-</code></pre></div>
-</li>
-<li>
-<p>Start the backend server by running the following command. This will start the backend API server on <strong><code>http://localhost:5001</code></strong></p>
-<div class="highlight"><pre><span></span><code>dotnet<span class="w"> </span>run
-</code></pre></div>
-</li>
-</ul>
-<h4 id="3-start-the-frontend-server">3. Start the Frontend Server<a class="headerlink" href="#3-start-the-frontend-server" title="Permanent link">¶</a></h4>
-<ul>
-<li>
-<p>In a separate terminal, navigate to the frontend folder by running the following command:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>src/frontend
-</code></pre></div>
-</li>
-<li>
-<p>Install the required npm packages (if you haven't already):</p>
-<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>install
-</code></pre></div>
-</li>
-<li>
-<p>Build the frontend application:</p>
-<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>run<span class="w"> </span>build
-</code></pre></div>
-</li>
-<li>
-<p>Start the frontend server. The frontend is configured to communicate with the backend API on port <strong>5001</strong>:</p>
-<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>start
-</code></pre></div>
-</li>
-</ul>
-<p>To access the frontend application:</p>
-<ul>
-<li><strong>Local Development</strong>: Open your browser to <code>http://localhost:3000</code></li>
-<li><strong>GitHub Codespaces</strong>: When the frontend starts, Codespaces will automatically forward port 3000. 
-        Go to the <strong>Ports</strong> panel in VS Code, find port <strong>3000</strong>, and click the <strong>globe icon</strong> (🌐) to open the frontend in your browser.</li>
-</ul>
 <hr>
 <h3 id="test-your-setup">Test Your Setup<a class="headerlink" href="#test-your-setup" title="Permanent link">¶</a></h3>
-<p>Regardless of which option you chose, verify that everything is working correctly:</p>
+<p>Verify that everything is working correctly:</p>
 <ul>
 <li>
 <p><strong>API Testing</strong>: Navigate to the file <code>src/backend/ContosoTravelAgent.http</code> in the code repository.</p>
