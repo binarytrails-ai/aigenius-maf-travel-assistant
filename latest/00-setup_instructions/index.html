@@ -307,10 +307,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#setup-source-code-repository" class="md-nav__link">
+  <a href="#set-up-source-code-repository" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Setup Source Code Repository
+        Set Up Source Code Repository
       
     </span>
   </a>
@@ -318,21 +318,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#set-up-azure-infrastructure" class="md-nav__link">
+  <a href="#set-up-azure-environment" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Set Up Azure Infrastructure
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#load-sample-data" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Load Sample Data
+        Set Up Azure Environment
       
     </span>
   </a>
@@ -477,10 +466,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#setup-source-code-repository" class="md-nav__link">
+  <a href="#set-up-source-code-repository" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Setup Source Code Repository
+        Set Up Source Code Repository
       
     </span>
   </a>
@@ -488,21 +477,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#set-up-azure-infrastructure" class="md-nav__link">
+  <a href="#set-up-azure-environment" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Set Up Azure Infrastructure
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#load-sample-data" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Load Sample Data
+        Set Up Azure Environment
       
     </span>
   </a>
@@ -544,15 +522,15 @@
 <li><strong>Azure Subscription</strong>: Sign up for a free <a href="https://azure.microsoft.com/free/">Azure account</a>.</li>
 </ul>
 <hr>
-<h2 id="setup-source-code-repository">Setup Source Code Repository<a class="headerlink" href="#setup-source-code-repository" title="Permanent link">¶</a></h2>
+<h2 id="set-up-source-code-repository">Set Up Source Code Repository<a class="headerlink" href="#set-up-source-code-repository" title="Permanent link">¶</a></h2>
 <ol>
-<li>From your browser, navigate to the <a href="https://github.com/binarytrails-ai/aigenius-maf-travel-assistant">aigenius-maf-travel-assistant</a> repository on GitHub. This repository has all the code and resources for the session.</li>
 <li>
+<p>The source code is in <a href="https://github.com/binarytrails-ai/aigenius-maf-travel-assistant">aigenius-maf-travel-assistant</a> GitHub repository.</p>
 <p>Fork this repository to your own GitHub account. <br>
-   <a href="https://github.com/binarytrails-ai/aigenius-maf-travel-assistant/fork"><img alt="Fork on GitHub" src="https://img.shields.io/badge/Fork%20Repo-blue?logo=github&amp;style=for-the-badge"></a></p>
+<a href="https://github.com/binarytrails-ai/aigenius-maf-travel-assistant/fork"><img alt="Fork on GitHub" src="https://img.shields.io/badge/Fork%20Repo-blue?logo=github&amp;style=for-the-badge"></a></p>
 </li>
 <li>
-<p>The recommended way to work through this session is with <strong>GitHub Codespaces</strong>, which provides a ready-to-use environment with all required tools. <br>Alternatively, you can use a Visual Studio Code to run the application locally.<br><br>
+<p>The recommended way to work through this session is with <strong>GitHub Codespaces</strong>, which provides a ready-to-use environment with all required tools. <br>Alternatively, you can use Visual Studio Code to run the application locally.<br><br>
 <strong>Using GitHub Codespaces</strong>: Once you've forked the repository, navigate to your forked repository on GitHub and click the green <strong>Code</strong> button, then select the <strong>Codespaces</strong> tab and click <strong>Create codespace on main</strong>.</p>
 <p>The Codespace will be pre-configured with all the necessary dependencies and tools to run the labs.</p>
 <div class="admonition warning">
@@ -562,92 +540,88 @@
 </li>
 </ol>
 <hr>
-<h2 id="set-up-azure-infrastructure">Set Up Azure Infrastructure<a class="headerlink" href="#set-up-azure-infrastructure" title="Permanent link">¶</a></h2>
-<p>Deploy the application to Azure. You will also connect to these resources when running the application from your local machine or Codespace.</p>
+<h2 id="set-up-azure-environment">Set Up Azure Environment<a class="headerlink" href="#set-up-azure-environment" title="Permanent link">¶</a></h2>
 <h3 id="1-authenticate-with-azure">1. Authenticate with Azure<a class="headerlink" href="#1-authenticate-with-azure" title="Permanent link">¶</a></h3>
 <p>First, authenticate with your Azure account using the Azure Developer CLI:</p>
-<div class="highlight"><pre><span></span><code><span class="n">azd</span> <span class="n">auth</span> <span class="n">login</span> <span class="p">-</span><span class="n">-use-device-code</span>
+<div class="highlight"><pre><span></span><code>azd<span class="w"> </span>auth<span class="w"> </span>login<span class="w"> </span>--use-device-code
 </code></pre></div>
 <p>Follow the prompts to complete the authentication process in your browser.</p>
 <h3 id="2-create-and-configure-environment">2. Create and Configure Environment<a class="headerlink" href="#2-create-and-configure-environment" title="Permanent link">¶</a></h3>
 <p>Create a new environment for your Azure resources:</p>
-<div class="highlight"><pre><span></span><code><span class="n">azd</span> <span class="n">env</span> <span class="n">new</span> <span class="n">dev</span>
-<span class="n">azd</span> <span class="n">env</span> <span class="nb">select </span><span class="n">dev</span>
-<span class="n">azd</span> <span class="n">env</span> <span class="nb">set </span><span class="n">AZURE_LOCATION</span> <span class="n">australiaeast</span>
+<div class="highlight"><pre><span></span><code>azd<span class="w"> </span>env<span class="w"> </span>new<span class="w"> </span>dev
+azd<span class="w"> </span>env<span class="w"> </span><span class="k">select</span><span class="w"> </span>dev
+azd<span class="w"> </span>env<span class="w"> </span><span class="nb">set</span><span class="w"> </span>AZURE_LOCATION<span class="w"> </span>australiaeast
 </code></pre></div>
-<h3 id="3-provision-and-deploy">3. Provision and Deploy<a class="headerlink" href="#3-provision-and-deploy" title="Permanent link">¶</a></h3>
-<p>Deploy all required Azure resources using a single command:</p>
-<div class="highlight"><pre><span></span><code><span class="n">azd</span> <span class="n">up</span>
-</code></pre></div>
-<p>This command will:</p>
-<ul>
-<li>Provision all the necessary resources in Azure.</li>
-<li>Deploy AI models.</li>
-<li>Configure authentication and permissions</li>
-</ul>
-<div class="admonition warning">
-<p class="admonition-title">Deployment Time</p>
-<p>The deployment process may take 5-10 minutes to complete. Please be patient while Azure provisions all resources.</p>
-</div>
-<h3 id="verify-deployment">Verify Deployment ✅<a class="headerlink" href="#verify-deployment" title="Permanent link">¶</a></h3>
-<ol>
-<li>Navigate to the <a href="https://portal.azure.com">Azure Portal</a> and verify the resources under the resource group <code>rg-aiagent-ws-dev</code>.</li>
-</ol>
-<hr>
-<h2 id="load-sample-data">Load Sample Data<a class="headerlink" href="#load-sample-data" title="Permanent link">¶</a></h2>
-<p>Before running the application, you should load your database with sample data required by the application.</p>
+<h3 id="3-provision-azure-resources">3. Provision Azure Resources<a class="headerlink" href="#3-provision-azure-resources" title="Permanent link">¶</a></h3>
 <ol>
 <li>
-<p>Run the following command in your terminal to execute the seeding script. You can also use the Play button in Visual Studio Code to run the script directly from the editor.</p>
-<div class="highlight"><pre><span></span><code>dotnet<span class="w"> </span>run<span class="w"> </span>scripts/seed-cosmosdb/Program.cs
+<p>Create all required Azure infrastructure using the following command. This command will deploy resources defined in the <code>infra</code> folder.</p>
+<div class="highlight"><pre><span></span><code>azd<span class="w"> </span>provision
 </code></pre></div>
 </li>
 <li>
-<p>Verify that the data has been inserted successfully by checking the output messages in the terminal. You should see confirmation messages for each record inserted.</p>
+<p>Navigate to the <a href="https://portal.azure.com">Azure Portal</a> and verify the resources under the resource group <code>rg-aiagent-ws-dev</code>.</p>
+</li>
+</ol>
+<h3 id="4-load-sample-data">4. Load Sample Data<a class="headerlink" href="#4-load-sample-data" title="Permanent link">¶</a></h3>
+<p>The application uses sample data which needs to be loaded into the Cosmos DB instance that was provisioned in the previous step.</p>
+<ol>
+<li>
+<p>Run the following command from a new terminal window to execute the script. You can also use the Play button in Visual Studio Code to run the script directly from the editor.</p>
+<div class="highlight"><pre><span></span><code>dotnet<span class="w"> </span>run<span class="w"> </span>scripts/seed-cosmosdb/Program.cs
+</code></pre></div>
+</li>
+</ol>
+<h3 id="5-deploy-application-to-azure">5. Deploy Application to Azure<a class="headerlink" href="#5-deploy-application-to-azure" title="Permanent link">¶</a></h3>
+<ol>
+<li>
+<p>The application uses containerized services for the frontend and backend, which are deployed to Azure Container Apps. Run the following command to build and deploy these services to Azure:</p>
+<div class="highlight"><pre><span></span><code>azd<span class="w"> </span>deploy
+</code></pre></div>
+</li>
+<li>
+<p>Once deployment completes, retrieve the frontend URL from your environment variables using the following command:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Linux/macOS</span>
+azd<span class="w"> </span>env<span class="w"> </span>get-values<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>FRONTEND_URI
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c"># Windows PowerShell</span>
+<span class="n">azd</span> <span class="n">env</span> <span class="nb">get-values</span> <span class="p">|</span> <span class="nb">Select-String</span> <span class="s2">"FRONTEND_URI"</span>
+</code></pre></div>
+<p>Copy the value and open it in your browser to access the application.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../media/frontend-app.png" data-desc-position="bottom"><img alt="Frontend Application" src="../media/frontend-app.png"></a></p>
 </li>
 </ol>
 <hr>
 <h2 id="running-the-application-locally">Running the Application Locally<a class="headerlink" href="#running-the-application-locally" title="Permanent link">¶</a></h2>
-<p>You have two options to run the application: using .NET Aspire (recommended) or starting each service manually.</p>
-<h3 id="option-a-using-net-aspire-recommended">Option A: Using .NET Aspire (Recommended)<a class="headerlink" href="#option-a-using-net-aspire-recommended" title="Permanent link">¶</a></h3>
-<p>.NET Aspire orchestrates all services (MCP server, backend, and frontend) with a single command and provides a dashboard for monitoring.</p>
-<ol>
-<li>
-<p><strong>Build the frontend application:</strong></p>
-<p>Navigate to the frontend folder and build the application:</p>
+<p>For local development and testing, you can run the application on your machine or Codespace. </p>
+<p>This uses the same Azure resources (AI Foundry, Cosmos DB) that were provisioned during deployment, allowing you to develop and test changes before deploying them. The environment variables for connecting to Azure resources are setup in the .env file when you provision the infrastructure.</p>
+<h3 id="1-build-the-frontend-application">1. Build the Frontend Application<a class="headerlink" href="#1-build-the-frontend-application" title="Permanent link">¶</a></h3>
+<p>Open a new terminal in Visual Studio Code and navigate to <code>src/frontend</code> folder and build the application:</p>
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>src/frontend
 npm<span class="w"> </span>install
 npm<span class="w"> </span>run<span class="w"> </span>build
 </code></pre></div>
-</li>
-<li>
-<p><strong>Start the Aspire AppHost:</strong></p>
-<p>Navigate to the AppHost folder and run the application:</p>
+<h3 id="2-start-the-application">2. Start the Application<a class="headerlink" href="#2-start-the-application" title="Permanent link">¶</a></h3>
+<p>The application uses .NET Aspire to orchestrate all services (backend and frontend) with a single command and provides a dashboard for monitoring.</p>
+<p>Open a new terminal in Visual Studio Code and navigate to <code>src/ContosoTravel.AppHost</code> folder and run the application:</p>
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>src/ContosoTravel.AppHost
 dotnet<span class="w"> </span>run
 </code></pre></div>
-<p>This will start all services and open the .NET Aspire dashboard in your browser, where you can:</p>
+<h3 id="3-access-the-application">3. Access the Application<a class="headerlink" href="#3-access-the-application" title="Permanent link">¶</a></h3>
+<ol>
+<li>
+<p>To access the .NET Aspire dashboard:</p>
 <ul>
-<li>View logs from all services</li>
-<li>Monitor resource usage</li>
-<li>Access endpoints for each service</li>
+<li><strong>Local Development</strong>: Open your browser to <code>http://localhost:15160</code></li>
+<li><strong>GitHub Codespaces</strong>: When the application starts, Codespaces will automatically forward port 15160.
+    Go to the <strong>Ports</strong> panel in VS Code, find port <strong>15160</strong>, and click the <strong>globe icon</strong> (🌐) to open the dashboard in your browser.</li>
 </ul>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../media/dashboard.png" data-desc-position="bottom"><img alt="Dashboard" src="../media/dashboard.png"></a></p>
+</li>
+<li>
+<p>You can see the links to access the frontend and backend services there. Click on the frontend link to open the Contoso Travel Agent application in your browser.</p>
 </li>
 </ol>
-<hr>
-<h3 id="test-your-setup">Test Your Setup<a class="headerlink" href="#test-your-setup" title="Permanent link">¶</a></h3>
-<p>Verify that everything is working correctly:</p>
-<ul>
-<li>
-<p><strong>API Testing</strong>: Navigate to the file <code>src/backend/ContosoTravelAgent.http</code> in the code repository.</p>
-<p>This file contains HTTP requests that you can use to interact with the backend API. To send a request, click on the <code>Send Request</code> link above each request in the file.</p>
-</li>
-<li>
-<p><strong>Web Application Testing</strong>: Open your web browser and navigate to <code>http://localhost:3000</code>.</p>
-<p>Click on the <code>New Chat</code> button to start a new conversation with the travel assistant. </p>
-<p>Send a few messages to verify that the frontend and backend are communicating correctly.</p>
-</li>
-</ul>
 <hr>
 
 
