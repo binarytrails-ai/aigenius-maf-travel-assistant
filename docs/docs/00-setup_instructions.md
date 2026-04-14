@@ -7,13 +7,14 @@
 
 ---
 
-## Setup Source Code Repository
+## Set Up Source Code Repository
 
-1. From your browser, navigate to the [aigenius-maf-travel-assistant](https://github.com/binarytrails-ai/aigenius-maf-travel-assistant) repository on GitHub. This repository has all the code and resources for the session.
-1. Fork this repository to your own GitHub account. </br>
-   [![Fork on GitHub](https://img.shields.io/badge/Fork%20Repo-blue?logo=github&style=for-the-badge)](https://github.com/binarytrails-ai/aigenius-maf-travel-assistant/fork)
+1. The source code is in [aigenius-maf-travel-assistant](https://github.com/binarytrails-ai/aigenius-maf-travel-assistant) GitHub repository.
 
-1. The recommended way to work through this session is with **GitHub Codespaces**, which provides a ready-to-use environment with all required tools. </br>Alternatively, you can use a Visual Studio Code to run the application locally.</br></br>
+    Fork this repository to your own GitHub account. </br>
+    [![Fork on GitHub](https://img.shields.io/badge/Fork%20Repo-blue?logo=github&style=for-the-badge)](https://github.com/binarytrails-ai/aigenius-maf-travel-assistant/fork)
+
+1. The recommended way to work through this session is with **GitHub Codespaces**, which provides a ready-to-use environment with all required tools. </br>Alternatively, you can use Visual Studio Code to run the application locally.</br></br>
 **Using GitHub Codespaces**: Once you've forked the repository, navigate to your forked repository on GitHub and click the green **Code** button, then select the **Codespaces** tab and click **Create codespace on main**.
 
     The Codespace will be pre-configured with all the necessary dependencies and tools to run the labs.
@@ -23,15 +24,13 @@
 
 ---
 
-## Set Up Azure Infrastructure
-
-Deploy the application to Azure. You will also connect to these resources when running the application from your local machine or Codespace.
+## Set Up Azure Environment
 
 ### 1. Authenticate with Azure
 
 First, authenticate with your Azure account using the Azure Developer CLI:
 
-```powershell
+```bash
 azd auth login --use-device-code
 ```
 
@@ -41,97 +40,96 @@ Follow the prompts to complete the authentication process in your browser.
 
 Create a new environment for your Azure resources:
 
-```powershell
+```bash
 azd env new dev
 azd env select dev
 azd env set AZURE_LOCATION australiaeast
 ```
 
-### 3. Provision and Deploy
+### 3. Provision Azure Resources
 
-Deploy all required Azure resources using a single command:
+1. Create all required Azure infrastructure using the following command. This command will deploy resources defined in the `infra` folder.
 
-```powershell
-azd up
-```
-
-This command will:
-
-- Provision all the necessary resources in Azure.
-- Deploy AI models.
-- Configure authentication and permissions
-
-!!! Warning "Deployment Time"
-    The deployment process may take 5-10 minutes to complete. Please be patient while Azure provisions all resources.
-
-### Verify Deployment ✅
+    ```bash
+    azd provision
+    ```
 
 1. Navigate to the [Azure Portal](https://portal.azure.com) and verify the resources under the resource group `rg-aiagent-ws-dev`.
 
----
+### 4. Load Sample Data
 
-## Load Sample Data
+The application uses sample data which needs to be loaded into the Cosmos DB instance that was provisioned in the previous step.
 
-Before running the application, you should load your database with sample data required by the application.
-
-1. Run the following command in your terminal to execute the seeding script. You can also use the Play button in Visual Studio Code to run the script directly from the editor.
+1. Run the following command from a new terminal window to execute the script. You can also use the Play button in Visual Studio Code to run the script directly from the editor.
 
     ```bash
     dotnet run scripts/seed-cosmosdb/Program.cs
     ```
 
-2. Verify that the data has been inserted successfully by checking the output messages in the terminal. You should see confirmation messages for each record inserted.
+### 5. Deploy Application to Azure
+
+1. The application uses containerized services for the frontend and backend, which are deployed to Azure Container Apps. Run the following command to build and deploy these services to Azure:
+
+    ```bash
+    azd deploy
+    ```
+
+2. Once deployment completes, retrieve the frontend URL from your environment variables using the following command:
+
+    ```bash
+    # Linux/macOS
+    azd env get-values | grep FRONTEND_URI
+    ```
+
+    ```powershell
+    # Windows PowerShell
+    azd env get-values | Select-String "FRONTEND_URI"
+    ```
+
+    Copy the value and open it in your browser to access the application.
+
+    ![Frontend Application](media/frontend-app.png)
 
 ---
 
 ## Running the Application Locally
 
-You have two options to run the application: using .NET Aspire (recommended) or starting each service manually.
+For local development and testing, you can run the application on your machine or Codespace. 
 
-### Option A: Using .NET Aspire (Recommended)
+This uses the same Azure resources (AI Foundry, Cosmos DB) that were provisioned during deployment, allowing you to develop and test changes before deploying them. The environment variables for connecting to Azure resources are setup in the .env file when you provision the infrastructure.
 
-.NET Aspire orchestrates all services (MCP server, backend, and frontend) with a single command and provides a dashboard for monitoring.
+### 1. Build the Frontend Application
 
-1. **Build the frontend application:**
+Open a new terminal in Visual Studio Code and navigate to `src/frontend` folder and build the application:
 
-    Navigate to the frontend folder and build the application:
+```bash
+cd src/frontend
+npm install
+npm run build
+```
 
-    ```bash
-    cd src/frontend
-    npm install
-    npm run build
-    ```
+### 2. Start the Application
 
-2. **Start the Aspire AppHost:**
+The application uses .NET Aspire to orchestrate all services (backend and frontend) with a single command and provides a dashboard for monitoring.
 
-    Navigate to the AppHost folder and run the application:
+Open a new terminal in Visual Studio Code and navigate to `src/ContosoTravel.AppHost` folder and run the application:
 
-    ```bash
-    cd src/ContosoTravel.AppHost
-    dotnet run
-    ```
+```bash
+cd src/ContosoTravel.AppHost
+dotnet run
+```
 
-    This will start all services and open the .NET Aspire dashboard in your browser, where you can:
+### 3. Access the Application
 
-    - View logs from all services
-    - Monitor resource usage
-    - Access endpoints for each service
-
----
-
-### Test Your Setup
-
-Verify that everything is working correctly:
-
-- **API Testing**: Navigate to the file `src/backend/ContosoTravelAgent.http` in the code repository.
-  
-    This file contains HTTP requests that you can use to interact with the backend API. To send a request, click on the `Send Request` link above each request in the file.
-
-- **Web Application Testing**: Open your web browser and navigate to `http://localhost:3000`.
-
-  
-    Click on the `New Chat` button to start a new conversation with the travel assistant. 
+1. To access the .NET Aspire dashboard:
     
-    Send a few messages to verify that the frontend and backend are communicating correctly.
+    - **Local Development**: Open your browser to `http://localhost:15160`
+    - **GitHub Codespaces**: When the application starts, Codespaces will automatically forward port 15160.
+        Go to the **Ports** panel in VS Code, find port **15160**, and click the **globe icon** (🌐) to open the dashboard in your browser.
+        
+
+    ![Dashboard](media/dashboard.png)
+
+2. You can see the links to access the frontend and backend services there. Click on the frontend link to open the Contoso Travel Agent application in your browser.
 
 ---
