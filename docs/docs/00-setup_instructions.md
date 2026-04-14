@@ -47,9 +47,6 @@ azd env select dev
 azd env set AZURE_LOCATION australiaeast
 ```
 
-!!! Note "Azure Location"
-    You can change `australiaeast` to any Azure region that supports AI Foundry. Common options include: `eastus`, `westus2`, `westeurope`, `southeastasia`.
-
 ### 3. Provision and Deploy
 
 Deploy all required Azure resources using a single command:
@@ -80,7 +77,7 @@ Before running the application, you should load your database with sample data r
 1. Run the following command in your terminal to execute the seeding script. You can also use the Play button in Visual Studio Code to run the script directly from the editor.
 
     ```bash
-    dotnet run --project scripts/seed-cosmosdb/Program.cs
+    dotnet run scripts/seed-cosmosdb/Program.cs
     ```
 
 2. Verify that the data has been inserted successfully by checking the output messages in the terminal. You should see confirmation messages for each record inserted.
@@ -120,75 +117,11 @@ You have two options to run the application: using .NET Aspire (recommended) or 
     - Monitor resource usage
     - Access endpoints for each service
 
-### Option B: Manual Startup (Individual Services)
-
-If you prefer to start each service individually, follow these steps:
-
-#### 1. Start the MCP Server
-
-- Navigate to the MCP server folder:
-
-    ```bash
-    cd src/mcp
-    ```
-
-- Start the MCP server by running the following command:
-
-    ```bash
-    dotnet run
-    ```
-
-#### 2. Start the Backend Server
-
-- In a separate terminal, navigate to the backend folder:
-
-    ```bash
-    cd src/backend
-    ```
-
-- Start the backend server by running the following command. This will start the backend API server on **`http://localhost:5001`**
-
-    ```bash
-    dotnet run
-    ```
-
-#### 3. Start the Frontend Server
-
-- In a separate terminal, navigate to the frontend folder by running the following command:
-
-    ```bash
-    cd src/frontend
-    ```
-
-- Install the required npm packages (if you haven't already):
-
-    ```bash
-    npm install
-    ```
-
-- Build the frontend application:
-
-    ```bash
-    npm run build
-    ```
-
-- Start the frontend server. The frontend is configured to communicate with the backend API on port **5001**:
-
-    ```bash
-    npm start
-    ```
-
-   To access the frontend application:
-    
-   - **Local Development**: Open your browser to `http://localhost:3000`
-   - **GitHub Codespaces**: When the frontend starts, Codespaces will automatically forward port 3000. 
-        Go to the **Ports** panel in VS Code, find port **3000**, and click the **globe icon** (🌐) to open the frontend in your browser.
-
 ---
 
 ### Test Your Setup
 
-Regardless of which option you chose, verify that everything is working correctly:
+Verify that everything is working correctly:
 
 - **API Testing**: Navigate to the file `src/backend/ContosoTravelAgent.http` in the code repository.
   
