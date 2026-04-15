@@ -121,3 +121,5 @@ This reference implementation demonstrates a production-ready AI travel assistan
 For more resources on Microsoft Agent Framework, code samples, and related technologies, check out our [Learning Resources](./resources.md) page.
 
 **Happy building!**
+
+---
