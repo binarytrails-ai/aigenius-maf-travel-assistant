@@ -5,15 +5,15 @@
 
 // Add NuGet package references using file-based app syntax (#:package Name@Version)
 #:package Azure.AI.OpenAI@2.1.0
-#:package Azure.Identity@1.20.0
-#:package Microsoft.Agents.AI@1.0.0
-#:package Microsoft.Agents.AI.Abstractions@1.0.0
-#:package Microsoft.Extensions.AI@10.4.1
-#:package Microsoft.Extensions.AI.OpenAI@10.4.1
+#:package Azure.Identity@1.21.0
+#:package Microsoft.Agents.AI@1.1.0
+#:package Microsoft.Agents.AI.Abstractions@1.1.0
+#:package Microsoft.Extensions.AI@10.5.0
+#:package Microsoft.Extensions.AI.OpenAI@10.5.0
 #:package DotNetEnv@3.1.1
-#:package OpenTelemetry@1.15.1
-#:package OpenTelemetry.Exporter.OpenTelemetryProtocol@1.15.1
-#:package OpenTelemetry.Extensions.Hosting@1.15.1
+#:package OpenTelemetry@1.15.2
+#:package OpenTelemetry.Exporter.OpenTelemetryProtocol@1.15.2
+#:package OpenTelemetry.Extensions.Hosting@1.15.2
 #:package Microsoft.Extensions.Logging@10.0.0
 #:package Microsoft.Extensions.Logging.Console@10.0.0
 #:package Microsoft.Extensions.DependencyInjection@10.0.0
