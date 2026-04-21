@@ -46,6 +46,9 @@ resource cosmosDbAccount 'Microsoft.DocumentDB/databaseAccounts@2024-05-15' = {
       {
         name: 'EnableNoSQLVectorSearch'
       }
+      {
+        name: 'EnableServerless'
+      }
     ]
     enableFreeTier: true
     enableAutomaticFailover: false
@@ -107,9 +110,6 @@ resource chatHistoryContainer 'Microsoft.DocumentDB/databaseAccounts/sqlDatabase
         ]
       }
     }
-    options: {
-      throughput: 400
-    }
   }
 }
 
@@ -157,9 +157,6 @@ resource flightsContainer 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/co
         ]
       }
     }
-    options: {
-      throughput: 400
-    }
   }
 }
 
@@ -190,9 +187,6 @@ resource userProfileContainer 'Microsoft.DocumentDB/databaseAccounts/sqlDatabase
           }
         ]
       }
-    }
-    options: {
-      throughput: 400
     }
   }
 }

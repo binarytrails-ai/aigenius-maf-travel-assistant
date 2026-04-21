@@ -19,7 +19,8 @@ $cosmosDbConnectionString = azd env get-value COSMOS_DB_CONNECTION_STRING
 $cosmosDbDatabaseName = azd env get-value COSMOS_DB_DATABASE_NAME
 $cosmosDbChatHistoryContainer = azd env get-value COSMOS_DB_CHAT_HISTORY_CONTAINER
 $azureAIServicesEndpoint = azd env get-value AZURE_AI_SERVICES_ENDPOINT
-$azureAIServicesKey = azd env get-value AZURE_AI_SERVICES_KEY$mcpFlightSearchToolBaseUrl = azd env get-value MCP_FLIGHT_SEARCH_TOOL_BASE_URL
+$azureAIServicesKey = azd env get-value AZURE_AI_SERVICES_KEY
+$mcpFlightSearchToolBaseUrl = azd env get-value MCP_FLIGHT_SEARCH_TOOL_BASE_URL
 $mcpFlightSearchApiKey = "F3FF9AB9-AF9E-42CA-916F-23BEFE7AA546"
 $applicationInsightsConnectionString = azd env get-value AZURE_APP_INSIGHTS_CONNECTION_STRING
 $backendUri = azd env get-value BACKEND_URI

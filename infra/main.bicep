@@ -219,8 +219,10 @@ module backendApp 'modules/containerapp.bicep' = {
     identityType: 'UserAssigned'
     targetPort: 8080
     external: true
-    containerCpuCoreCount: '1.0'
-    containerMemory: '2.0Gi'
+    containerCpuCoreCount: '0.5'
+    containerMemory: '1.0Gi'
+    containerMinReplicas: 0
+    containerMaxReplicas: 3
     env: [
       {
         name: 'USE_GITHUB_MODELS'
@@ -324,6 +326,8 @@ module mcpServerApp 'modules/containerapp.bicep' = {
     external: true
     containerCpuCoreCount: '0.5'
     containerMemory: '1.0Gi'
+    containerMinReplicas: 0
+    containerMaxReplicas: 3
     env: [
       {
         name: 'USE_GITHUB_MODELS'
@@ -417,8 +421,10 @@ module frontendApp 'modules/containerapp.bicep' = {
     identityType: 'UserAssigned'
     targetPort: 3000
     external: true
-    containerCpuCoreCount: '0.5'
-    containerMemory: '1.0Gi'
+    containerCpuCoreCount: '1.0'
+    containerMemory: '2.0Gi'
+    containerMinReplicas: 0
+    containerMaxReplicas: 3
     env: [
       {
         name: 'BACKEND_AGENT_BASE_URL'
