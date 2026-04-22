@@ -52,7 +52,10 @@ builder.Services.AddCors(options =>
               .AllowAnyHeader());
 });
 
-// Add AGUI services for agent UI
+
+builder.AddOpenAIChatCompletions();
+builder.AddOpenAIResponses();
+builder.AddOpenAIConversations();
 builder.Services.AddAGUI();
 
 // Create chat client
@@ -110,14 +113,22 @@ app.UseCors();
 app.MapOpenAIChatCompletions(travelAgent);
 logger.LogInformation("Mapped OpenAI completions endpoint at: /v1/chat/completions");
 
+// Map OpenAI-compatible responses endpoint
+app.MapOpenAIResponses(travelAgent);
+app.MapOpenAIConversations();
+logger.LogInformation("Mapped OpenAI responses endpoint at: /v1/responses");
+logger.LogInformation("Mapped conversations endpoint at: /v1/conversations");
+
 // Map AGUI endpoint for interactive development UI
 app.MapAGUI("/agent/travel", travelAgent);
 logger.LogInformation("Mapped AGUI endpoint at: /agent/travel");
 
 // Display startup information
 logger.LogInformation("HOST STARTED - Agent is now available at the following endpoints:");
-logger.LogInformation("  Agent UI:     http://localhost:5000/agent/travel");
-logger.LogInformation("  OpenAI API:   http://localhost:5000/TravelAssistant/v1/chat/completions");
+logger.LogInformation("  Agent UI:         http://localhost:5000/agent/travel");
+logger.LogInformation("  Chat Completions: http://localhost:5000/TravelAssistant/v1/chat/completions");
+logger.LogInformation("  Responses API:    http://localhost:5000/TravelAssistant/v1/responses");
+logger.LogInformation("  Conversations:    http://localhost:5000/v1/conversations");
 logger.LogInformation("Press Ctrl+C to shut down");
 
 // Run the web server

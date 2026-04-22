@@ -39,3 +39,65 @@ Content-Type: application/json
     }
   ]
 }
+
+# OpenAI-Compatible Responses API
+
+### Create a Conversation
+POST {{Lab05Host_HostAddress}}/v1/conversations
+Content-Type: application/json
+
+{
+  "items": [
+    {
+      "type": "message",
+      "role": "user",
+      "content": "Hello! I'm planning a trip to Australia."
+    }
+  ]
+}
+
+### Response API - Stateless (without conversation)
+POST {{Lab05Host_HostAddress}}/TravelAssistant/v1/responses
+Content-Type: application/json
+
+{
+  "stream": false,
+  "input": [
+    {
+      "type": "message",
+      "role": "user",
+      "content": [
+        {
+          "type": "input_text",
+          "text": "What are some must-visit places in Australia?"
+        }
+      ]
+    }
+  ]
+}
+
+### Response API - Stateful (with conversation)
+# First create a conversation using the endpoint above, then use the conversation ID here
+POST {{Lab05Host_HostAddress}}/TravelAssistant/v1/responses
+Content-Type: application/json
+
+{
+  "stream": false,
+  "conversation": "conv_YOUR_CONVERSATION_ID_HERE",
+  "input": [
+    {
+      "type": "message",
+      "role": "user",
+      "content": [
+        {
+          "type": "input_text",
+          "text": "Which destination would you recommend for families with kids?"
+        }
+      ]
+    }
+  ]
+}
+
+### Get Conversation Items
+# Replace with your conversation ID from the create conversation response
+GET {{Lab05Host_HostAddress}}/v1/conversations/conv_YOUR_CONVERSATION_ID_HERE/items?include=string
