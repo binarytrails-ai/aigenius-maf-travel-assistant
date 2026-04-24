@@ -23,7 +23,7 @@ param modelLocation string = 'australiaeast'
 // Embedding model parameters
 param embeddingModelName string = 'text-embedding-3-small'
 param embeddingModelFormat string = 'OpenAI'
-param embeddingModelVersion string = '2'
+param embeddingModelVersion string = '1'
 param embeddingModelSkuName string = 'Standard'
 param embeddingModelCapacity int = 10
 
