@@ -20,7 +20,7 @@ public static class ConfigurationExtensions
         var azureSubscriptionId = EnvironmentVariableHelper.GetConfigValue("AZURE_SUBSCRIPTION_ID", configuration);
         var azureTenantId = EnvironmentVariableHelper.GetConfigValue("AZURE_TENANT_ID", configuration);
         var textModelName = EnvironmentVariableHelper.GetConfigValue("AZURE_TEXT_MODEL_NAME", configuration, "gpt-4o");
-        var embeddingModelName = EnvironmentVariableHelper.GetConfigValue("AZURE_EMBEDDING_MODEL_NAME", configuration, "text-embedding-ada-002");
+        var embeddingModelName = EnvironmentVariableHelper.GetConfigValue("AZURE_EMBEDDING_MODEL_NAME", configuration, "text-embedding-3-small");
         var azureSearchEndpoint = EnvironmentVariableHelper.GetConfigValue("AZURE_SEARCH_SERVICE_ENDPOINT", configuration);
         var azureSearchAdminKey = EnvironmentVariableHelper.GetConfigValue("AZURE_AI_SEARCH_ADMIN_KEY", configuration);
         var otlpEndpoint = EnvironmentVariableHelper.GetConfigValue("OTEL_EXPORTER_OTLP_ENDPOINT", configuration);

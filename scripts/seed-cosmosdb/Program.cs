@@ -26,7 +26,7 @@ try
     var resourceGroup = Environment.GetEnvironmentVariable("AZURE_RESOURCE_GROUP")!;
 
     var cosmosClient = CreateCosmosClient(cosmosEndpoint);
-    var embeddingModelName = Environment.GetEnvironmentVariable("AZURE_EMBEDDING_MODEL_NAME") ?? "text-embedding-ada-002";
+    var embeddingModelName = Environment.GetEnvironmentVariable("AZURE_EMBEDDING_MODEL_NAME") ?? "text-embedding-3-small";
     var azureAIKey = Environment.GetEnvironmentVariable("AZURE_AI_SERVICES_KEY");
 
     AzureOpenAIClient azureOpenAIClient;

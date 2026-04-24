@@ -132,11 +132,11 @@ finally
     var azureEndpoint = Environment.GetEnvironmentVariable("AZURE_AI_SERVICES_ENDPOINT");
     var azureApiKey = Environment.GetEnvironmentVariable("AZURE_AI_SERVICES_KEY");
     var modelName = Environment.GetEnvironmentVariable("AZURE_TEXT_MODEL_NAME") ?? "gpt-4o";
-    var embeddingModelName = Environment.GetEnvironmentVariable("AZURE_EMBEDDING_MODEL_NAME") ?? "text-embedding-ada-002";
+    var embeddingModelName = Environment.GetEnvironmentVariable("AZURE_EMBEDDING_MODEL_NAME") ?? "text-embedding-3-small";
 
     var githubToken = Environment.GetEnvironmentVariable("GITHUB_TOKEN");
     var githubModelId = Environment.GetEnvironmentVariable("GITHUB_TEXT_MODEL_ID") ?? "gpt-4o";
-    var githubEmbeddingModelId = Environment.GetEnvironmentVariable("GITHUB_EMBEDDING_MODEL_ID") ?? "text-embedding-ada-002";
+    var githubEmbeddingModelId = Environment.GetEnvironmentVariable("GITHUB_EMBEDDING_MODEL_ID") ?? "text-embedding-3-small";
     var githubBaseUrl = Environment.GetEnvironmentVariable("GITHUB_MODELS_BASE_URL") ?? "https://models.inference.ai.azure.com";
 
     if (!string.IsNullOrEmpty(azureEndpoint) && !string.IsNullOrEmpty(azureApiKey))

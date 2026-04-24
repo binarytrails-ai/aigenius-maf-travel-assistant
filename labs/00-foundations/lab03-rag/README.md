@@ -40,7 +40,7 @@ var chatClient = azureClient.GetChatClient(modelName).AsIChatClient()...;
 var embeddingGenerator = azureClient.GetEmbeddingClient(embeddingModelName).AsIEmbeddingGenerator();
 ```
 
-The embedding model (e.g. `text-embedding-ada-002`) is separate from the chat model (e.g. `gpt-4o`). Its only job is to turn text into a list of numbers that captures the meaning of that text.
+The embedding model (e.g. `text-embedding-3-small`) is separate from the chat model (e.g. `gpt-4o`). Its only job is to turn text into a list of numbers that captures the meaning of that text.
 
 ### Document Chunking
 

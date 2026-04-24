@@ -11,7 +11,7 @@ public record ContosoTravelAppConfig
     public string? AzureLocation { get; init; }
     public string? AzureSubscriptionId { get; init; }
     public string? AzureTenantId { get; init; }
-    public string AzureEmbeddingModelName { get; init; } = "text-embedding-ada-002";
+    public string AzureEmbeddingModelName { get; init; } = "text-embedding-3-small";
     public string AzureTextModelName { get; init; } = "gpt-4o";
     public string? AzureAISearchEndpoint { get; init; }
     public string? AzureAISearchAdminKey { get; init; }

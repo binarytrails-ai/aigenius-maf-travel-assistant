@@ -21,7 +21,7 @@ param chatCompletionModelCapacity int = 50
 param modelLocation string = 'australiaeast'
 
 // Embedding model parameters
-param embeddingModelName string = 'text-embedding-ada-002'
+param embeddingModelName string = 'text-embedding-3-small'
 param embeddingModelFormat string = 'OpenAI'
 param embeddingModelVersion string = '2'
 param embeddingModelSkuName string = 'GlobalStandard'

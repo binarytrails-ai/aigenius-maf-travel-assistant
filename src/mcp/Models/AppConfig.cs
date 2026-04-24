@@ -8,7 +8,7 @@ public record AppConfig
     // Azure AI configuration
     public string? AzureAIServicesEndpoint { get; init; }
     public string? AzureAIServicesKey { get; init; }
-    public string AzureEmbeddingModelName { get; init; } = "text-embedding-ada-002";
+    public string AzureEmbeddingModelName { get; init; } = "text-embedding-3-small";
 
     // Observability configuration
     public string? OtelExporterOtlpEndpoint { get; init; }
