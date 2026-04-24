@@ -1,14 +1,15 @@
 "use client";
 
 import React, { useState } from "react";
-import "@copilotkit/react-ui/styles.css";
+import { z } from "zod";
+import "@copilotkit/react-core/v2/styles.css";
+import { CopilotKit } from "@copilotkit/react-core"; // CopilotKit provider is shared between V1 and V2
 import {
-  CopilotKit,
-  useCopilotReadable,
+  CopilotChat,
+  useAgentContext,
   useHumanInTheLoop,
-  useRenderToolCall,
-} from "@copilotkit/react-core";
-import { CopilotChat } from "@copilotkit/react-ui";
+  ToolCallStatus,
+} from "@copilotkit/react-core/v2";
 
 export default function Page() {
   const [chatKey, setChatKey] = React.useState(0);
@@ -35,12 +36,12 @@ const ApprovalUI = ({
     toolName?: string;
   };
   respond?: (value: unknown) => void;
-  status: string;
+  status: ToolCallStatus;
 }) => {
   const [isResponding, setIsResponding] = useState(false);
 
   // Only show when executing and respond function is available
-  if (status !== "executing" || !respond) return null;
+  if (status !== ToolCallStatus.Executing || !respond) return null;
 
   const handleRespond = async (approved: boolean) => {
     setIsResponding(true);
@@ -78,13 +79,13 @@ const ApprovalUI = ({
         aria-modal="true"
         aria-labelledby="approval-title"
         aria-describedby="approval-message"
-        className="bg-white rounded-2xl border border-gray-200 shadow-xl p-8 max-w-md w-full animate-fadeIn"
+        className="bg-white rounded-xl border border-gray-200 shadow-xl p-8 max-w-md w-full animate-fadeIn"
       >
         {/* Header */}
         <div className="flex items-start gap-3 mb-6">
-          <div className="flex items-center justify-center w-10 h-10 rounded-full bg-blue-50 shrink-0">
+          <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 shrink-0">
             <svg
-              className="w-5 h-5 text-blue-600"
+              className="w-5 h-5 text-gray-700"
               fill="none"
               stroke="currentColor"
               strokeWidth="2"
@@ -135,7 +136,7 @@ const ApprovalUI = ({
             type="button"
             onClick={() => handleRespond(true)}
             disabled={isResponding}
-            className="px-4 py-2 rounded-lg text-base font-semibold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition"
+            className="px-4 py-2 rounded-lg text-base font-semibold text-white bg-gray-700 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500 disabled:opacity-50 disabled:cursor-not-allowed transition"
           >
             {isResponding ? "Allowing…" : "Allow"}
           </button>
@@ -154,58 +155,23 @@ const Chat = ({
   /**
    * Provide readable context to the agent
    */
-  useCopilotReadable({
+  useAgentContext({
     description: "Contoso Travel Agency customer",
     value: "User planning travel",
   });
 
   /**
-   * Render all tool execution states in real-time
-   * This shows when any tool is being called and displays their arguments
-   * The "*" catches all tool calls from the backend
-   */
-  useRenderToolCall({
-    name: "*", // Catch all tool calls
-    render: ({ args, status }) => {
-      console.log("[Tool Render] Status:", status, "Args:", args);
-      
-      // Only render during tool execution
-      if (status === "inProgress") {
-        return (
-          <div className="p-4 mb-4 bg-blue-50 border border-blue-200 rounded-lg">
-            <div className="flex items-center gap-2">
-              <div className="animate-spin h-4 w-4 border-2 border-blue-600 border-t-transparent rounded-full"></div>
-              <span className="text-sm font-medium text-blue-900">
-                Executing tool...
-              </span>
-            </div>
-            {args && Object.keys(args).length > 0 && (
-              <pre className="mt-2 text-xs text-blue-700 overflow-auto max-h-32">
-                {JSON.stringify(args, null, 2)}
-              </pre>
-            )}
-          </div>
-        );
-      }
-      // Must return a ReactElement, not null
-      return <></>;
-    },
-  });
-
-  /**
    *  Human-in-the-loop approval tool
-   * Based on: https://docs.copilotkit.ai/reference/hooks/useHumanInTheLoop
+   * Based on: https://docs.copilotkit.ai/reference/v2/hooks/useHumanInTheLoop
    */
   useHumanInTheLoop({
     name: "request_approval", // This should match the tool name in the backend that requires approval
-    parameters: [
-      {
-        name: "request",
-        type: "string",
-        description: "The approval request containing function details",
-        required: true,
-      },
-    ],
+    description: "Request user approval before executing sensitive operations",
+    parameters: z.object({
+      request: z
+        .string()
+        .describe("The approval request containing function details"),
+    }),
     render: ({ args, respond, status }) => {
       // Parse the approval request from the wrapper
       let approvalData: {
@@ -257,51 +223,114 @@ const Chat = ({
   };
 
   return (
-    <div className="min-h-screen w-full bg-[#f7f9fc]">
+    <div className="min-h-screen w-full bg-gray-50">
       {/* Hero Section */}
-      <div className="bg-white border-b-2 border-gray-200">
-        <div className="max-w-7xl mx-auto px-6 py-4 text-center">
-          <h1 className="text-3xl md:text-4xl font-bold mb-1 text-gray-900 animate-fadeIn tracking-tight">
-            Contoso Travel Assistant
-          </h1>
-          <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto font-medium">
-            Your AI-powered travel planning companion
-          </p>
-        </div>
-      </div>
-
-      {/* Main Content - Centered Chat */}
-      <div className="max-w-6xl mx-auto px-6 py-4">
-        <div className="bg-white border border-gray-200 shadow-sm overflow-hidden animate-fadeIn">
-          {/* Header with New Chat Button */}
-          <div className="flex items-center justify-end px-6 py-4 border-b border-gray-200 bg-gray-50">
-            <button
-              onClick={handleNewChat}
-              className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white font-medium text-sm transition-colors duration-200 flex items-center gap-2 shadow-sm rounded"
-            >
-              <span>New Chat</span>
-            </button>
-          </div>
-
-          {/* Chat Area */}
-          <div className="h-[calc(100vh-280px)] max-h-[650px]">
-            <CopilotChat
-              className="h-full"
-              labels={{
-                title: "Contoso Travel Assistant",
-                initial:
-                  "Welcome to Contoso Travel Agency!\n\n" +
-                  "I'm your AI travel companion at Contoso Travel Agency. Tell me about your dream destination and I'll help you find the perfect flights, create personalized itineraries, and make your travel planning effortless.\n\n" +
-                  "**Try asking:**\n" +
-                  "• Can you help me plan a trip?\n" +
-                  "• Find flights to Wellington next month.\n",
-                placeholder:
-                  "Ask about destinations, flights, or travel plans...",
-              }}
-            />
+      <div className="bg-white border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-6 py-5">
+          <div className="text-center">
+            <h1 className="text-3xl md:text-4xl font-bold mb-2 text-gray-900 animate-fadeIn tracking-tight">
+              Contoso Travel Assistant
+            </h1>
+            <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto">
+              Your AI-powered travel planning companion
+            </p>
           </div>
         </div>
       </div>
+
+      {/* Main Content - Expanded Full Width Chat */}
+      <div className="w-full px-3 py-6">
+        <div className="max-w-[1920px] mx-auto">
+          <CopilotChat
+            className="h-[calc(100vh-200px)] custom-chat-messages"
+            labels={{
+              chatInputPlaceholder:
+                "Ask about destinations, flights, or travel plans...",
+            }}
+            welcomeScreen={({ input, suggestionView }) => (
+              <div className="flex flex-col items-center justify-center h-full bg-gradient-to-b from-gray-50 to-white px-6 py-12">
+                {/* Hero Content */}
+                <div className="max-w-2xl text-center space-y-6 mb-8">
+                  {/* Icon */}
+                  <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gray-100 mb-4">
+                    <svg
+                      className="w-10 h-10 text-gray-700"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  </div>
+
+                  {/* Title */}
+                  {/* <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+                      Welcome to Contoso Travel Agency
+                    </h2> */}
+
+                  {/* Description */}
+                  {/* <p className="text-lg text-gray-600 leading-relaxed">
+                      I&apos;m your AI travel companion. Tell me about your dream
+                      destination and I&apos;ll help you find the perfect flights,
+                      create personalized itineraries, and make your travel
+                      planning effortless.
+                    </p> */}
+
+                  {/* Suggestions */}
+                  <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+                    <p className="text-sm font-semibold text-gray-900 mb-3">
+                      Try asking:
+                    </p>
+                    <div className="space-y-2.5 text-left">
+                      <div className="flex items-start gap-2.5 text-gray-700">
+                        <span className="text-gray-400 mt-1 text-sm">•</span>
+                        <span>Can you help me plan a trip?</span>
+                      </div>
+                      <div className="flex items-start gap-2.5 text-gray-700">
+                        <span className="text-gray-400 mt-1 text-sm">•</span>
+                        <span>Find flights to Wellington next month.</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Suggestions from agent (if any) */}
+                {suggestionView}
+
+                {/* Input */}
+                <div className="w-full max-w-2xl">{input}</div>
+              </div>
+            )}
+          />
+        </div>
+      </div>
+
+      {/* Floating New Chat Button */}
+      <button
+        onClick={handleNewChat}
+        className="fixed bottom-6 right-6 px-5 py-3 bg-gray-800 hover:bg-gray-900 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-2 z-40 animate-fadeIn hover:scale-105 group"
+        aria-label="Start new chat"
+      >
+        <svg
+          className="w-5 h-5 group-hover:rotate-90 transition-transform duration-200"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M12 4v16m8-8H4"
+          />
+        </svg>
+        <span className="font-semibold text-sm">New Chat</span>
+      </button>
     </div>
   );
 };

@@ -17,7 +17,7 @@ const runtime = new CopilotRuntime({
     // Our Travel Assistant endpoint
     ContosoTravelAgent: new HttpAgent({ 
       url: `${process.env.BACKEND_AGENT_BASE_URL}/agent/contoso_assistant` || "http://localhost:5001/agent/contoso_assistant" 
-    }),
+    }) as any,
   },
 });
 

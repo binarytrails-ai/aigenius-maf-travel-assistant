@@ -25,7 +25,7 @@ const runtime = new CopilotRuntime({
       url: `${backendUrl}/agent/contoso_travel_bot`,
       //url: `${backendUrl}/agent/contoso_travel_workflow`,
       debug: true, // Enable detailed AG-UI protocol logs
-    }),
+    }) as any, // Type assertion for V2 compatibility with @ag-ui/client
   },
 });
 
