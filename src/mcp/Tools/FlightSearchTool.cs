@@ -32,12 +32,18 @@ public sealed class FlightSearchTool
     public async Task<string> SearchFlights(
         [Description("Departure city or airport code (e.g., 'Melbourne', 'MEL')")] string origin,
         [Description("Destination city or airport code (e.g., 'Tokyo', 'NRT', 'Auckland', 'AKL')")] string destination,
+        [Description("Travel date for the flight (e.g., '2026-05-15', 'May 15, 2026') (optional)")] DateTime? travelDate,
         [Description("Maximum budget in AUD (optional)")] decimal? maxBudget = null,
         [Description("User preferences for flight characteristics (e.g., 'comfortable flight with entertainment', 'budget-friendly', 'business travel') (optional)")] string? userPreferences = null)
     {
         try
         {
             _logger.LogInformation("[FlightSearch] Searching flights from {Origin} to {Destination}", origin, destination);
+
+            if (!travelDate.HasValue)
+            {
+                travelDate = DateTime.UtcNow.AddDays(1);
+            }
 
             var container = _database.GetContainer(_config.CosmosDbFlightsContainer);
 
@@ -128,6 +134,7 @@ public sealed class FlightSearchTool
                 {
                     origin,
                     destination,
+                    travelDate = travelDate.Value.ToShortDateString(),
                     maxBudget = maxBudget?.ToString("C") ?? "No limit",
                     userPreferences = userPreferences ?? "None",
                     semanticSearchEnabled = !string.IsNullOrEmpty(userPreferences)
@@ -254,8 +261,8 @@ public sealed class FlightSearchTool
             FlightNumber = doc.FlightNumber ?? string.Empty,
             Airline = doc.Airline?.Name ?? string.Empty,
             Price = doc.Pricing?.Amount ?? 0,
-            DepartureTime = DateTime.Parse($"2026-01-31T{doc.Schedule?.Departure}"),
-            ArrivalTime = DateTime.Parse($"2026-01-31T{doc.Schedule?.Arrival}"),
+            DepartureTime = doc.Schedule?.Departure,
+            ArrivalTime = doc.Schedule?.Arrival,
             Origin = $"{doc.Route?.Origin?.City} ({doc.Route?.Origin?.Code})",
             Destination = $"{doc.Route?.Destination?.City} ({doc.Route?.Destination?.Code})",
             Duration = $"{doc.Schedule?.DurationMinutes / 60}h {doc.Schedule?.DurationMinutes % 60}m",

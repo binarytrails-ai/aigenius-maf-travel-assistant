@@ -17,10 +17,10 @@ public record FlightOption
     public required decimal Price { get; init; }
     
     [JsonPropertyName("departureTime")]
-    public required DateTime DepartureTime { get; init; }
+    public required string DepartureTime { get; init; }
     
     [JsonPropertyName("arrivalTime")]
-    public required DateTime ArrivalTime { get; init; }
+    public required string ArrivalTime { get; init; }
     
     [JsonPropertyName("origin")]
     public string? Origin { get; init; }

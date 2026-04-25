@@ -2,14 +2,15 @@
 
 import React, { useState } from "react";
 import { z } from "zod";
-import "@copilotkit/react-core/v2/styles.css";
 import { CopilotKit } from "@copilotkit/react-core"; // CopilotKit provider is shared between V1 and V2
 import {
   CopilotChat,
   useAgentContext,
   useHumanInTheLoop,
+  useFrontendTool,
   ToolCallStatus,
 } from "@copilotkit/react-core/v2";
+import { FlightResults } from "../src/components/FlightResults";
 
 export default function Page() {
   const [chatKey, setChatKey] = React.useState(0);
@@ -160,6 +161,75 @@ const Chat = ({
     value: "User planning travel",
   });
 
+  useFrontendTool({
+    name: "display_flight_results",
+    description: "Display flight search results to the user",
+    parameters: z.object({
+      flights: z
+        .array(
+          z.object({
+            flightNumber: z.string().describe("Flight number"),
+            airline: z.string().describe("Airline name"),
+            price: z.number().describe("Price in AUD"),
+            departureTime: z.string().describe("Departure time"),
+            arrivalTime: z.string().describe("Arrival time"),
+            origin: z.string().optional().describe("Origin airport/city"),
+            destination: z
+              .string()
+              .optional()
+              .describe("Destination airport/city"),
+          }),
+        )
+        .describe("Array of flight results to display"),
+      travelDate: z.string().optional().describe("Travel date for the flights"),
+      origin: z.string().optional().describe("Search origin"),
+      destination: z.string().optional().describe("Search destination"),
+      maxBudget: z.number().optional().describe("Maximum budget filter"),
+      userPreferences: z
+        .string()
+        .optional()
+        .describe("User preferences used in search"),
+    }),
+    handler: async (params) => {
+      // Convert flights array to the JSON string format expected by FlightResults
+      const response = {
+        success: true,
+        searchCriteria: {
+          travelDate: params.travelDate,
+          origin: params.origin || "",
+          destination: params.destination || "",
+          maxBudget: params.maxBudget?.toString(),
+          userPreferences: params.userPreferences,
+        },
+        totalResults: params.flights.length,
+        flights: params.flights,
+      };
+      return JSON.stringify(response);
+    },
+    render: ({ status, args, result }) => {
+      // Map CopilotKit status to FlightResults status
+      const flightStatus =
+        status === "inProgress" || status === "executing"
+          ? "executing"
+          : status === "complete"
+            ? "complete"
+            : "failed";
+
+      return (
+        <FlightResults
+          status={flightStatus}
+          result={result}
+          args={{
+            origin: args.origin,
+            destination: args.destination,
+            maxBudget: args.maxBudget,
+            userPreferences: args.userPreferences,
+          }}
+        />
+      );
+    },
+  });
+
   /**
    *  Human-in-the-loop approval tool
    * Based on: https://docs.copilotkit.ai/reference/v2/hooks/useHumanInTheLoop
@@ -293,7 +363,7 @@ const Chat = ({
                       </div>
                       <div className="flex items-start gap-2.5 text-gray-700">
                         <span className="text-gray-400 mt-1 text-sm">•</span>
-                        <span>Find flights to Wellington next month.</span>
+                        <span>Find flights to Wellington next month</span>
                       </div>
                     </div>
                   </div>

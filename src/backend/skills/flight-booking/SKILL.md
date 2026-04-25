@@ -1,6 +1,6 @@
 ---
 name: flight-booking
-description: Load this skill when users ask to search for flights, compare flight options, or book flights. Handles flight search and booking capabilities.
+description: Load this skill when users ask to search for flights, find flights, look for flights, compare flight options, check flight prices, book flights, reserve flights, or need flight information. Covers flight search, flight availability, flight comparison, airline options, ticket prices, departure times, arrival times, direct flights, connecting flights, budget flights, and flight booking. Use when the user mentions flights, airlines, airfare, tickets, or travel between cities.
 ---
 
 # Flight Booking Skill
@@ -17,6 +17,24 @@ Use this skill when the traveler:
 - Asks about flight availability
 - Wants to find flights matching specific preferences (comfort, budget, direct flights)
 
+## Critical Tool Call Requirements
+
+**MANDATORY WORKFLOW**: Every successful `search_flights` call MUST be immediately followed by a `display_flight_results` call.
+
+1. **Always Call display_flight_results After Search**:
+   - IMMEDIATELY after `search_flights` returns results, you MUST call `display_flight_results`
+   - Never present flight results in text-only format without calling this tool
+   - The tool call happens before generating your conversational summary
+
+2. **Exception - Skip Display Tool When**:
+   - `search_flights` returns 0 results (empty flights array)
+   - `search_flights` returns an error
+   - User is not searching for flights (e.g., during booking flow)
+
+3. **Required Parameters**:
+   - Pass the complete `flights` array from `search_flights` response
+   - Include search criteria: `origin`, `destination`, `maxBudget`, `userPreferences`
+
 ## Usage Guidelines
 
 ### Flight Search
@@ -26,37 +44,42 @@ Use this skill when the traveler:
    - Destination city or airport code (e.g., "Tokyo", "NRT", "Auckland", "AKL")
 
 2. **Optional Information to Enhance Results**:
+   - Travel date (e.g., "2026-05-15", "May 15, 2026")
    - Maximum budget in AUD
    - User preferences (e.g., "comfortable flight with entertainment", "budget-friendly", "business travel")
 
-3. **Presenting Search Results**:
-   - Show 3-5 most relevant options, not the entire list
-   - Present in a clear, easy-to-compare format:
-     * Flight number and airline
-     * Departure and arrival times
-     * Duration
-     * Price
-     * Number of stops
-     * Key features (if relevant to preferences)
+3. **Displaying Search Results (CRITICAL)**:
+   - **IMMEDIATELY** after `search_flights` succeeds, you MUST call `display_flight_results`
+   - This is a REQUIRED step - never skip it when search returns results
+   - The frontend tool will display results in an interactive card format
+   - Pass the complete flights array and all search criteria:
+     ```
+     display_flight_results(
+       flights: [array of flight objects],
+       origin: "Melbourne",
+       destination: "Tokyo",
+       travelDate: "2026-05-15",
+       maxBudget: 1000,
+       userPreferences: "comfortable flight"
+     )
+     ```
+   - **Tool Call Sequence**: `search_flights` → `display_flight_results` → conversational summary
+   
+4. **Presenting Search Results in Text**:
+   - After calling `display_flight_results`, provide a conversational summary
+   - Highlight 2-3 best options in your message
    - Order results by:
      * User preferences match (if semantic search was used)
      * Price (if no preferences provided)
-   - Example format:
+   - Example text format:
      ```
-     Here are the best options:
+     I found several great options! Here are the top picks:
      
-     1. QF25 - Qantas - $785 AUD
-        Departure: 10:30 AM | Arrival: 6:45 PM
-        Duration: 9h 15m | Direct Flight
-        Modern aircraft with entertainment
-     
-     2. VA55 - Virgin Australia - $695 AUD
-        Departure: 2:15 PM | Arrival: 11:05 PM
-        Duration: 10h 50m | 1 stop in Brisbane
-        Budget-friendly option
+     QF25 (Qantas) - $785 AUD at 10:30 AM, direct flight with 9h 15m duration
+     VA55 (Virgin Australia) - $695 AUD at 2:15 PM, 1 stop, great value option
      ```
 
-4. **Natural Conversation**:
+5. **Natural Conversation**:
    - Ask follow-up questions: "Would you prefer a direct flight?" or "Any airline preferences?"
    - Explain trade-offs: "This flight is $100 cheaper but has one stop"
    - Highlight value: "This option has only 30 minutes longer flight time for $150 savings"
@@ -120,18 +143,19 @@ Use this skill when the traveler:
 1. Check if date and budget are mentioned
 2. If not, ask: "When would you like to travel?" and "What's your budget?"
 3. Call `search_flights` with origin="Melbourne" and destination="Tokyo"
-4. Present top 3-5 options in clear format
-5. Offer to search with different criteria if needed
+4. **IMMEDIATELY** call `display_flight_results` with the complete flights array and search criteria
+5. Provide conversational summary highlighting top 2-3 options
+6. Offer to search with different criteria if needed
 
 **User**: "Show me cheap flights to Auckland"
 **Action**:
 1. Clarify origin city if not obvious from context
 2. Call `search_flights` with userPreferences="budget-friendly"
-3. Present budget options sorted by price
-4. Highlight savings and value
+3. **IMMEDIATELY** call `display_flight_results` with flights array and search criteria
+4. Provide conversational summary highlighting best value and savings
 
 **User**: "Book the Qantas flight for me"
-**Action**:
+**Action** (Note: No display_flight_results needed during booking - only during search):
 1. Verify the exact flight number from previous search
 2. Confirm travel date
 3. Ask for passenger details (first name, last name, passport number) if not already provided
@@ -140,5 +164,30 @@ Use this skill when the traveler:
 
 ## Tools Available
 
-- `search_flights(origin, destination, maxBudget?, userPreferences?)` - Search for available flights
+### PRIMARY DISPLAY TOOL (REQUIRED AFTER SEARCH)
+
+- **`display_flight_results(flights, origin?, destination?, maxBudget?, userPreferences?)`** - **[REQUIRED]** Display flight results in an interactive UI
+  - **When to call**: IMMEDIATELY after every successful `search_flights` call
+  - **Parameters**:
+    - `flights`: Array of flight objects (REQUIRED) with fields:
+      - `flightNumber` (string): Flight number (e.g., "QF25")
+      - `airline` (string): Airline name (e.g., "Qantas")
+      - `price` (number): Price in AUD
+      - `departureTime` (string): Departure time
+      - `arrivalTime` (string): Arrival time
+      - `origin` (string, optional): Origin airport/city
+      - `destination` (string, optional): Destination airport/city
+      - `duration` (string, optional): Flight duration (e.g., "9h 15m")
+      - `stops` (number, optional): Number of stops
+      - `similarityScore` (number, optional): Relevance score from semantic search
+    - `origin`, `destination`, `maxBudget`, `userPreferences`: Search criteria used (optional but recommended)
+  - **Returns**: JSON string with formatted search results for frontend rendering
+
+### SEARCH AND BOOKING TOOLS
+
+- `search_flights(origin, destination, travelDate, maxBudget?, userPreferences?)` - Search for available flights from the database
 - `book_flight(flightNumber, travelDate, firstName, lastName, passportNumber)` - Book a flight with passenger details
+
+---
+
+**CRITICAL WORKFLOW RULE**: Immediately after calling `search_flights` and receiving results, you MUST call `display_flight_results` with the returned flights array. This is NOT optional - it ensures users see visual flight cards in the UI.
