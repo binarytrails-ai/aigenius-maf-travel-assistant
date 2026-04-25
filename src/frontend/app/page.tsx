@@ -363,7 +363,7 @@ const Chat = ({
                       </div>
                       <div className="flex items-start gap-2.5 text-gray-700">
                         <span className="text-gray-400 mt-1 text-sm">•</span>
-                        <span>Find flights to Wellington next month</span>
+                        <span>Find flights to Wellington for next Friday</span>
                       </div>
                     </div>
                   </div>
