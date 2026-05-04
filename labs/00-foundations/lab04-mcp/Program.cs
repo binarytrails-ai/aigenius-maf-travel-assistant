@@ -1,15 +1,14 @@
-// Lab 06: Middleware
-// Learn how to implement PII filtering middleware with Azure OpenAI
-// The middleware automatically redacts sensitive personal information like
-// phone numbers, email addresses, and names from both input and output messages.
+// MCP Client - Using MCP Tools in an Agent
+// Learn how to connect an agent to an MCP server and use its tools
 
-// Add NuGet package references using file-based app syntax (#:package Name@Version)
+// Add NuGet package references
 #:package Azure.AI.OpenAI@2.1.0
 #:package Azure.Identity@1.21.0
 #:package Microsoft.Agents.AI@1.1.0
 #:package Microsoft.Agents.AI.Abstractions@1.1.0
 #:package Microsoft.Extensions.AI@10.5.0
 #:package Microsoft.Extensions.AI.OpenAI@10.5.0
+#:package ModelContextProtocol@1.2.0
 #:package DotNetEnv@3.1.1
 #:package OpenTelemetry@1.15.2
 #:package OpenTelemetry.Exporter.OpenTelemetryProtocol@1.15.2
@@ -18,23 +17,25 @@
 #:package Microsoft.Extensions.Logging.Console@10.0.0
 #:package Microsoft.Extensions.DependencyInjection@10.0.0
 
-using System.ClientModel;
-using System.Text.RegularExpressions;
+
 using Azure.AI.OpenAI;
 using DotNetEnv;
 using Microsoft.Agents.AI;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using ModelContextProtocol.Client;
+using ModelContextProtocol.Protocol;
 using OpenTelemetry;
 using OpenTelemetry.Logs;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
+using System.ClientModel;
 
 const string SourceName = "TravelAssistant";
 const string ServiceName = "TravelAssistant";
 
-// Step 1: Load environment variables from the workspace root .env file
+// Step 1: Load environment variables
 LoadEnv();
 
 // Step 2: Initialize OpenTelemetry
@@ -43,38 +44,50 @@ var (loggerFactory, appLogger, tracerProvider) = InitTelemetry(ServiceName);
 // Step 3: Create chat client
 var chatClient = CreateChatClient(appLogger);
 
-// Step 4: Create an agent with PII filtering middleware
+// Step 4: Connect to MCP server via HTTP
+appLogger.LogInformation("Connecting to MCP Flight Search server...");
+var mcpClient = await CreateMcpClientAsync(loggerFactory, appLogger);
+if (mcpClient == null)
+{
+    tracerProvider.Dispose();
+    return;
+}
+
+// Step 5: Get tools from MCP server
+var tools = await GetTools(mcpClient, appLogger);
+
+// Step 6: Create agent with MCP tools
 var agent = chatClient.AsAIAgent(new ChatClientAgentOptions
 {
-    Name = "TravelAssistantWithPII",
+    Name = "TravelAssistant",
     ChatOptions = new()
     {
-        Instructions = "You are a helpful AI assistant that helps people find information.",
-        Tools = []
+        Instructions = """
+            You are a helpful travel planning assistant with date calculation tools.
+            
+            Use the tools to answer questions.
+            Provide friendly, conversational responses based on the tool results.
+            """,
+        Tools = tools
     }
 })
 .AsBuilder()
-.Use(PIIMiddleware, null)
 .UseOpenTelemetry(SourceName, configure: (cfg) => cfg.EnableSensitiveData = true)
 .UseLogging(loggerFactory)
 .Build();
 
-// Step 5: Run the agent with PII filtering
+appLogger.LogInformation("Agent created with MCP tools successfully");
+
+// Step 7: Run the agent with a flight search request
 try
 {
     var session = await agent.CreateSessionAsync();
 
-    appLogger.LogInformation("=== PII Detection and Redaction ===");
-    appLogger.LogInformation("");
+    var userInput = "Can you find me flights from Melbourne to Auckland on December 25, 2026?";
+    appLogger.LogInformation("User: {UserInput}", userInput);
 
-    appLogger.LogInformation("Example 1: Filtering PII in user input");
-    var userInput1 = "My name is John Doe. Here is my contact info: 123-456-7890, john@example.com";
-    appLogger.LogInformation("INPUT: {UserInput}", userInput1);
-
-    var response1 = await agent.RunAsync(userInput1, session);
-    appLogger.LogInformation("OUTPUT: {AgentResponse}", response1);
-
-    appLogger.LogInformation("Agent response completed");
+    var response = await agent.RunAsync(userInput, session);
+    appLogger.LogInformation("Agent: {AgentResponse}", response.Text);
 }
 catch (Exception ex)
 {
@@ -85,53 +98,66 @@ finally
     tracerProvider.Dispose();
 }
 
+// ==================== Helper Methods ====================
 
-// ==================== Middleware ====================
 
-// ==================== Middleware ====================
 
-// This middleware redacts PII information from input and output messages.
-async Task<AgentResponse> PIIMiddleware(IEnumerable<ChatMessage> messages, AgentSession? session, AgentRunOptions? options, AIAgent innerAgent, CancellationToken cancellationToken)
+async Task<List<AITool>> GetTools(McpClient mcpClient, ILogger appLogger)
 {
-    // Redact PII information from input messages
-    var filteredMessages = FilterMessages(messages);
-    appLogger.LogInformation("PII Middleware - Filtering Messages Pre-Run");
+    // List available tools from MCP server
+    var allMcpTools = await mcpClient.ListToolsAsync();
+    appLogger.LogInformation("Retrieved {Count} tools from MCP server", allMcpTools.Count);
 
-    var response = await innerAgent.RunAsync(filteredMessages, session, options, cancellationToken).ConfigureAwait(false);
-
-    // Redact PII information from output messages
-    response.Messages = FilterMessages(response.Messages);
-
-    appLogger.LogInformation("PII Middleware - Filtering Messages Post-Run");
-
-    return response;
-
-    static IList<ChatMessage> FilterMessages(IEnumerable<ChatMessage> messages)
+    var tools = new List<AITool>();
+    foreach (var tool in allMcpTools)
     {
-        return messages.Select(m => new ChatMessage(m.Role, FilterPii(m.Text))).ToList();
+        tools.Add(tool);
     }
 
-    static string FilterPii(string content)
-    {
-        // Regex patterns for PII detection (simplified for demonstration)
-        Regex[] piiPatterns =
-        [
-            new(@"\b\d{3}-\d{3}-\d{4}\b", RegexOptions.Compiled), // Phone number (e.g., 123-456-7890)
-            new(@"\b[\w\.-]+@[\w\.-]+\.\w+\b", RegexOptions.Compiled), // Email address
-            new(@"\b[A-Z][a-z]+\s[A-Z][a-z]+\b", RegexOptions.Compiled) // Full name (e.g., John Doe)
-        ];
-
-        foreach (var pattern in piiPatterns)
-        {
-            content = pattern.Replace(content, "[REDACTED: PII]");
-        }
-
-        return content;
-    }
+    return tools;
 }
 
+async Task<McpClient?> CreateMcpClientAsync(ILoggerFactory loggerFactory, ILogger appLogger)
+{
+    try
+    {
+        // Get MCP server base URL from environment or use default
+        var mcpBaseUrl = Environment.GetEnvironmentVariable("MCP_FLIGHT_SEARCH_TOOL_BASE_URL");
+        appLogger.LogInformation("Connecting to MCP server at {BaseUrl}", mcpBaseUrl);
+        var httpClient = new HttpClient { BaseAddress = new Uri(mcpBaseUrl) };
+        var mcpApiKey = Environment.GetEnvironmentVariable("MCP_FLIGHT_SEARCH_API_KEY");
+        httpClient.DefaultRequestHeaders.Add("X-API-KEY", mcpApiKey);
 
-// ==================== Helper Methods ====================
+        // Configure HTTP transport
+        var transportOptions = new HttpClientTransportOptions
+        {
+            Endpoint = new Uri($"{mcpBaseUrl}/mcp")
+        };
+
+        var transport = new HttpClientTransport(transportOptions, httpClient, loggerFactory);
+
+        // Configure MCP client
+        var clientOptions = new McpClientOptions
+        {
+            ClientInfo = new Implementation
+            {
+                Name = "Flight Search Tools MCP Client",
+                Version = "1.0.0"
+            }
+        };
+
+        // Create MCP client
+        var client = await McpClient.CreateAsync(transport, clientOptions, loggerFactory);
+        appLogger.LogInformation("Successfully connected to MCP server");
+
+        return client;
+    }
+    catch (Exception ex)
+    {
+        appLogger.LogError(ex, "Failed to create MCP client. Make sure the MCP server is running at http://localhost:5002");
+        return null;
+    }
+}
 
 IChatClient? CreateChatClient(ILogger appLogger)
 {
@@ -191,20 +217,17 @@ void LoadEnv()
 
 (ILoggerFactory, ILogger<Program>, TracerProvider) InitTelemetry(string serviceName)
 {
-    // Configure OpenTelemetry for Aspire dashboard
     var otlpEndpoint = Environment.GetEnvironmentVariable("OTEL_EXPORTER_OTLP_ENDPOINT") ?? "http://localhost:4317";
 
-    // Setup tracing with OpenTelemetry
     var tracerProvider = Sdk.CreateTracerProviderBuilder()
         .SetResourceBuilder(ResourceBuilder.CreateDefault()
-            .AddService(serviceName, serviceVersion: "1.0.0"))
+        .AddService(serviceName, serviceVersion: "1.0.0"))
         .AddSource(SourceName)
         .AddSource("Microsoft.Agents.AI")
         .AddSource("Microsoft.Extensions.AI")
         .AddOtlpExporter(options => options.Endpoint = new Uri(otlpEndpoint))
         .Build();
 
-    // Setup structured logging with OpenTelemetry
     var serviceCollection = new ServiceCollection();
     serviceCollection.AddLogging(loggingBuilder => loggingBuilder
         .SetMinimumLevel(LogLevel.Information)

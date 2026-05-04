@@ -1,4 +1,4 @@
-// Lab 02: Agent with Context
+// Agent with Context
 // Learn how to provide additional context to agents using AIContextProvider
 
 // Add NuGet package references

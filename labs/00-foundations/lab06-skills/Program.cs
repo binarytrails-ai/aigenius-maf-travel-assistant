@@ -1,4 +1,4 @@
-// Lab 08: Agent Skills - File-Based Skills with Progressive Disclosure
+// Agent Skills - File-Based Skills with Progressive Disclosure
 // Learn how to use FileAgentSkillsProvider to load modular skill packages from SKILL.md files
 
 // Add NuGet package references using file-based app syntax (#:package Name@Version)

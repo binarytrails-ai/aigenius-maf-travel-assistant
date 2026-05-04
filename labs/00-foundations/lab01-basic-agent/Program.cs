@@ -1,4 +1,4 @@
-// Lab 01: Basic Agent
+// Basic Agent
 // Learn how to create and run a simple AI agent
 
 // Add NuGet package references using file-based app syntax (#:package Name@Version)

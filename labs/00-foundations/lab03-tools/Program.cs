@@ -1,4 +1,4 @@
-// Lab 03: Tools and Function Calling
+// Tools and Function Calling
 // Learn how to equip agents with tools that they can call automatically
 
 // Add NuGet package references
