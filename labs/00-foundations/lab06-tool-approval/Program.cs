@@ -80,6 +80,13 @@ appLogger.LogInformation("Agent created with {ToolCount} tools", tools.Count);
 try
 {
     var session = await agent.CreateSessionAsync();
+
+    // var userInput = "Can you find me flights from Melbourne to Auckland on December 25, 2026?";
+    // appLogger.LogInformation("User: {UserInput}", userInput);
+
+    // var response = await agent.RunAsync(userInput, session);
+    // appLogger.LogInformation("Agent: {AgentResponse}", response.Text);
+
     var userInput = "Please book flight QF107 for December 25, 2026 for 2 passengers. The passenger details are: First Name: John, Last Name: Doe, Passport Number: AB1234567.";
     Console.WriteLine($"User: {userInput}");
     appLogger.LogInformation("User: {UserInput}", userInput);
@@ -124,7 +131,6 @@ finally
     tracerProvider.Dispose();
 }
 
-// ==================== Helper Methods ====================
 
 string GetToolName(AITool tool)
 {
@@ -214,6 +220,8 @@ async Task<McpClient?> CreateMcpClientAsync(ILoggerFactory loggerFactory, ILogge
     }
 }
 
+#region Helper Methods
+
 IChatClient? CreateChatClient(ILogger appLogger)
 {
     var azureEndpoint = Environment.GetEnvironmentVariable("AZURE_AI_SERVICES_ENDPOINT");
@@ -302,3 +310,5 @@ void LoadEnv()
 
     return (loggerFactory, appLogger, tracerProvider);
 }
+
+#endregion

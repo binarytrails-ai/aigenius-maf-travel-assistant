@@ -57,7 +57,7 @@ var tools = new List<AITool>
 
 appLogger.LogInformation("Created {ToolCount} tools for the agent", tools.Count);
 
-// Step 5: Create agent with tools
+// Step 5: Create agent
 var agent = chatClient.AsAIAgent(new ChatClientAgentOptions
 {
     Name = "TravelAssistant",
@@ -106,7 +106,6 @@ finally
 {
     tracerProvider.Dispose();
 }
-
 
 // ==================== Tool Definitions ====================
 
@@ -266,8 +265,7 @@ static TimeZoneInfo GetTimeZone(string city)
     return TimeZoneInfo.FindSystemTimeZoneById(tzId);
 }
 
-
-// ==================== Helper Methods ====================
+#region Helper Methods
 
 void LoadEnv()
 {
@@ -357,3 +355,5 @@ IChatClient? CreateChatClient(ILogger appLogger)
 
     return (loggerFactory, appLogger, tracerProvider);
 }
+
+#endregion

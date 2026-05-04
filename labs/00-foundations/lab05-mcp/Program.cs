@@ -98,10 +98,6 @@ finally
     tracerProvider.Dispose();
 }
 
-// ==================== Helper Methods ====================
-
-
-
 async Task<List<AITool>> GetTools(McpClient mcpClient, ILogger appLogger)
 {
     // List available tools from MCP server
@@ -158,6 +154,8 @@ async Task<McpClient?> CreateMcpClientAsync(ILoggerFactory loggerFactory, ILogge
         return null;
     }
 }
+
+#region Helper Methods
 
 IChatClient? CreateChatClient(ILogger appLogger)
 {
@@ -247,3 +245,5 @@ void LoadEnv()
 
     return (loggerFactory, appLogger, tracerProvider);
 }
+
+#endregion
