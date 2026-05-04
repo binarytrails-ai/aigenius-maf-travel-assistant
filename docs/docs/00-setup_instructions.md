@@ -2,25 +2,41 @@
 
 ## Prerequisites
 
-- **GitHub Account**: If you don't have one yet, sign up on [GitHub](https://github.com/join){:target="_blank"}.
-- **Azure Subscription**: Sign up for a free [Azure account](https://azure.microsoft.com/free/).
+- Azure Subscription - Sign up for a free [Azure account](https://azure.microsoft.com/free/) if you don't have one already.
+
+### Development Tools
+
+Note: The recommended way to run the application is using GitHub Codespaces, which provides a ready-to-use environment with all dependencies pre-installed. If you prefer to set up your local environment, ensure you have the following tools installed:
+
+- [.NET 10 SDK](https://dotnet.microsoft.com/download) - Required for backend services
+- [Node.js 18+](https://nodejs.org/en/download/) - Required for frontend development
+- [Azure Developer CLI (azd)](https://learn.microsoft.com/azure/developer/azure-developer-cli/install-azd) - For provisioning and managing Azure resources
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) - For containerization and local development
+- [Aspire CLI](https://aspire.dev/get-started/install-cli/) - For local orchestration and monitoring of agent services
 
 ---
 
 ## Set Up Source Code Repository
+### 1. Cloning the repository:
 
-1. The source code is in [aigenius-maf-travel-assistant](https://github.com/binarytrails-ai/aigenius-maf-travel-assistant) GitHub repository.
+If you don't have **GitHub Account** yet, sign up for a free account [here](https://github.com/join).
 
-    Fork this repository to your own GitHub account. </br>
-    [![Fork on GitHub](https://img.shields.io/badge/Fork%20Repo-blue?logo=github&style=for-the-badge)](https://github.com/binarytrails-ai/aigenius-maf-travel-assistant/fork)
+The source code is in [aigenius-maf-travel-assistant](https://github.com/binarytrails-ai/aigenius-maf-travel-assistant) GitHub repository.
 
-1. The recommended way to work through this session is with **GitHub Codespaces**, which provides a ready-to-use environment with all required tools. </br>Alternatively, you can use Visual Studio Code to run the application locally.</br></br>
-**Using GitHub Codespaces**: Once you've forked the repository, navigate to your forked repository on GitHub and click the green **Code** button, then select the **Codespaces** tab and click **Create codespace on main**.
 
-    The Codespace will be pre-configured with all the necessary dependencies and tools to run the labs.
+Fork this repository to your own GitHub account. </br>
+[![Fork on GitHub](https://img.shields.io/badge/Fork%20Repo-blue?logo=github&style=for-the-badge)](https://github.com/binarytrails-ai/aigenius-maf-travel-assistant/fork)
 
-    !!! Warning "It may take a few minutes for the Codespace to be created and all dependencies to be installed."
-        If you encounter any issues, refer to the [GitHub Codespaces documentation](https://docs.github.com/en/codespaces) for troubleshooting tips and solutions.
+### 2. Create a Codespace
+
+The recommended way to work through this session is with **GitHub Codespaces**, which provides a ready-to-use environment with all required tools.
+
+Once you've forked the repository, navigate to your forked repository on GitHub and click the green **Code** button, then select the **Codespaces** tab and click **Create codespace on main**.
+
+The Codespace will be pre-configured with all the necessary dependencies and tools to run the labs.
+
+!!! Warning "It may take a few minutes for the Codespace to be created and all dependencies to be installed."
+    If you encounter any issues, refer to the [GitHub Codespaces documentation](https://docs.github.com/en/codespaces) for troubleshooting tips and solutions.
 
 ---
 
@@ -55,16 +71,17 @@ azd env set AZURE_LOCATION australiaeast
     ```
 
 1. Navigate to the [Azure Portal](https://portal.azure.com) and verify the resources under the resource group `rg-aiagent-ws-dev`.
+2. A new `.env` file has been created in the root of the repository with all necessary environment variables for connecting to Azure resources. These will be used when running the application locally.
 
 ### 4. Load Sample Data
 
 The application uses sample data which needs to be loaded into the Cosmos DB instance that was provisioned in the previous step.
 
-1. Run the following command from a new terminal window to execute the script. You can also use the Play button in Visual Studio Code to run the script directly from the editor.
+Run the following command from a new terminal window to execute the script. You can also use the Play button in Visual Studio Code to run the script directly from the editor.
 
-    ```bash
-    dotnet run scripts/seed-cosmosdb/Program.cs
-    ```
+```bash
+dotnet run scripts/seed-cosmosdb/Program.cs
+```
 
 ### 5. Deploy Application to Azure
 

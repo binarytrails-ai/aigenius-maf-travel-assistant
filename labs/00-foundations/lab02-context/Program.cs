@@ -1,4 +1,4 @@
-// Lab 02: Agent with Context
+// Agent with Context
 // Learn how to provide additional context to agents using AIContextProvider
 
 // Add NuGet package references
@@ -40,11 +40,6 @@ var (loggerFactory, appLogger, tracerProvider) = InitTelemetry(ServiceName);
 
 // Step 3: Create chat client
 var chatClient = CreateChatClient(appLogger);
-if (chatClient == null)
-{
-    tracerProvider.Dispose();
-    return;
-}
 
 // Step 4: Create context provider with travel knowledge
 var travelContext = new TravelKnowledgeContext();
@@ -79,6 +74,13 @@ try
 
     var response1 = await agent.RunAsync(userInput1, session);
     appLogger.LogInformation("Agent: {AgentResponse}", response1.Text);
+
+    // Second message - follow-up question to demonstrate multi-turn chat
+    var userInput2 = "Which one would you recommend for families with kids?";
+    appLogger.LogInformation("User: {UserInput}", userInput2);
+
+    var response2 = await agent.RunAsync(userInput2, session);
+    appLogger.LogInformation("Agent: {AgentResponse}", response2.Text);
 }
 catch (Exception ex)
 {

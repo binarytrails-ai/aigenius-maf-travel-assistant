@@ -1,6 +1,3 @@
-// Lab 06: MCP Client - Using MCP Tools in an Agent
-// Learn how to connect an agent to an MCP server and use its tools
-
 // Add NuGet package references
 #:package Azure.AI.OpenAI@2.1.0
 #:package Azure.Identity@1.21.0
@@ -43,11 +40,6 @@ var (loggerFactory, appLogger, tracerProvider) = InitTelemetry(ServiceName);
 
 // Step 3: Create chat client
 var chatClient = CreateChatClient(appLogger);
-if (chatClient == null)
-{
-    tracerProvider.Dispose();
-    return;
-}
 
 // Step 4: Connect to MCP server via HTTP
 appLogger.LogInformation("Connecting to MCP Flight Search server...");
@@ -61,7 +53,7 @@ if (mcpClient == null)
 // Step 5: Get tools from MCP server
 var tools = await GetTools(mcpClient, appLogger);
 
-// Step 6: Create agent with MCP tools
+// Step 6: Create agent with MCP tools and wrap with console approval handler
 var agent = chatClient.AsAIAgent(new ChatClientAgentOptions
 {
     Name = "TravelAssistant",
@@ -81,18 +73,47 @@ var agent = chatClient.AsAIAgent(new ChatClientAgentOptions
 .UseLogging(loggerFactory)
 .Build();
 
-appLogger.LogInformation("Agent created with MCP tools successfully");
 
-// Step 7: Run the agent with a flight search request
+appLogger.LogInformation("Agent created with {ToolCount} tools", tools.Count);
+
+// Step 8: Run the agent with a two-turn conversation
 try
 {
     var session = await agent.CreateSessionAsync();
-
-    var userInput = "Can you find me flights from Melbourne to Auckland?";
+    var userInput = "Please book flight QF107 for December 25, 2026 for 2 passengers. The passenger details are: First Name: John, Last Name: Doe, Passport Number: AB1234567.";
+    Console.WriteLine($"User: {userInput}");
     appLogger.LogInformation("User: {UserInput}", userInput);
-
     var response = await agent.RunAsync(userInput, session);
-    appLogger.LogInformation("Agent: {AgentResponse}", response.Text);
+
+#pragma warning disable MEAI001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
+    var approvalRequests =
+     response.Messages.SelectMany(m => m.Contents).OfType<ToolApprovalRequestContent>().ToList();
+
+#pragma warning restore MEAI001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
+
+    while (approvalRequests.Count > 0)
+    {
+        // Ask the user to approve each function call request.
+        List<ChatMessage> userInputResponses = approvalRequests
+            .ConvertAll(functionApprovalRequest =>
+            {
+                Console.WriteLine($"The agent would like to invoke the following function, please reply Y to approve: Name {((FunctionCallContent)functionApprovalRequest.ToolCall).Name}");
+                return new ChatMessage(ChatRole.User, [functionApprovalRequest.CreateResponse
+                (Console.ReadLine()?.Equals("Y", StringComparison.OrdinalIgnoreCase) ?? false)]);
+            });
+
+        // Pass the user input responses back to the agent for further processing.
+        response = await agent.RunAsync(userInputResponses, session);
+
+#pragma warning disable MEAI001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
+        approvalRequests = response.Messages.SelectMany(m => m.Contents).OfType<ToolApprovalRequestContent>().ToList();
+#pragma warning restore MEAI001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
+
+    }
+
+    appLogger.LogInformation("Agent: {AgentResponse}", response);
+    appLogger.LogInformation("Agent response completed");
+    Console.WriteLine();
 }
 catch (Exception ex)
 {
@@ -105,7 +126,12 @@ finally
 
 // ==================== Helper Methods ====================
 
-
+string GetToolName(AITool tool)
+{
+    // Simple approach: use ToString which should give us the tool name
+    var name = tool.ToString();
+    return name ?? "Unknown";
+}
 
 async Task<List<AITool>> GetTools(McpClient mcpClient, ILogger appLogger)
 {
@@ -114,9 +140,26 @@ async Task<List<AITool>> GetTools(McpClient mcpClient, ILogger appLogger)
     appLogger.LogInformation("Retrieved {Count} tools from MCP server", allMcpTools.Count);
 
     var tools = new List<AITool>();
+
+    // Add all MCP tools, wrapping BookFlight with approval requirement
     foreach (var tool in allMcpTools)
     {
-        tools.Add(tool);
+        var toolName = GetToolName(tool);
+
+        if (string.Equals(toolName, "book_flight", StringComparison.OrdinalIgnoreCase))
+        {
+#pragma warning disable MEAI001 // Type is for evaluation purposes only
+            // Wrap BookFlight with ApprovalRequiredAIFunction
+            AIFunction bookFlightWithApproval = new ApprovalRequiredAIFunction(tool);
+            tools.Add(bookFlightWithApproval);
+            appLogger.LogInformation("Added MCP tool with approval wrapper: {ToolName}", toolName);
+#pragma warning restore MEAI001
+        }
+        else
+        {
+            tools.Add(tool);
+            appLogger.LogInformation("Added MCP tool: {ToolName}", toolName);
+        }
     }
 
     return tools;
@@ -127,10 +170,16 @@ async Task<McpClient?> CreateMcpClientAsync(ILoggerFactory loggerFactory, ILogge
     try
     {
         // Get MCP server base URL from environment or use default
-        var mcpBaseUrl = Environment.GetEnvironmentVariable("MCP_FLIGHT_SEARCH_TOOL_BASE_URL");
-        appLogger.LogInformation("Connecting to MCP server at {BaseUrl}", mcpBaseUrl);
-        var httpClient = new HttpClient { BaseAddress = new Uri(mcpBaseUrl) };
+        var mcpBaseUrl = Environment.GetEnvironmentVariable("MCP_FLIGHT_SEARCH_TOOL_BASE_URL")
+                         ?? "http://localhost:5002";
+
+        // Get API key from environment or use default dev key
         var mcpApiKey = Environment.GetEnvironmentVariable("MCP_FLIGHT_SEARCH_API_KEY");
+
+        appLogger.LogInformation("Connecting to MCP server at {BaseUrl}", mcpBaseUrl);
+
+        // Create HTTP client for MCP transport with API key authentication
+        var httpClient = new HttpClient { BaseAddress = new Uri(mcpBaseUrl) };
         httpClient.DefaultRequestHeaders.Add("X-API-KEY", mcpApiKey);
 
         // Configure HTTP transport
@@ -149,6 +198,7 @@ async Task<McpClient?> CreateMcpClientAsync(ILoggerFactory loggerFactory, ILogge
                 Name = "Flight Search Tools MCP Client",
                 Version = "1.0.0"
             }
+
         };
 
         // Create MCP client

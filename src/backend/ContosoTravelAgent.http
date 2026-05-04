@@ -8,7 +8,7 @@ Content-Type: application/json
   "messages": [
     {
       "role": "user",
-      "content": "Hi! I'm planning my next adventure and would love some help."
+      "content": "Hi! Can you help me plan a trip?"
     }
   ]
 }
@@ -22,15 +22,15 @@ Content-Type: application/json
   "messages": [
     {
       "role": "user",
-      "content": "Hi! I'm planning my next adventure and would love some help."
+      "content": "Hi! Can you help me plan a trip?"
     },
     {
       "role": "assistant",
-      "content": "Hello! It's great to meet you. I'd be happy to help you plan your next adventure. To provide you with the best recommendations, could you tell me:\n\n1. What kind of experiences are you hoping for on this trip?\n2. Do you have a budget in mind for this adventure?\n3. How would you describe your travel style?\n\nThis will help me suggest the perfect destination for your adventure!"
+      "content": "Hello! I'd be happy to help you plan your next trip. To get started, could you please tell me a bit about your travel preferences? For example, what kind of activities do you enjoy, and do you have any specific destinations in mind?"
     },
     {
       "role": "user",
-      "content": "I love snorkeling and diving. Looking to travel in March for about a week. Budget around 4000 AUD"
+      "content": "I love snorkeling and diving. My budget is around $3000"
     }
   ]
 }

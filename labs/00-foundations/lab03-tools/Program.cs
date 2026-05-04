@@ -1,4 +1,4 @@
-// Lab 03: Tools and Function Calling
+// Tools and Function Calling
 // Learn how to equip agents with tools that they can call automatically
 
 // Add NuGet package references
@@ -45,11 +45,6 @@ var (loggerFactory, appLogger, tracerProvider) = InitTelemetry(ServiceName);
 
 // Step 3: Create chat client
 var chatClient = CreateChatClient(appLogger);
-if (chatClient == null)
-{
-    tracerProvider.Dispose();
-    return;
-}
 
 // Step 4: Define tools that the agent can use
 var tools = new List<AITool>

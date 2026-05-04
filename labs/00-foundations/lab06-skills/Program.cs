@@ -1,4 +1,4 @@
-// Lab 08: Agent Skills - File-Based Skills with Progressive Disclosure
+// Agent Skills - File-Based Skills with Progressive Disclosure
 // Learn how to use FileAgentSkillsProvider to load modular skill packages from SKILL.md files
 
 // Add NuGet package references using file-based app syntax (#:package Name@Version)
@@ -45,11 +45,6 @@ var (loggerFactory, appLogger, tracerProvider) = InitTelemetry(ServiceName);
 
 // Step 3: Create chat client
 var chatClient = CreateChatClient(appLogger);
-if (chatClient == null)
-{
-    tracerProvider.Dispose();
-    return;
-}
 
 // Step 4: Skills Provider - Discovers skills from the 'skills' directory
 // FileAgentSkillsProvider implements progressive disclosure:
