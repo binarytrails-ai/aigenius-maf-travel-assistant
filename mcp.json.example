@@ -1,0 +1,11 @@
+{
+    "servers": {
+        "contoso-travel-flights": {
+            "type": "http",
+            "url": "http://localhost:5002/mcp",
+            "headers": {
+                "X-API-KEY": "F3FF9AB9-AF9E-42CA-916F-23BEFE7AA546"
+            }
+        }
+    }
+}

@@ -42,7 +42,6 @@ var (loggerFactory, appLogger, tracerProvider) = InitTelemetry(ServiceName);
 
 // Step 3: Create chat client
 var chatClient = CreateChatClient(appLogger);
-if (chatClient == null) return;
 
 // Step 4: Create an agent with PII filtering middleware
 var agent = chatClient.AsAIAgent(new ChatClientAgentOptions

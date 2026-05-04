@@ -20,6 +20,8 @@ Follow the instructions on the [Environment Setup Guide](./00-setup_instructions
 
 We recommend starting with the [Foundations Labs](https://github.com/binarytrails-ai/aigenius-maf-travel-assistant/tree/main/labs/00-foundations){:target="_blank"} to master core concepts before exploring the complete travel assistant.
 
+Navigate to the path `labs/00-foundations` and follow the README instructions to get started.
+
 The labs cover essential topics:
 
 - **Domain Knowledge** - Provide contextual information to language models for more accurate and relevant responses
@@ -27,7 +29,6 @@ The labs cover essential topics:
 - **MCP Integration** - Securely connect to Model Context Protocol (MCP) servers for external data and service access
 - **Human-in-the-Loop** - Implement approval workflows for safe, controlled execution of agent actions
 - **Agent Hosting** - Deploy agents using the AG-UI protocol for seamless integration with AI interfaces
-- **Multi-Agent Orchestration** - Build collaborative agent systems to handle complex, multi-step tasks
 
 ---
 

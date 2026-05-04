@@ -39,7 +39,6 @@ var (loggerFactory, appLogger, tracerProvider) = InitTelemetry(ServiceName);
 
 // Step 3: Create chat client
 var chatClient = CreateChatClient(appLogger);
-if (chatClient == null) return;
 
 // Step 4: Create a simple agent
 var agent = chatClient.AsAIAgent(new ChatClientAgentOptions

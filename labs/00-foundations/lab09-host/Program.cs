@@ -1,6 +1,5 @@
 using Azure.AI.OpenAI;
 using DotNetEnv;
-using Lab05Host.Tools;
 using Microsoft.Agents.AI;
 using Microsoft.Agents.AI.Hosting.AGUI.AspNetCore;
 using Microsoft.Extensions.AI;
@@ -60,21 +59,6 @@ builder.Services.AddAGUI();
 
 // Create chat client
 var chatClient = CreateChatClient();
-if (chatClient == null)
-{
-    Console.WriteLine("[ERROR] Failed to create chat client. Exiting...");
-    return;
-}
-
-// Create tools for the agent
-var tools = new List<AITool>
-{
-    AIFunctionFactory.Create(DateTimeTools.GetCurrentDate),
-    AIFunctionFactory.Create(DateTimeTools.CalculateDaysUntil),
-    AIFunctionFactory.Create(FlightSearchTools.SearchFlights)
-};
-
-Console.WriteLine($"[INFO] Created {tools.Count} tools for the agent\n");
 
 // Build the application first to get services
 var app = builder.Build();
@@ -89,13 +73,9 @@ AIAgent travelAgent = chatClient.AsAIAgent(new ChatClientAgentOptions
     Name = "TravelAssistant",
     ChatOptions = new()
     {
-        Instructions = """
-            You are a helpful travel planning assistant with date calculation tools.
-            
-            Use the tools to answer questions about dates and durations.
-            Provide friendly, conversational responses based on the tool results.
-            """,
-        Tools = tools
+        Instructions = "You are a helpful travel assistant that provides travel recommendations and information. " +
+                      "Be friendly, informative, and concise in your responses.",
+        Tools = []
     }
 });
 
@@ -155,7 +135,7 @@ static void LoadEnvironmentVariables()
 static IChatClient? CreateChatClient()
 {
     var useGitHub = Environment.GetEnvironmentVariable("USE_GITHUB_MODELS")?.ToLower() == "true";
-    
+
     try
     {
         if (useGitHub)
@@ -163,7 +143,7 @@ static IChatClient? CreateChatClient()
             Console.WriteLine("[INFO] Using GitHub Models\n");
             var token = Environment.GetEnvironmentVariable("GITHUB_TOKEN");
             var modelId = Environment.GetEnvironmentVariable("GITHUB_TEXT_MODEL_ID") ?? "gpt-4o";
-            var baseUrl = Environment.GetEnvironmentVariable("GITHUB_MODELS_BASE_URL") 
+            var baseUrl = Environment.GetEnvironmentVariable("GITHUB_MODELS_BASE_URL")
                 ?? "https://models.inference.ai.azure.com";
 
             if (string.IsNullOrEmpty(token))
@@ -174,7 +154,7 @@ static IChatClient? CreateChatClient()
 
             var clientOptions = new OpenAIClientOptions { Endpoint = new Uri(baseUrl) };
             var openAiClient = new OpenAIClient(new ApiKeyCredential(token), clientOptions);
-            
+
             return openAiClient.GetChatClient(modelId)
                 .AsIChatClient()
                 .AsBuilder()

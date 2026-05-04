@@ -44,11 +44,6 @@ var (loggerFactory, appLogger, tracerProvider) = InitTelemetry(ServiceName);
 
 // Step 3: Create chat client
 var chatClient = CreateChatClient(appLogger);
-if (chatClient == null)
-{
-    tracerProvider.Dispose();
-    return;
-}
 
 // Step 4: Create context provider with persistent storage
 // Initialize with hardcoded preferences to demonstrate usage first

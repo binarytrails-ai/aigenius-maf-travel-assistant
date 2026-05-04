@@ -40,11 +40,6 @@ var (loggerFactory, appLogger, tracerProvider) = InitTelemetry(ServiceName);
 
 // Step 3: Create chat client
 var chatClient = CreateChatClient(appLogger);
-if (chatClient == null)
-{
-    tracerProvider.Dispose();
-    return;
-}
 
 // Step 4: Connect to MCP server via HTTP
 appLogger.LogInformation("Connecting to MCP Flight Search server...");

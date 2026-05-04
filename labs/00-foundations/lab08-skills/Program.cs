@@ -45,11 +45,6 @@ var (loggerFactory, appLogger, tracerProvider) = InitTelemetry(ServiceName);
 
 // Step 3: Create chat client
 var chatClient = CreateChatClient(appLogger);
-if (chatClient == null)
-{
-    tracerProvider.Dispose();
-    return;
-}
 
 // Step 4: Skills Provider - Discovers skills from the 'skills' directory
 // FileAgentSkillsProvider implements progressive disclosure:

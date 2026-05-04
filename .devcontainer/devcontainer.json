@@ -32,7 +32,10 @@
         "mathematic.vscode-pdf",
         "ms-dotnettools.dotnet-interactive-vscode",
         "humao.rest-client"
-      ]
+      ],
+      "settings": {
+        "workbench.colorTheme": "Default Dark+"
+      }
     }
   },
   "containerEnv": {

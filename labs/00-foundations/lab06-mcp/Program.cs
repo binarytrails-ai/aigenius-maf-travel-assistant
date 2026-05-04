@@ -43,11 +43,6 @@ var (loggerFactory, appLogger, tracerProvider) = InitTelemetry(ServiceName);
 
 // Step 3: Create chat client
 var chatClient = CreateChatClient(appLogger);
-if (chatClient == null)
-{
-    tracerProvider.Dispose();
-    return;
-}
 
 // Step 4: Connect to MCP server via HTTP
 appLogger.LogInformation("Connecting to MCP Flight Search server...");
@@ -88,7 +83,7 @@ try
 {
     var session = await agent.CreateSessionAsync();
 
-    var userInput = "Can you find me flights from Melbourne to Auckland?";
+    var userInput = "Can you find me flights from Melbourne to Auckland on December 25, 2026?";
     appLogger.LogInformation("User: {UserInput}", userInput);
 
     var response = await agent.RunAsync(userInput, session);
