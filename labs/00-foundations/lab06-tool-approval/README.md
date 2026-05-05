@@ -72,6 +72,63 @@ This loop:
 
 ---
 
+### Sequence Diagram
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant Agent
+    participant MCP Client
+    participant MCP Server
+    participant Language Model
+
+    Note over Agent,MCP Server: Setup Phase
+    Agent->>MCP Client: Initialize connection
+    MCP Client->>MCP Server: Connect via HTTP
+    MCP Server-->>MCP Client: Connection established
+    MCP Client->>MCP Server: List available tools
+    MCP Server-->>MCP Client: Return tool definitions
+    MCP Client-->>Agent: Register tools (with approval)
+
+    Note over User,Language Model: Execution Phase
+    User->>Agent: Send query (e.g., "Book flight")
+    Agent->>Language Model: Send query + available tools
+    Language Model-->>Agent: Request tool execution
+    Agent->>User: Request approval for tool
+    
+    alt User Approves
+        Agent->>MCP Client: Execute tool with parameters
+        MCP Client->>MCP Server: Call tool API
+        MCP Server-->>MCP Client: Return tool results
+        MCP Client-->>Agent: Return results
+        Agent->>Language Model: Send tool results
+        Language Model-->>Agent: Generate final response
+        Agent-->>User: Return success message
+    else User Denies
+        Agent->>Language Model: Send denial message
+        Language Model-->>Agent: Generate failure response
+        Agent-->>User: Return failure message
+    end
+```
+
+### Setup Phase
+
+1. Agent initializes and connects to the MCP server using HTTP transport and API key authentication.
+2. MCP client retrieves the list of available tools from the server and registers them with the agent, wrapping sensitive tools with `ApprovalRequiredAIFunction`.
+
+### Execution Phase
+
+1. User sends a query to the agent (e.g., "Book me a flight from Melbourne to Auckland").
+2. Agent sends the query along with the available tools to the language model.
+3. Language model decides to call an MCP tool based on the query and tool descriptions.
+4. Instead of executing immediately, the agent detects that the tool requires approval and prompts the user for approval. The user can approve (Y) or deny (N).
+5. If the user approves, the agent executes the tool via the MCP client, which makes an HTTP request to the MCP server.
+6. MCP server processes the request, executes the tool logic, and returns the results.
+7. Agent receives the tool results and sends them back to the language model.
+8. Language model generates a final response using the tool results and returns it to the agent.
+
+---
+
 ## Instructions
 
 ### Step 1: Navigate to the Lab Folder

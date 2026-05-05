@@ -85,6 +85,55 @@ The server reads from the same `data/flights_data.json` file but exposes this da
 
 ---
 
+### Sequence Diagram
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant Agent
+    participant MCP Client
+    participant MCP Server
+    participant Language Model
+
+    Note over Agent,MCP Server: Setup Phase
+    Agent->>MCP Client: Initialize connection
+    MCP Client->>MCP Server: Connect via HTTP
+    MCP Server-->>MCP Client: Connection established
+    MCP Client->>MCP Server: List available tools
+    MCP Server-->>MCP Client: Return tool definitions
+    MCP Client-->>Agent: Register tools
+
+    Note over User,Language Model: Execution Phase
+    User->>Agent: Send query (e.g., "Find flights")
+    Agent->>Language Model: Send query + available tools
+    Language Model-->>Agent: Request tool execution
+    Agent->>MCP Client: Execute tool with parameters
+    MCP Client->>MCP Server: Call tool API
+    MCP Server-->>MCP Client: Return tool results
+    MCP Client-->>Agent: Return results
+    Agent->>Language Model: Send tool results
+    Language Model-->>Agent: Generate final response
+    Agent-->>User: Return answer
+```
+
+### Setup Phase
+
+1. Agent initializes and connects to the MCP server using HTTP transport and API key authentication.
+2. MCP client retrieves the list of available tools from the server and registers them with the agent.
+
+### Execution Phase
+
+1. User sends a query to the agent (e.g., "Find me flights from Melbourne to Auckland").
+2. Agent sends the query along with the available tools to the language model.
+3. Language model decides to call an MCP tool based on the query and tool descriptions.
+4. Agent executes the tool via the MCP client, which makes an HTTP request to the MCP server.
+5. MCP server processes the request, executes the tool logic, and returns the results.
+6. Agent receives the tool results and sends them back to the language model.
+7. Language model generates a final response using the tool results and returns it to the agent.
+8. Agent returns the final answer to the user.
+
+---
+
 ## Instructions
 
 ### Step 1: Navigate to the Lab Folder

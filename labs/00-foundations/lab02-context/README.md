@@ -57,6 +57,45 @@ Hard-coding all knowledge into the agent's `Instructions` has real limitations:
 
 Context providers solve this by making context **dynamic and per-call**. In later labs you will see providers that look up information from a database or vector search index based on what the user actually asked.
 
+---
+
+## Sequence Diagram
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant Agent
+    participant Context Provider
+    participant Language Model
+
+    Note over Agent,Context Provider: Setup Phase
+    Agent->>Context Provider: Register context providers
+
+    Note over User,Language Model: Execution Phase
+    User->>Agent: Send query (e.g., "Recommend destinations")
+    Agent->>Context Provider: Request context (ProvideAIContextAsync)
+    Context Provider-->>Agent: Return travel knowledge
+    Agent->>Language Model: Send query + context + instructions
+    Language Model-->>Agent: Generate response using context
+    Agent-->>User: Return personalized answer
+```
+
+### Setup Phase
+
+1. Agent is created with context provider(s)
+2. Context provider is registered and ready to provide domain knowledge
+
+### Execution Phase
+
+1. User sends a query to the agent
+2. Agent requests context from the context provider
+3. Context provider returns relevant domain knowledge (e.g., travel destinations)
+4. Agent sends the query along with the context to the language model
+5. Language model generates a response using both the query and provided context
+6. Agent returns the enriched response to the user
+
+---
+
 ## Instructions
 
 ### Step 1: Navigate to the Lab Folder
