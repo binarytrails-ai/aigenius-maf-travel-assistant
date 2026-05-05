@@ -28,7 +28,6 @@ The labs cover essential topics:
 - **AI Skills** - Create reusable, file-based skills that extend agent capabilities with custom logic and on-demand resources
 - **MCP Integration** - Securely connect to Model Context Protocol (MCP) servers for external data and service access
 - **Human-in-the-Loop** - Implement approval workflows for safe, controlled execution of agent actions
-- **Agent Hosting** - Deploy agents using the AG-UI protocol for seamless integration with AI interfaces
 
 ---
 
