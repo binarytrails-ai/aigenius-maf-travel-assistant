@@ -91,7 +91,7 @@ finally
     tracerProvider.Dispose();
 }
 
-// ==================== Helper Methods ====================
+#region Helper Methods
 
 IChatClient? CreateChatClient(ILogger appLogger)
 {
@@ -181,6 +181,8 @@ void LoadEnv()
 
     return (loggerFactory, appLogger, tracerProvider);
 }
+
+#endregion
 
 // ==================== Context Provider ====================
 

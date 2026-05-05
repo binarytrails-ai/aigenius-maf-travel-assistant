@@ -127,9 +127,7 @@ finally
     tracerProvider.Dispose();
 }
 
-
 // ==================== TOOLS ====================
-
 [Description("Get the weather forecast for a specific city")]
 static string GetWeatherForecast([Description("The city name to get weather for")] string city)
 {
@@ -142,7 +140,8 @@ static string GetWeatherForecast([Description("The city name to get weather for"
     return $"Weather in {city}: {condition}, {temp}C, Humidity: {humidity}%";
 }
 
-// ==================== HELPER FUNCTIONS ====================
+
+#region Helper Methods
 
 void LoadEnv()
 {
@@ -232,3 +231,5 @@ IChatClient? CreateChatClient(ILogger appLogger)
 
     return (loggerFactory, appLogger, tracerProvider);
 }
+
+#endregion

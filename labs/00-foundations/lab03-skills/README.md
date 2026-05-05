@@ -1,4 +1,4 @@
-# Lab 07: File-Based Agent Skills
+# Lab 03: File-Based Agent Skills
 
 In this lab, you will learn how to use **file-based skills** with the `FileAgentSkillsProvider` for progressive disclosure of agent capabilities.
 
@@ -83,12 +83,57 @@ Skills and tools are complementary:
 - **Tools** (`AIFunctionFactory.Create`) expose callable functions (e.g., `GetWeatherForecast`)
 - **Skills** (`FileAgentSkillsProvider`) supply domain instructions and knowledge that guide *how* the agent uses those tools
 
+## Sequence Diagram
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant Agent
+    participant Skill Provider
+    participant Language Model
+
+    Note over Agent,Skill Provider: Setup Phase
+    Agent->>Skill Provider: Register FileAgentSkillsProvider
+    Skill Provider-->>Agent: Advertise skills (names + descriptions only)
+    Skill Provider-->>Agent: Register load_skill tool
+    Skill Provider-->>Agent: Register read_skill_resource tool
+
+    Note over User,Language Model: Execution Phase
+    User->>Agent: Send query (e.g., "Help me plan a trip")
+    Agent->>Agent: Review advertised skills
+    Agent->>Skill Provider: load_skill("trip-planner")
+    Skill Provider-->>Agent: Return full skill instructions
+    opt Load Additional Resources
+        Agent->>Skill Provider: read_skill_resource("examples.md")
+        Skill Provider-->>Agent: Return resource content
+    end
+    Agent->>Language Model: Send query + skill instructions + context
+    Language Model-->>Agent: Generate response using skill knowledge
+    Agent-->>User: Return answer with skill-guided expertise
+```
+
+### Setup Phase
+
+1. Agent is created with `FileAgentSkillsProvider`
+2. Provider advertises available skills (name + description only)
+3. Provider registers tools for loading skills and reading resources
+
+### Execution Phase
+
+1. User sends a query to the agent
+2. Agent reviews the advertised skills and decides which one(s) it needs
+3. Agent calls `load_skill` to fetch full instructions for the required skill(s)
+4. If needed, agent calls `read_skill_resource` to pull in supplementary files
+5. Agent sends the user query along with the loaded skill instructions to the language model
+6. Language model generates a response using the skill knowledge to guide its reasoning
+7. Agent returns the enriched response to the user
+
 ## Instructions
 
 ### Step 1: Navigate to the Lab Folder
 
 ```bash
-cd labs/00-foundations/lab07-skills
+cd labs/00-foundations/lab03-skills
 ```
 
 ### Step 2: Run the Program
