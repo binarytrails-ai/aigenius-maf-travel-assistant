@@ -1,4 +1,4 @@
-# Lab 03: Tools and Function Calling
+# Lab 04: Tools and Function Calling
 
 In this lab, you will create an AI-powered travel assistant that can use tools to perform actions.
 
@@ -83,7 +83,7 @@ All four tools return a **JSON string**. This is the recommended approach becaus
 ### Step 1: Navigate to the Lab Folder
 
 ```bash
-cd labs/00-foundations/lab05-tools
+cd labs/00-foundations/lab04-tools
 ```
 
 ### Step 2: Run the Program

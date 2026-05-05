@@ -1,4 +1,4 @@
-# Lab 06: MCP Client - Using MCP Tools in an Agent
+# Lab 05: MCP Client - Using MCP Tools in an Agent
 
 In this lab, you will learn how to use tools from an MCP server. You will connect to the server, retrieve the available tools, and configure your agent to use them.
 
@@ -90,7 +90,7 @@ The server reads from the same `data/flights_data.json` file but exposes this da
 ### Step 1: Navigate to the Lab Folder
 
 ```bash
-cd labs/00-foundations/lab06-mcp
+cd labs/00-foundations/lab05-mcp
 ```
 
 ### Step 2: Run the Program

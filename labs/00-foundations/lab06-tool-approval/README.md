@@ -1,4 +1,4 @@
-# Lab 07: Human-in-the-Loop - Tool Call Approval
+# Lab 06: Tool Call Approval
 
 In this lab, you will implement human-in-the-loop approval for sensitive operations. The agent will request explicit user approval before executing certain tools, like booking flights. This provides a safety mechanism to prevent unwanted actions.
 
@@ -77,7 +77,7 @@ This loop:
 ### Step 1: Navigate to the Lab Folder
 
 ```bash
-cd labs/00-foundations/lab07-hitl
+cd labs/00-foundations/lab06-tool-approval
 ```
 
 ### Step 2: Run the Program
