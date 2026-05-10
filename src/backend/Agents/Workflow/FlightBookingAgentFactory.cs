@@ -1,4 +1,4 @@
-#pragma warning disable MAAI001 // FileAgentSkillsProvider is experimental
+#pragma warning disable MAAI001 // AgentSkillsProvider is experimental
 
 using ContosoTravelAgent.Host.Models;
 using ContosoTravelAgent.Host.Services;

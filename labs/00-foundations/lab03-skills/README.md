@@ -1,12 +1,12 @@
 # Lab 03: File-Based Agent Skills
 
-In this lab, you will learn how to use **file-based skills** with the `FileAgentSkillsProvider` for progressive disclosure of agent capabilities.
+In this lab, you will learn how to use **file-based skills** with the `AgentSkillsProvider` for progressive disclosure of agent capabilities.
 
 You will use modular skill packages (`SKILL.md` files) that provide domain-specific instructions to the agent on demand.
 
 By the end of this lab, you will:
 
-- Understand how `FileAgentSkillsProvider` works
+- Understand how `AgentSkillsProvider` works
 - See progressive disclosure in action (advertise -> load -> read resources)
 - Organise agent capabilities into reusable, composable skill packages
 
@@ -16,7 +16,7 @@ By the end of this lab, you will:
 
 Skills are self-contained units of domain knowledge stored as `SKILL.md` files in a directory. Each skill has a name, a short description, and detailed instructions.
 
-Rather than loading all skill instructions upfront (which wastes context tokens), `FileAgentSkillsProvider` uses **progressive disclosure**:
+Rather than loading all skill instructions upfront (which wastes context tokens), `AgentSkillsProvider` uses **progressive disclosure**:
 
 1. **Advertise** — the agent receives only the skill name and description (~100 tokens per skill)
 2. **Load** — the agent calls `load_skill` to fetch full instructions for skills it actually needs
@@ -52,10 +52,10 @@ description: Provides weather forecasts for travel destinations
 
 ### Registering the Skills Provider
 
-Create a `FileAgentSkillsProvider` pointing at the skills directory, then pass it as an `AIContextProvider`:
+Create a `AgentSkillsProvider` pointing at the skills directory, then pass it as an `AIContextProvider`:
 
 ```csharp
-var skillsProvider = new FileAgentSkillsProvider(
+var skillsProvider = new AgentSkillsProvider(
     skillPath: Path.Combine(AppContext.BaseDirectory, "skills"));
 
 var agent = chatClient.AsAIAgent(new ChatClientAgentOptions
@@ -81,7 +81,7 @@ The provider automatically injects the advertised skill list into the agent's co
 Skills and tools are complementary:
 
 - **Tools** (`AIFunctionFactory.Create`) expose callable functions (e.g., `GetWeatherForecast`)
-- **Skills** (`FileAgentSkillsProvider`) supply domain instructions and knowledge that guide *how* the agent uses those tools
+- **Skills** (`AgentSkillsProvider`) supply domain instructions and knowledge that guide *how* the agent uses those tools
 
 ## Sequence Diagram
 
@@ -93,7 +93,7 @@ sequenceDiagram
     participant Language Model
 
     Note over Agent,Skill Provider: Setup Phase
-    Agent->>Skill Provider: Register FileAgentSkillsProvider
+    Agent->>Skill Provider: Register AgentSkillsProvider
     Skill Provider-->>Agent: Advertise skills (names + descriptions only)
     Skill Provider-->>Agent: Register load_skill tool
     Skill Provider-->>Agent: Register read_skill_resource tool
@@ -113,7 +113,7 @@ sequenceDiagram
 
 ### Setup Phase
 
-1. Agent is created with `FileAgentSkillsProvider`
+1. Agent is created with `AgentSkillsProvider`
 2. Provider advertises available skills (name + description only)
 3. Provider registers tools for loading skills and reading resources
 

@@ -1,5 +1,5 @@
 // Agent Skills - File-Based Skills with Progressive Disclosure
-// Learn how to use FileAgentSkillsProvider to load modular skill packages from SKILL.md files
+// Learn how to use AgentSkillsProvider to load modular skill packages from SKILL.md files
 
 // Add NuGet package references using file-based app syntax (#:package Name@Version)
 #:package Azure.AI.OpenAI@2.1.0
@@ -16,7 +16,7 @@
 #:package Microsoft.Extensions.Logging.Console@10.0.0
 #:package Microsoft.Extensions.DependencyInjection@10.0.0
 
-#pragma warning disable MAAI001 // FileAgentSkillsProvider is experimental
+#pragma warning disable MAAI001 // AgentSkillsProvider is experimental
 
 using System.ClientModel;
 using System.ComponentModel;
@@ -47,14 +47,14 @@ var (loggerFactory, appLogger, tracerProvider) = InitTelemetry(ServiceName);
 var chatClient = CreateChatClient(appLogger);
 
 // Step 4: Skills Provider - Discovers skills from the 'skills' directory
-// FileAgentSkillsProvider implements progressive disclosure:
+// AgentSkillsProvider implements progressive disclosure:
 //   1. Advertise - skills are advertised with name + description (~100 tokens per skill)
 //   2. Load - full instructions loaded on-demand via load_skill tool
 //   3. Read resources - supplementary files loaded via read_skill_resource tool
 var skillsProvider = new AgentSkillsProvider(
     skillPath: Path.Combine(Directory.GetCurrentDirectory(), "labs/00-foundations/lab03-skills/skills"));
 
-appLogger.LogInformation("FileAgentSkillsProvider created, discovering skills from ./skills directory");
+appLogger.LogInformation("AgentSkillsProvider created, discovering skills from ./skills directory");
 
 // Step 5: Create agent with skills and tools
 var agent = chatClient.AsAIAgent(new ChatClientAgentOptions
