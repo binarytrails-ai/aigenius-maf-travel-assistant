@@ -45,12 +45,7 @@ var chatClient = CreateChatClient(appLogger);
 // Step 4: Connect to MCP server via HTTP
 appLogger.LogInformation("Connecting to MCP Flight Search server...");
 var mcpClient = await CreateMcpClientAsync(loggerFactory, appLogger);
-if (mcpClient == null)
-{
-    tracerProvider.Dispose();
-    return;
-}
-
+ 
 // Step 5: Get tools from MCP server
 var tools = await GetTools(mcpClient, appLogger);
 
