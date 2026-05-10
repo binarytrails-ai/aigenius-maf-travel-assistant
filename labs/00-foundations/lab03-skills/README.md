@@ -100,14 +100,13 @@ sequenceDiagram
 
     Note over User,Language Model: Execution Phase
     User->>Agent: Send query (e.g., "Help me plan a trip")
-    Agent->>Agent: Review advertised skills
-    Agent->>Skill Provider: load_skill("trip-planner")
-    Skill Provider-->>Agent: Return full skill instructions
+    Agent->>Language Model: Send query + advertised skills list
+    Language Model->>Agent: load_skill("trip-planner")
+    Agent-->>Language Model: Return full skill instructions
     opt Load Additional Resources
-        Agent->>Skill Provider: read_skill_resource("examples.md")
-        Skill Provider-->>Agent: Return resource content
+        Language Model->>Agent: read_skill_resource("examples.md")
+        Agent-->>Language Model: Return resource content
     end
-    Agent->>Language Model: Send query + skill instructions + context
     Language Model-->>Agent: Generate response using skill knowledge
     Agent-->>User: Return answer with skill-guided expertise
 ```
@@ -121,12 +120,12 @@ sequenceDiagram
 ### Execution Phase
 
 1. User sends a query to the agent
-2. Agent reviews the advertised skills and decides which one(s) it needs
-3. Agent calls `load_skill` to fetch full instructions for the required skill(s)
-4. If needed, agent calls `read_skill_resource` to pull in supplementary files
-5. Agent sends the user query along with the loaded skill instructions to the language model
+2. Agent sends the query and advertised skills list to the language model
+3. Language model reviews the available skills and decides which one(s) it needs
+4. Language model calls `load_skill` to fetch full instructions for the selected skill(s)
+5. If needed, language model calls `read_skill_resource` to load any additional resources mentioned in the skill definition
 6. Language model generates a response using the skill knowledge to guide its reasoning
-7. Agent returns the enriched response to the user
+7. Agent returns the response to the user
 
 ## Instructions
 
