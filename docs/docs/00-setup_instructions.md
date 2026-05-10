@@ -133,7 +133,7 @@ Open a new terminal in Visual Studio Code and navigate to `src/ContosoTravel.App
 
 ```bash
 cd src/ContosoTravel.AppHost
-dotnet run
+aspire run
 ```
 
 ### 3. Access the Application
