@@ -1,7 +1,6 @@
 // Lab 05: Tools and Function Calling
 using System.Text.Json.Serialization;
 using Microsoft.SemanticKernel;
-using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 
 var builder = Kernel.CreateBuilder();
@@ -13,14 +12,14 @@ builder.AddAzureOpenAIChatCompletion(
 
 builder.Plugins.AddFromType<TimePlugin>();
 
-Kernel kernel = builder.Build();
+var kernel = builder.Build();
 
-OpenAIPromptExecutionSettings settings = new() { ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions };
+var settings = new OpenAIPromptExecutionSettings { ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions };
 
 while (true)
 {
     Console.Write("User > ");
-    string? input = Console.ReadLine();
+    var input = Console.ReadLine();
     if (string.IsNullOrWhiteSpace(input)) break;
 
     var result = await kernel.InvokePromptAsync(input, new(settings));
@@ -36,6 +35,6 @@ internal partial class ToolJsonSerializerContext : JsonSerializerContext
 
 public class TimePlugin
 {
-    [KernelFunction, System.ComponentModel.Description("Get the current time")]
+    [KernelFunction]
     public string GetCurrentTime() => DateTime.Now.ToString("F");
 }
