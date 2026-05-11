@@ -1,11 +1,13 @@
 // Add NuGet package references
 #:package Azure.AI.OpenAI@2.1.0
+#:package Azure.Identity@1.21.0
 #:package DotNetEnv@3.1.1
 #:package Microsoft.Azure.Cosmos@3.43.1
 #:package Newtonsoft.Json@13.0.3
 
 using Azure;
 using Azure.AI.OpenAI;
+using Azure.Identity;
 using DotNetEnv;
 using Microsoft.Azure.Cosmos;
 using Newtonsoft.Json.Linq;
@@ -29,8 +31,9 @@ try
     var embeddingModelName = Environment.GetEnvironmentVariable("AZURE_EMBEDDING_MODEL_NAME") ?? "text-embedding-3-small";
     var azureAIKey = Environment.GetEnvironmentVariable("AZURE_AI_SERVICES_KEY");
 
-    AzureOpenAIClient azureOpenAIClient;
-    azureOpenAIClient = new AzureOpenAIClient(new Uri(azureAIEndpoint), new AzureKeyCredential(azureAIKey));
+    AzureOpenAIClient azureOpenAIClient = !string.IsNullOrWhiteSpace(azureAIKey)
+        ? new AzureOpenAIClient(new Uri(azureAIEndpoint), new AzureKeyCredential(azureAIKey))
+        : new AzureOpenAIClient(new Uri(azureAIEndpoint), new DefaultAzureCredential());
 
     var embeddingClient = azureOpenAIClient.GetEmbeddingClient(embeddingModelName);
 
@@ -88,7 +91,9 @@ CosmosClient CreateCosmosClient(string cosmosEndpoint)
         return new CosmosClient(cosmosEndpoint, cosmosKey, options);
     }
 
-    throw new InvalidOperationException("Either COSMOS_DB_CONNECTION_STRING or COSMOS_DB_KEY environment variable is required");
+    // Priority 3: Managed identity / Azure identity
+    Console.WriteLine("  Using managed identity / default Azure credential\n");
+    return new CosmosClient(cosmosEndpoint, new DefaultAzureCredential(), options);
 }
 
 async Task SeedChatHistoryAsync(
@@ -257,7 +262,15 @@ void LoadEnv()
             var envPath = Path.Combine(currentDir, ".env");
             if (File.Exists(envPath))
             {
-                Env.Load(envPath);
+                try
+                {
+                    Env.Load(envPath);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Warning: DotNetEnv parsing failed, falling back to tolerant parser: {ex.Message}");
+                    LoadEnvTolerant(envPath);
+                }
                 Console.WriteLine($"Loaded environment from: {envPath}");
                 return;
             }
@@ -266,4 +279,43 @@ void LoadEnv()
     }
 
     Console.WriteLine("Warning: No .env file found");
+}
+
+void LoadEnvTolerant(string envPath)
+{
+    foreach (var rawLine in File.ReadLines(envPath))
+    {
+        var line = rawLine.Trim();
+        if (string.IsNullOrEmpty(line) || line.StartsWith("#"))
+        {
+            continue;
+        }
+
+        var separatorIndex = line.IndexOf('=');
+        if (separatorIndex <= 0)
+        {
+            continue;
+        }
+
+        var key = line[..separatorIndex].Trim();
+        var value = line[(separatorIndex + 1)..].Trim();
+
+        if (string.IsNullOrEmpty(key) || string.IsNullOrWhiteSpace(value))
+        {
+            continue;
+        }
+
+        // Skip azd error lines that can be written as env values.
+        if (value.StartsWith("ERROR:", StringComparison.OrdinalIgnoreCase))
+        {
+            continue;
+        }
+
+        if ((value.StartsWith('"') && value.EndsWith('"')) || (value.StartsWith('\'') && value.EndsWith('\'')))
+        {
+            value = value[1..^1];
+        }
+
+        Environment.SetEnvironmentVariable(key, value);
+    }
 }

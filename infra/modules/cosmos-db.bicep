@@ -53,6 +53,7 @@ resource cosmosDbAccount 'Microsoft.DocumentDB/databaseAccounts@2024-05-15' = {
     enableFreeTier: true
     enableAutomaticFailover: false
     enableMultipleWriteLocations: false
+    disableLocalAuth: true
   }
 }
 
@@ -92,6 +93,7 @@ resource chatHistoryContainer 'Microsoft.DocumentDB/databaseAccounts/sqlDatabase
             path: '/"_etag"/?'
           }
         ]
+        #disable-next-line BCP037
         vectorIndexes: [
           {
             path: '/ContentEmbedding'
@@ -99,6 +101,7 @@ resource chatHistoryContainer 'Microsoft.DocumentDB/databaseAccounts/sqlDatabase
           }
         ]
       }
+      #disable-next-line BCP037
       vectorEmbeddingPolicy: {
         vectorEmbeddings: [
           {
@@ -139,6 +142,7 @@ resource flightsContainer 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/co
             path: '/"_etag"/?'
           }
         ]
+        #disable-next-line BCP037
         vectorIndexes: [
           {
             path: '/flightProfileVector'
@@ -146,6 +150,7 @@ resource flightsContainer 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/co
           }
         ]
       }
+      #disable-next-line BCP037
       vectorEmbeddingPolicy: {
         vectorEmbeddings: [
           {
@@ -194,7 +199,6 @@ resource userProfileContainer 'Microsoft.DocumentDB/databaseAccounts/sqlDatabase
 output cosmosDbAccountId string = cosmosDbAccount.id
 output cosmosDbAccountName string = cosmosDbAccount.name
 output cosmosDbEndpoint string = cosmosDbAccount.properties.documentEndpoint
-output cosmosDbConnectionString string = cosmosDbAccount.listConnectionStrings().connectionStrings[0].connectionString
 output cosmosDbDatabaseName string = cosmosDbDatabaseName
 output chatHistoryContainerName string = chatHistoryContainerName
 output userProfileContainerName string = userProfileContainerName

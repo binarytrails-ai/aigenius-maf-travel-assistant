@@ -21,7 +21,7 @@ resource aiFoundry 'Microsoft.CognitiveServices/accounts@2025-04-01-preview' = {
   properties: {
     allowProjectManagement: true
     customSubDomainName: name
-    disableLocalAuth: false
+    disableLocalAuth: true
     publicNetworkAccess: 'Enabled'
   }
 }
@@ -29,4 +29,3 @@ resource aiFoundry 'Microsoft.CognitiveServices/accounts@2025-04-01-preview' = {
 output resourceId string = aiFoundry.id
 output name string = aiFoundry.name
 output endpoint string = aiFoundry.properties.endpoint
-output apiKey string = aiFoundry.listKeys().key1

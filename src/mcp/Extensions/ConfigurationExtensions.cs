@@ -38,6 +38,7 @@ public static class ConfigurationExtensions
         var cosmosDbConnectionString = EnvironmentVariableHelper.GetConfigValue("COSMOS_DB_CONNECTION_STRING", configuration);
         var cosmosDbDatabaseName = EnvironmentVariableHelper.GetConfigValue("COSMOS_DB_DATABASE_NAME", configuration, "ContosoTravel");
         var cosmosDbFlightsContainer = EnvironmentVariableHelper.GetConfigValue("COSMOS_DB_FLIGHTS_CONTAINER", configuration, "Flights");
+        var managedIdentityClientId = EnvironmentVariableHelper.GetConfigValue("AZURE_CLIENT_ID", configuration);
 
         if (string.IsNullOrWhiteSpace(azureAiServicesEndpoint))
         {
@@ -61,7 +62,8 @@ public static class ConfigurationExtensions
             CosmosDbEndpoint = cosmosDbEndpoint,
             CosmosDbConnectionString = cosmosDbConnectionString,
             CosmosDbDatabaseName = cosmosDbDatabaseName,
-            CosmosDbFlightsContainer = cosmosDbFlightsContainer
+            CosmosDbFlightsContainer = cosmosDbFlightsContainer,
+            ManagedIdentityClientId = managedIdentityClientId
         };
 
         services.AddSingleton<IOptions<AppConfig>>(Options.Create(config));
@@ -85,7 +87,15 @@ public static class ConfigurationExtensions
         }
         else
         {
-            var cosmosClient = new CosmosClient(config.CosmosDbEndpoint, new DefaultAzureCredential());
+            // Use managed identity client ID if specified (required for User-assigned Managed Identity)
+            var managedIdentityClientId = config.ManagedIdentityClientId;
+            var credential = string.IsNullOrEmpty(managedIdentityClientId)
+                ? new DefaultAzureCredential()
+                : new DefaultAzureCredential(new DefaultAzureCredentialOptions
+                {
+                    ManagedIdentityClientId = managedIdentityClientId
+                });
+            var cosmosClient = new CosmosClient(config.CosmosDbEndpoint, credential);
             var database = cosmosClient.GetDatabase(config.CosmosDbDatabaseName);
             services.AddSingleton(database);
         }

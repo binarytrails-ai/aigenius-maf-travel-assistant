@@ -202,6 +202,19 @@ module frontendIdentity 'modules/managed-identity.bicep' = {
   }
 }
 
+module identityAccess 'modules/managed-identity-access.bicep' = {
+  scope: rg
+  name: 'identity-access-${uniqueSuffixValue}'
+  params: {
+    aiFoundryAccountName: aiFoundryAccount.outputs.name
+    cosmosDbAccountName: cosmosDb.outputs.cosmosDbAccountName
+    backendIdentityName: backendIdentity.outputs.name
+    backendPrincipalId: backendIdentity.outputs.principalId
+    mcpIdentityName: mcpIdentity.outputs.name
+    mcpPrincipalId: mcpIdentity.outputs.principalId
+  }
+}
+
 
 // Deploy Backend Container App
 module backendApp 'modules/containerapp.bicep' = {
@@ -245,10 +258,6 @@ module backendApp 'modules/containerapp.bicep' = {
         value: aiFoundryAccount.outputs.endpoint
       }
       {
-        name: 'AZURE_AI_SERVICES_KEY'
-        value: aiFoundryAccount.outputs.apiKey
-      }
-      {
         name: 'AZURE_OPENAI_DEPLOYMENT_NAME'
         value: chatCompletionModel
       }
@@ -265,12 +274,12 @@ module backendApp 'modules/containerapp.bicep' = {
         value: subscription().subscriptionId
       }
       {
-        name: 'COSMOS_DB_ENDPOINT'
-        value: cosmosDb.outputs.cosmosDbEndpoint
+        name: 'AZURE_CLIENT_ID'
+        value: backendIdentity.outputs.clientId
       }
       {
-        name: 'COSMOS_DB_CONNECTION_STRING'
-        value: cosmosDb.outputs.cosmosDbConnectionString
+        name: 'COSMOS_DB_ENDPOINT'
+        value: cosmosDb.outputs.cosmosDbEndpoint
       }
       {
         name: 'COSMOS_DB_DATABASE_NAME'
@@ -350,10 +359,6 @@ module mcpServerApp 'modules/containerapp.bicep' = {
         value: aiFoundryAccount.outputs.endpoint
       }
       {
-        name: 'AZURE_AI_SERVICES_KEY'
-        value: aiFoundryAccount.outputs.apiKey
-      }
-      {
         name: 'AZURE_OPENAI_DEPLOYMENT_NAME'
         value: chatCompletionModel
       }
@@ -370,12 +375,12 @@ module mcpServerApp 'modules/containerapp.bicep' = {
         value: subscription().subscriptionId
       }
       {
-        name: 'COSMOS_DB_ENDPOINT'
-        value: cosmosDb.outputs.cosmosDbEndpoint
+        name: 'AZURE_CLIENT_ID'
+        value: mcpIdentity.outputs.clientId
       }
       {
-        name: 'COSMOS_DB_CONNECTION_STRING'
-        value: cosmosDb.outputs.cosmosDbConnectionString
+        name: 'COSMOS_DB_ENDPOINT'
+        value: cosmosDb.outputs.cosmosDbEndpoint
       }
       {
         name: 'COSMOS_DB_DATABASE_NAME'
@@ -419,7 +424,7 @@ module frontendApp 'modules/containerapp.bicep' = {
     containerRegistryName: containerRegistry.outputs.name
     identityName: frontendIdentity.outputs.name
     identityType: 'UserAssigned'
-    targetPort: 3000
+    targetPort: 80
     external: true
     containerCpuCoreCount: '1.0'
     containerMemory: '2.0Gi'
@@ -436,7 +441,7 @@ module frontendApp 'modules/containerapp.bicep' = {
       }
       {
         name: 'PORT'
-        value: '3000'
+        value: '80'
       }
       {
         name: 'HOSTNAME'
@@ -459,7 +464,6 @@ output AZURE_AI_PROJECT_NAME string = aiProject.outputs.name
 output AZURE_AI_PROJECT_ENDPOINT string = aiProject.outputs.endpoint
 output AZURE_AI_FOUNDRY_SERVICE_ENDPOINT string = 'https://${aiFoundryAccount.outputs.name}.services.ai.azure.com/'
 output AZURE_AI_SERVICES_ENDPOINT string = aiFoundryAccount.outputs.endpoint
-output AZURE_AI_SERVICES_KEY string = aiFoundryAccount.outputs.apiKey
 
 output BACKEND_URI string = backendApp.outputs.uri
 output BACKEND_APP_URL string = backendApp.outputs.uri
@@ -477,7 +481,6 @@ output AZURE_TEXT_MODEL_NAME string = chatCompletionModel //TODO: to be removed 
 output AZURE_EMBEDDING_MODEL_NAME string = embeddingModelName
 
 output COSMOS_DB_ENDPOINT string = cosmosDb.outputs.cosmosDbEndpoint
-output COSMOS_DB_CONNECTION_STRING string = cosmosDb.outputs.cosmosDbConnectionString
 output COSMOS_DB_DATABASE_NAME string = cosmosDb.outputs.cosmosDbDatabaseName
 output COSMOS_DB_CHAT_HISTORY_CONTAINER string = cosmosDb.outputs.chatHistoryContainerName
 output COSMOS_DB_USER_PROFILE_CONTAINER string = cosmosDb.outputs.userProfileContainerName

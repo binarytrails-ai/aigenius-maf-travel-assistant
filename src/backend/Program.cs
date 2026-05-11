@@ -3,6 +3,7 @@ using ContosoTravelAgent.Host.Agents;
 using ContosoTravelAgent.Host.Agents.Workflow;
 using ContosoTravelAgent.Host.Extensions;
 using ContosoTravelAgent.Host.Models;
+using Azure.Identity;
 using Microsoft.Agents.AI;
 using Microsoft.Agents.AI.Hosting.AGUI.AspNetCore;
 using Microsoft.Extensions.AI;
@@ -46,10 +47,16 @@ builder.Services.AddAGUI();
 
 IChatClient chatClient;
 OpenAI.Embeddings.EmbeddingClient embeddingClient;
+var defaultCredential = new DefaultAzureCredential();
 
 Console.WriteLine("Using Azure AI Models");
-var azureOpenAIClient = new Azure.AI.OpenAI.AzureOpenAIClient(
-    new Uri(config.AzureAIServicesEndpoint!), new ApiKeyCredential(config.AzureAIServicesKey!));
+var azureOpenAIClient = !string.IsNullOrWhiteSpace(config.AzureAIServicesKey)
+    ? new Azure.AI.OpenAI.AzureOpenAIClient(
+        new Uri(config.AzureAIServicesEndpoint!),
+        new ApiKeyCredential(config.AzureAIServicesKey))
+    : new Azure.AI.OpenAI.AzureOpenAIClient(
+        new Uri(config.AzureAIServicesEndpoint!),
+        defaultCredential);
 
 // Create Azure AI chat client
 chatClient = azureOpenAIClient.GetChatClient(config.AzureTextModelName).AsIChatClient().AsBuilder()
@@ -62,12 +69,31 @@ builder.Services.AddChatClient(chatClient);
 builder.Services.AddSingleton(embeddingClient);
 builder.Services.AddSingleton(sp =>
 {
-    var cosmosClient = new Microsoft.Azure.Cosmos.CosmosClient(
-        config.CosmosDbConnectionString,
-        new Microsoft.Azure.Cosmos.CosmosClientOptions
-        {
-            UseSystemTextJsonSerializerWithOptions = JsonSerializerOptions.Default
-        });
+    var cosmosClientOptions = new Microsoft.Azure.Cosmos.CosmosClientOptions
+    {
+        UseSystemTextJsonSerializerWithOptions = JsonSerializerOptions.Default
+    };
+
+    Microsoft.Azure.Cosmos.CosmosClient cosmosClient;
+
+    if (!string.IsNullOrWhiteSpace(config.CosmosDbEndpoint))
+    {
+        cosmosClient = new Microsoft.Azure.Cosmos.CosmosClient(
+            config.CosmosDbEndpoint,
+            defaultCredential,
+            cosmosClientOptions);
+    }
+    else if (!string.IsNullOrWhiteSpace(config.CosmosDbConnectionString))
+    {
+        cosmosClient = new Microsoft.Azure.Cosmos.CosmosClient(
+            config.CosmosDbConnectionString,
+            cosmosClientOptions);
+    }
+    else
+    {
+        throw new InvalidOperationException("Cosmos DB configuration is missing. Set either COSMOS_DB_ENDPOINT or COSMOS_DB_CONNECTION_STRING.");
+    }
+
     return cosmosClient.GetDatabase(config.CosmosDbDatabaseName);
 });
 
