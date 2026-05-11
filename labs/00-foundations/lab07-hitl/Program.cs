@@ -1,3 +1,6 @@
+// Lab 07: Human-In-The-Loop (HITL) Approval
+// Learn how to require user approval before executing sensitive tool actions
+
 // Add NuGet package references
 #:package Azure.AI.OpenAI@2.1.0
 #:package Azure.Identity@1.21.0

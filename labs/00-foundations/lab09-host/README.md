@@ -1,4 +1,4 @@
-# Lab 08: Hosting Agents as Web Services
+# Lab 09: Hosting Agents as Web Services
 
 In this lab, you will learn how to host an AI agent as a web service using ASP.NET Core, making it accessible via HTTP endpoints.
 
@@ -40,7 +40,7 @@ The method `MapOpenAIChatCompletions` exposes an OpenAI-compatible REST API endp
 ### Step 1: Navigate to the Lab Folder
 
 ```bash
-cd labs/00-foundations/lab08-host
+cd labs/00-foundations/lab09-host
 ```
 
 ### Step 2: Run the Web Service
@@ -60,6 +60,7 @@ Press Ctrl+C to shut down
 ### Step 3: Test the Agent via the HTTP File
 
 Open `TravelAssistant.http` in VS Code and click **Send Request** next to any of the pre-built requests to call the OpenAI-compatible endpoint directly.
+To run `.http` requests in VS Code, install the **REST Client** extension first.
 
 ### Step 4: Stop the Service
 
