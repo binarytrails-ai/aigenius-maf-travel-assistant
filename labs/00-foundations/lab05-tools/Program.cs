@@ -1,4 +1,4 @@
-// Lab 03: Tools and Function Calling
+// Lab 05: Tools and Function Calling
 // Learn how to equip agents with tools that they can call automatically
 
 // Add NuGet package references
@@ -114,6 +114,9 @@ finally
 
 
 // ==================== Tool Definitions ====================
+
+#pragma warning disable IL2026 // RequiresUnreferencedCode
+#pragma warning disable IL3050 // RequiresDynamicCode
 
 /// <summary>
 /// Gets the current date.
@@ -242,6 +245,9 @@ static string CalculateTimeZone(
         return JsonSerializer.Serialize(new { error = ex.Message });
     }
 }
+
+#pragma warning restore IL3050
+#pragma warning restore IL2026
 
 /// <summary>
 /// Helper method to get TimeZoneInfo for Australian cities.
