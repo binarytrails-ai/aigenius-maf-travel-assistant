@@ -1,19 +1,19 @@
 ---
 name: weather-info
-description: Provides weather forecasts for travel destinations
+description: 旅行先の天気予報を提供します
 ---
 
-# Weather Information Skill
+# 天気情報スキル
 
-Provides weather forecasts to help travelers plan trips.
+旅行者が旅程を計画しやすいように、目的地の天気予報を提供します。
 
-## Available Tools
+## 利用可能なツール
 
 ### get_weather_forecast
-Returns current weather conditions including temperature, conditions, and humidity for any city.
+任意の都市について、気温、天候、湿度を含む現在の気象状況を返します。
 
-## Usage
+## 利用方法
 
-- Use when travelers ask about weather at a destination
-- Remember southern hemisphere seasons are reversed (June is winter in Melbourne)
-- Recommend checking forecasts closer to travel dates
+- 旅行者が目的地の天気について尋ねたときに使用する
+- 南半球では季節が逆になる点に注意する（メルボルンでは6月は冬）
+- 出発日が近づいたタイミングで最新予報を確認するよう案内する

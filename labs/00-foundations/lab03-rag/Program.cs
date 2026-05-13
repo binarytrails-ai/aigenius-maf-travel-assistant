@@ -36,6 +36,7 @@ const string SourceName = "TravelAssistant";
 const string ServiceName = "TravelAssistant";
 
 // Configure JSON serialization for Azure SDK compatibility with .NET 10
+// .NET 10 で Azure SDK と互換性を持たせるため JSON シリアル化設定を行います
 AppContext.SetSwitch("System.Text.Json.JsonSerializer.IsReflectionEnabledByDefault", true);
 
 // Step 1: Load environment variables
@@ -45,6 +46,7 @@ LoadEnv();
 var (loggerFactory, appLogger, tracerProvider) = InitTelemetry(ServiceName);
 
 // Step 3: Create chat client and embedding generator
+// チャットクライアントと embedding 埋め込みを作成
 var (chatClient, embeddingGenerator) = CreateClients(appLogger);
 if (chatClient == null || embeddingGenerator == null)
 {
@@ -53,15 +55,19 @@ if (chatClient == null || embeddingGenerator == null)
 }
 
 // Step 4: Load visa policy documents into vector store
-var workspaceRoot = Directory.GetCurrentDirectory();
+// ビザ規定ドキュメントをベクトルストアに読み込み
+var workspaceRoot = ResolveWorkspaceRoot(appLogger);
 var japanVisaPolicyPath = Path.Combine(workspaceRoot, "data", "visa-policy-japan.md");
 var canadaVisaPolicyPath = Path.Combine(workspaceRoot, "data", "visa-policy-canada.md");
+var australiaVisaPolicyPath = Path.Combine(workspaceRoot, "data", "visa-policy-australia.md");
 
 TextSearchStore textSearchStore = new(embeddingGenerator);
 await UploadDocumentationFromFileAsync(japanVisaPolicyPath, "Japan Visa Policy", textSearchStore, 2000, 200, appLogger);
 await UploadDocumentationFromFileAsync(canadaVisaPolicyPath, "Canada Visa Policy", textSearchStore, 2000, 200, appLogger);
+await UploadDocumentationFromFileAsync(australiaVisaPolicyPath, "Australia Visa Policy", textSearchStore, 2000, 200, appLogger);
 
 // Step 5: Create search adapter for TextSearchProvider
+// TextSearchProvider 用の検索アダプターを作成
 Func<string, CancellationToken, Task<IEnumerable<TextSearchProvider.TextSearchResult>>> SearchAdapter = async (text, ct) =>
 {
     var searchResults = await textSearchStore.SearchAsync(text, 5, ct);
@@ -75,23 +81,29 @@ Func<string, CancellationToken, Task<IEnumerable<TextSearchProvider.TextSearchRe
 };
 
 // Step 6: Configure TextSearchProvider options
+// TextSearchProvider のオプションを設定
 TextSearchProviderOptions textSearchOptions = new()
 {
     // Run the search prior to every model invocation
+    // モデル呼び出しのたびに事前検索を実行します
     SearchTime = TextSearchProviderOptions.TextSearchBehavior.BeforeAIInvoke,
     // Use up to 5 recent messages when searching so that searches
     // still produce valuable results even when the user is referring
     // back to previous messages in their request
+    // 検索時に直近 5 件までのメッセージを利用し、
+    // ユーザーが過去発言を参照していても、
+    // 有効な検索結果を得られるようにします
     RecentMessageMemoryLimit = 5
 };
 
 // Step 7: Create agent with RAG capabilities
+// RAG 付きエージェントを作成
 var agent = chatClient.AsAIAgent(new ChatClientAgentOptions
 {
     Name = "TravelAssistant",
     ChatOptions = new()
     {
-        Instructions = "You are a helpful travel assistant. Use the provided travel knowledge to give accurate recommendations and cite the source document when available.",
+        Instructions = "あなたは親切な旅行アシスタントです。提供された旅行知識を活用して正確な提案を行い、参照元ドキュメントがある場合はその出典を示してください。",
         Tools = []
     },
     AIContextProviders = [new TextSearchProvider(SearchAdapter, textSearchOptions)]
@@ -105,11 +117,12 @@ agent.AsBuilder()
 appLogger.LogInformation("Agent created successfully");
 
 // Step 8: Run conversation
+// 会話を実行
 try
 {
     AgentSession session = await agent.CreateSessionAsync();
 
-    var userInput1 = "Do I need a visa to visit Japan if I'm a Australian citizen?";
+    var userInput1 = "日本国籍の場合、オーストラリアに行くのにビザは必要ですか？";
     appLogger.LogInformation("User: {UserInput}", userInput1);
 
     var response1 = await agent.RunAsync(userInput1, session);
@@ -189,6 +202,28 @@ void LoadEnv()
         }
         currentDir = Directory.GetParent(currentDir)?.FullName;
     }
+}
+
+string ResolveWorkspaceRoot(ILogger appLogger)
+{
+    var currentDir = Directory.GetCurrentDirectory();
+    for (int i = 0; i < 10 && currentDir != null; i++)
+    {
+        var azureYamlPath = Path.Combine(currentDir, "azure.yaml");
+        var dataDirPath = Path.Combine(currentDir, "data");
+        if (File.Exists(azureYamlPath) && Directory.Exists(dataDirPath))
+        {
+            appLogger.LogInformation("Using workspace root: {WorkspaceRoot}", currentDir);
+            return currentDir;
+        }
+
+        currentDir = Directory.GetParent(currentDir)?.FullName;
+    }
+
+    // Fallback to current directory if workspace root cannot be detected.
+    var fallbackDir = Directory.GetCurrentDirectory();
+    appLogger.LogWarning("Workspace root not detected. Falling back to current directory: {WorkspaceRoot}", fallbackDir);
+    return fallbackDir;
 }
 
 (ILoggerFactory, ILogger<Program>, TracerProvider) InitTelemetry(string serviceName)

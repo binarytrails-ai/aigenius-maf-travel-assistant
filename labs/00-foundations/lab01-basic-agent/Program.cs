@@ -32,23 +32,27 @@ const string SourceName = "TravelAssistant";
 const string ServiceName = "TravelAssistant";
 
 // Step 1: Load environment variables from the workspace root .env file
+// ワークスペース ルートの .env ファイルから環境変数を読み込み
 LoadEnv();
 
 // Step 2: Initialize OpenTelemetry
+// OpenTelemetry を初期化
 var (loggerFactory, appLogger, tracerProvider) = InitTelemetry(ServiceName);
 
 // Step 3: Create chat client
+// Chat Client を作成
 var chatClient = CreateChatClient(appLogger);
 if (chatClient == null) return;
 
 // Step 4: Create a simple agent
+// シンプルなエージェント を作成
 var agent = chatClient.AsAIAgent(new ChatClientAgentOptions
 {
     Name = "TravelAssistant",
     ChatOptions = new()
     {
-        Instructions = "You are a helpful travel assistant that provides travel recommendations and information. " +
-                      "Be friendly, informative, and concise in your responses.",
+        Instructions = "あなたは旅行のおすすめや旅行情報を提供する親切な旅行アシスタントです。" +
+                      "回答は親しみやすく、分かりやすく、簡潔にしてください。",
         Tools = []
     }
 });
@@ -59,20 +63,22 @@ agent.AsBuilder()
 .Build();
 
 // Step 5: Run the agent with multi-turn conversation
+// 複数ターンの会話でエージェントを実行
 try
 {
     // Create a new session for the conversation
+    // 会話用の新しいセッションを作成します
     AgentSession session = await agent.CreateSessionAsync();
 
     // First message
-    var userInput1 = "What are some must-visit places in Australia?";
+    var userInput1 = "オーストラリア旅行でお勧めのスポットを教えてください。";
     appLogger.LogInformation("User: {UserInput}", userInput1);
 
     var response1 = await agent.RunAsync(userInput1, session);
     appLogger.LogInformation("Agent: {AgentResponse}", response1);
 
     // Second message - follow-up question to demonstrate multi-turn chat
-    var userInput2 = "Which one would you recommend for families with kids?";
+    var userInput2 = "その中で、子ども連れの家族におすすめなのはどこですか。";
     appLogger.LogInformation("User: {UserInput}", userInput2);
 
     var response2 = await agent.RunAsync(userInput2, session);
@@ -151,9 +157,11 @@ void LoadEnv()
 (ILoggerFactory, ILogger<Program>, TracerProvider) InitTelemetry(string serviceName)
 {
     // Configure OpenTelemetry for Aspire dashboard
+    // Aspire ダッシュボード向けに OpenTelemetry を構成します
     var otlpEndpoint = Environment.GetEnvironmentVariable("OTEL_EXPORTER_OTLP_ENDPOINT") ?? "http://localhost:4317";
 
     // Setup tracing with OpenTelemetry
+    // OpenTelemetry でトレースを設定します
     var tracerProvider = Sdk.CreateTracerProviderBuilder()
         .SetResourceBuilder(ResourceBuilder.CreateDefault()
             .AddService(serviceName, serviceVersion: "1.0.0"))
@@ -164,6 +172,7 @@ void LoadEnv()
         .Build();
 
     // Setup structured logging with OpenTelemetry
+    // OpenTelemetry で構造化ログを設定します
     var serviceCollection = new ServiceCollection();
     serviceCollection.AddLogging(loggingBuilder => loggingBuilder
         .SetMinimumLevel(LogLevel.Information)

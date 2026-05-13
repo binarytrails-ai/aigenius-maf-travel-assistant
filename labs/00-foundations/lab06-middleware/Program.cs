@@ -41,16 +41,18 @@ LoadEnv();
 var (loggerFactory, appLogger, tracerProvider) = InitTelemetry(ServiceName);
 
 // Step 3: Create chat client
+// チャットクライアントを作成
 var chatClient = CreateChatClient(appLogger);
 if (chatClient == null) return;
 
 // Step 4: Create an agent with PII filtering middleware
+// PII フィルタリング ミドルウェアを使用してエージェントを作成
 var agent = chatClient.AsAIAgent(new ChatClientAgentOptions
 {
     Name = "TravelAssistantWithPII",
     ChatOptions = new()
     {
-        Instructions = "You are a helpful AI assistant that helps people find information.",
+        Instructions = "あなたは、人々が情報を見つけるのを助ける親切なAIアシスタントです。",
         Tools = []
     }
 })
@@ -61,6 +63,7 @@ var agent = chatClient.AsAIAgent(new ChatClientAgentOptions
 .Build();
 
 // Step 5: Run the agent with PII filtering
+// PII フィルタリングを使用してエージェントを実行
 try
 {
     var session = await agent.CreateSessionAsync();
@@ -68,8 +71,8 @@ try
     appLogger.LogInformation("=== PII Detection and Redaction ===");
     appLogger.LogInformation("");
 
-    appLogger.LogInformation("Example 1: Filtering PII in user input");
-    var userInput1 = "My name is John Doe. Here is my contact info: 123-456-7890, john@example.com";
+    appLogger.LogInformation("例1: ユーザー入力内のPIIフィルタリング");
+    var userInput1 = "私の名前は舞黒太郎です。連絡先: 012-3456-7890, taro@example.com";
     appLogger.LogInformation("INPUT: {UserInput}", userInput1);
 
     var response1 = await agent.RunAsync(userInput1, session);
@@ -86,8 +89,6 @@ finally
     tracerProvider.Dispose();
 }
 
-
-// ==================== Middleware ====================
 
 // ==================== Middleware ====================
 

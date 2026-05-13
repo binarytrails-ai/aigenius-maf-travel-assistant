@@ -44,6 +44,7 @@ LoadEnv();
 var (loggerFactory, appLogger, tracerProvider) = InitTelemetry(ServiceName);
 
 // Step 3: Create chat client
+// チャットクライアントを作成
 var chatClient = CreateChatClient(appLogger);
 if (chatClient == null)
 {
@@ -52,22 +53,29 @@ if (chatClient == null)
 }
 
 // Step 4: Skills Provider - Discovers skills from the 'skills' directory
+// Skills Provider を作成し 'skills' ディレクトリからスキルを検出します
+
 // FileAgentSkillsProvider implements progressive disclosure:
 //   1. Advertise - skills are advertised with name + description (~100 tokens per skill)
 //   2. Load - full instructions loaded on-demand via load_skill tool
 //   3. Read resources - supplementary files loaded via read_skill_resource tool
+// FileAgentSkillsProvider は段階的開示を実装しています:
+//   1. Advertise - 名前と説明でスキル概要を提示（スキルあたり約 100 トークン）
+//   2. Load - load_skill ツールで必要時に詳細指示を読み込み
+//   3. Read resources - read_skill_resource ツールで補助ファイルを読み込み
 var skillsProvider = new AgentSkillsProvider(
     skillPath: Path.Combine(Directory.GetCurrentDirectory(), "labs/00-foundations/lab08-skills/skills"));
 
 appLogger.LogInformation("FileAgentSkillsProvider created, discovering skills from ./skills directory");
 
 // Step 5: Create agent with skills and tools
+// スキルとツール付きのエージェントを作成
 var agent = chatClient.AsAIAgent(new ChatClientAgentOptions
 {
     Name = "TravelAssistant",
     ChatOptions = new()
     {
-        Instructions = "You are a helpful travel assistant. Help users plan trips with weather information, visa requirements, and destination recommendations.",
+        Instructions = "あなたは親切な旅行アシスタントです。天気情報、ビザ要件、目的地の提案を活用して旅行計画を支援してください。",
         Tools = [AIFunctionFactory.Create(GetWeatherForecast)],
     },
     AIContextProviders = [skillsProvider],
@@ -80,6 +88,7 @@ var agent = chatClient.AsAIAgent(new ChatClientAgentOptions
 appLogger.LogInformation("Agent created with file-based skills successfully");
 
 // Step 6: Demonstrate agent using skills (progressive disclosure pattern)
+// スキル活用の動作（段階的開示パターン）を表示
 try
 {
     AgentSession session = await agent.CreateSessionAsync();
@@ -87,39 +96,43 @@ try
     appLogger.LogInformation("=== Travel Assistant with File-Based Skills ===");
 
     // // Example 1: Weather inquiry (agent will load weather-info skill)
+    // // 例 1: 天気の問い合わせ（weather-info スキルを読み込み）
     // appLogger.LogInformation("Example 1: Checking weather for destination");
     // appLogger.LogInformation("--------------------------------------------");
-    // var query1 = "I'm traveling to Tokyo in December. What's the weather like and what should I pack?";
+    // var query1 = "9月にメルボルンへ行きます。天気はどんな感じで、何を持っていくべきですか？";
     // appLogger.LogInformation("User: {Query}", query1);
     // var response1 = await agent.RunAsync(query1, session);
     // appLogger.LogInformation("Agent: {Response}", response1.Text);
 
-    // Example 2: Visa requirements (agent will load visa-assistance skill)
-    appLogger.LogInformation("");
-    appLogger.LogInformation("Example 2: Visa requirements");
-    appLogger.LogInformation("----------------------------");
-    var query2 = "I'm an Australian citizen planning to visit Japan for 2 weeks and then Canada for a week. What visas do I need?";
-    appLogger.LogInformation("User: {Query}", query2);
-    var response2 = await agent.RunAsync(query2, session);
-    appLogger.LogInformation("Agent: {Response}", response2.Text);
+    // // Example 2: Visa requirements (agent will load visa-assistance skill)
+    // // 例 2: ビザ要件（visa-assistance スキルを読み込み）
+    // appLogger.LogInformation("");
+    // appLogger.LogInformation("Example 2: Visa requirements");
+    // appLogger.LogInformation("----------------------------");
+    // var query2 = "私は日本人で、アメリカに2週間、その後カナダに1週間行く予定です。どのビザが必要ですか？";
+    // appLogger.LogInformation("User: {Query}", query2);
+    // var response2 = await agent.RunAsync(query2, session);
+    // appLogger.LogInformation("Agent: {Response}", response2.Text);
 
-    // // Example 3: Destination recommendation (agent will load trip-planner skill)
+    // Example 3: Destination recommendation (agent will load trip-planner skill)
+    // 例 3: 目的地提案（trip-planner スキルを読み込み）
     // appLogger.LogInformation("");
     // appLogger.LogInformation("Example 3: Destination recommendations");
     // appLogger.LogInformation("--------------------------------------");
-    // var query3 = "I'm a solo traveler looking for a safe destination with great food. Budget is mid-range. Any suggestions?";
+    // var query3 = "一人旅です。オーストラリアで食事がおいしくて治安の良い場所を探しています。予算は中程度です。おすすめはありますか？";
     // appLogger.LogInformation("User: {Query}", query3);
     // var response3 = await agent.RunAsync(query3, session);
     // appLogger.LogInformation("Agent: {Response}", response3.Text);
 
-    // // Example 4: Multi-skill query (combines weather, visa, and trip-planner skills)
-    // appLogger.LogInformation("");
-    // appLogger.LogInformation("Example 4: Combined travel planning");
-    // appLogger.LogInformation("------------------------------------");
-    // var query4 = "I want to visit New Zealand in March. What's the weather like, do I need a visa if I'm from the UK, and what are the must-see attractions?";
-    // appLogger.LogInformation("User: {Query}", query4);
-    // var response4 = await agent.RunAsync(query4, session);
-    // appLogger.LogInformation("Agent: {Response}", response4.Text);
+    // Example 4: Multi-skill query (combines weather, visa, and trip-planner skills)
+    // 例 4: 複合問い合わせ（weather / visa / trip-planner を併用）
+    appLogger.LogInformation("");
+    appLogger.LogInformation("Example 4: Combined travel planning");
+    appLogger.LogInformation("------------------------------------");
+    var query4 = "3月にニュージーランドへ行きたいです。天気はどうですか？日本人の場合ビザは必要ですか？必見スポットも教えてください。";
+    appLogger.LogInformation("User: {Query}", query4);
+    var response4 = await agent.RunAsync(query4, session);
+    appLogger.LogInformation("Agent: {Response}", response4.Text);
 
     appLogger.LogInformation("Agent response completed");
 }

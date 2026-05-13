@@ -9,19 +9,19 @@ POST {{Lab05Host_HostAddress}}/TravelAssistant/v1/chat/completions
 Content-Type: application/json
 
 {
-  "model": "gpt-4o",
+  "model": "gpt-4.1-mini",
   "messages": [
     {
       "role": "user",
-      "content": "What are some must-visit places in Australia?"
+      "content": "オーストラリアで必ず訪れるべきおすすめの場所を教えてください。"
     },
     {
       "role": "assistant",
-      "content": "Australia has many incredible destinations! Here are some must-visit places:\n\n1. **Sydney** - Famous for the Opera House and Harbour Bridge\n2. **Great Barrier Reef** - World's largest coral reef system, perfect for snorkeling and diving\n3. **Melbourne** - Known for its arts, culture, and coffee scene\n4. **Uluru (Ayers Rock)** - Iconic red rock formation in the heart of Australia\n5. **Gold Coast** - Beautiful beaches and theme parks\n6. **Tasmania** - Stunning wilderness and wildlife\n7. **Cairns** - Gateway to the Great Barrier Reef and rainforests\n\nEach destination offers unique experiences. What type of activities are you most interested in?"
+      "content": "オーストラリアには素晴らしい旅行先がたくさんあります。特におすすめの場所は次のとおりです。\n\n1. **シドニー** - オペラハウスとハーバーブリッジで有名\n2. **グレートバリアリーフ** - 世界最大のサンゴ礁で、シュノーケリングやダイビングに最適\n3. **メルボルン** - アート、文化、カフェ文化で知られる都市\n4. **ウルル（エアーズロック）** - オーストラリア中心部にある象徴的な赤い一枚岩\n5. **ゴールドコースト** - 美しいビーチとテーマパークが魅力\n6. **タスマニア** - 壮大な自然と野生動物を楽しめる\n7. **ケアンズ** - グレートバリアリーフと熱帯雨林への玄関口\n\nどの場所もそれぞれ異なる魅力があります。どんなアクティビティに興味がありますか？"
     },
     {
       "role": "user",
-      "content": "Which one would you recommend for families with kids?"
+      "content": "この中で子ども連れの家族におすすめなのはどこですか？"
     }
   ]
 }
@@ -31,11 +31,11 @@ POST {{Lab05Host_HostAddress}}/TravelAssistant/v1/chat/completions
 Content-Type: application/json
 
 {
-  "model": "gpt-4o",
+  "model": "gpt-4.1-mini",
   "messages": [
     {
       "role": "user",
-      "content": "Find me flights from Melbourne to Tokyo for next week"
+      "content": "来月の東京発メルボルン行きのフライトを探してください。"
     }
   ]
 }
@@ -51,7 +51,7 @@ Content-Type: application/json
     {
       "type": "message",
       "role": "user",
-      "content": "Hello! I'm planning a trip to Australia."
+      "content": "こんにちは。オーストラリア旅行を計画しています。"
     }
   ]
 }
@@ -69,7 +69,7 @@ Content-Type: application/json
       "content": [
         {
           "type": "input_text",
-          "text": "What are some must-visit places in Australia?"
+          "text": "オーストラリアで必ず訪れるべきおすすめの場所を教えてください。"
         }
       ]
     }
@@ -91,7 +91,7 @@ Content-Type: application/json
       "content": [
         {
           "type": "input_text",
-          "text": "Which destination would you recommend for families with kids?"
+          "text": "子ども連れの家族には、どの旅行先がおすすめですか？"
         }
       ]
     }

@@ -39,6 +39,7 @@ LoadEnv();
 var (loggerFactory, appLogger, tracerProvider) = InitTelemetry(ServiceName);
 
 // Step 3: Create chat client
+// Chat Client を作成
 var chatClient = CreateChatClient(appLogger);
 if (chatClient == null)
 {
@@ -47,16 +48,18 @@ if (chatClient == null)
 }
 
 // Step 4: Create context provider with travel knowledge
+// 旅行知識を持つコンテキスト プロバイダーを作成
 var travelContext = new TravelKnowledgeContext();
 
 // Step 5: Create agent with context
+// コンテキスト付きのエージェントを作成
 var agent = chatClient.AsAIAgent(new ChatClientAgentOptions
 {
     Name = "TravelAssistant",
     ChatOptions = new()
     {
-        Instructions = "You are a helpful travel assistant that provides travel recommendations and information. " +
-                      "Be friendly, informative, and concise in your responses.",
+        Instructions = "あなたは旅行のおすすめや旅行情報を提供する親切な旅行アシスタントです。" +
+                      "回答は親しみやすく、分かりやすく、簡潔にしてください。",
         Tools = []
     },
     AIContextProviders = [travelContext]
@@ -70,11 +73,12 @@ agent.AsBuilder()
 appLogger.LogInformation("Agent created successfully");
 
 // Step 6: Run conversation
+// 会話を実行
 try
 {
     AgentSession session = await agent.CreateSessionAsync();
 
-    var userInput1 = "Can you recommend some travel destinations?";
+    var userInput1 = "おすすめの旅行先を教えてください。";
     appLogger.LogInformation("User: {UserInput}", userInput1);
 
     var response1 = await agent.RunAsync(userInput1, session);

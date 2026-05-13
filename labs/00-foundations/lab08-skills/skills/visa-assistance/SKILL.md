@@ -1,50 +1,50 @@
 ---
 name: visa-assistance
-description: Load this skill when users ask about visas, entry requirements, travel documents, or passport validity. Provides comprehensive visa requirements and entry regulations for international destinations.
+description: ユーザーがビザ、入国要件、渡航書類、パスポート有効期限について尋ねる際にこのスキルを読み込みます。海外渡航先に関する包括的なビザ要件と入国規則を提供します。
 ---
 
-# Visa Assistance Skill
+# ビザ案内スキル
 
-You have access to visa requirement information and entry regulations to help travelers understand what documents they need for international travel. Reference the [visa requirements documentation](references/visa-requirements.md) for detailed country-specific information.
+このスキルは、旅行者が海外渡航に必要な書類を理解できるよう、ビザ要件と入国規則の情報を提供します。国別の詳細情報は [visa requirements documentation](references/visa-requirements.md) を参照してください。
 
-## When to Use This Skill
+## このスキルを使うタイミング
 
-Use this skill when the traveler:
-- Asks about visa requirements for a specific country
-- Needs to know about visa-free entry eligibility
-- Wants to understand visa application processes
-- Asks about passport validity requirements
-- Needs information about electronic travel authorizations (eTA)
-- Is planning international travel and unsure about entry requirements
+次のような場合にこのスキルを使います:
+- 特定の国のビザ要件について質問している
+- ビザ免除で入国できる条件を知りたい
+- ビザ申請手続きの流れを理解したい
+- パスポート有効期限の要件を確認したい
+- 電子渡航認証（eTA）に関する情報が必要
+- 海外旅行を計画しており、入国要件に不安がある
 
-## Usage Guidelines
+## 利用ガイドライン
 
-1. **Ask for traveler's nationality** - visa requirements vary significantly by citizenship
-2. **Clarify the purpose of travel** - tourist, business, work, or study visas have different requirements
-3. **Check trip duration** - visa-free periods have time limits
-4. **Verify passport validity** - most countries require 6 months validity beyond travel dates
-5. **Consider processing time** - recommend starting visa applications 4-8 weeks before travel
-6. **Distinguish between types**:
-   - Visa-free entry
-   - Electronic visas or travel authorizations (eTA, ESTA, etc.)
-   - Traditional visa applications
-7. **Provide official resource links** when available
+1. **旅行者の国籍を確認する** - ビザ要件は国籍によって大きく異なる
+2. **渡航目的を明確にする** - 観光、商用、就労、留学で要件が異なる
+3. **滞在期間を確認する** - ビザ免除には滞在日数の上限がある
+4. **パスポート有効期限を確認する** - 多くの国で渡航日以降6か月以上の残存有効期間が必要
+5. **審査期間を考慮する** - 出発の4〜8週間前から申請開始を推奨
+6. **区分を明確にする**:
+   - ビザ免除入国
+   - 電子ビザまたは電子渡航認証（eTA、ESTA など）
+   - 従来の査証申請
+7. **可能な場合は公式情報へのリンクを提示する**
 
-## Example Interactions
+## 会話例
 
-**User**: "Do I need a visa to visit Japan?"
-**Action**: 
-1. Ask for their nationality
-2. Explain visa-free entry eligibility or visa requirements
-3. Mention passport validity requirements
-
-**User**: "I'm from Australia going to Canada for 2 weeks"
+**User**: 「日本に行くのにビザは必要ですか？」
 **Action**:
-1. Reference VISA_REQUIREMENTS.md for Canada
-2. Explain eTA requirement for Australians
-3. Provide application process and timeline
-4. Mention costs and validity period
+1. 国籍を確認する
+2. ビザ免除対象か、またはビザが必要かを説明する
+3. パスポート有効期限要件に触れる
 
-**User**: "How long does it take to get a Japanese visa?"
+**User**: 「オーストラリア国籍で、カナダに2週間行きます」
 **Action**:
-1. Reference visa processing times from VISA_REQUIREMENTS.md
+1. カナダに関する VISA_REQUIREMENTS.md を参照する
+2. オーストラリア国籍者の eTA 要件を説明する
+3. 申請方法と目安期間を案内する
+4. 費用と有効期間を伝える
+
+**User**: 「日本のビザ取得にはどれくらいかかりますか？」
+**Action**:
+1. VISA_REQUIREMENTS.md のビザ処理期間情報を参照する

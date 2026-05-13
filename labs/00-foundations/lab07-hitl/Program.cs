@@ -1,4 +1,4 @@
-// Lab 07: Human-In-The-Loop (HITL) Approval
+// Lab 08: Human-In-The-Loop (HITL) Approval
 // Learn how to require user approval before executing sensitive tool actions
 
 // Add NuGet package references
@@ -42,6 +42,7 @@ LoadEnv();
 var (loggerFactory, appLogger, tracerProvider) = InitTelemetry(ServiceName);
 
 // Step 3: Create chat client
+// チャットクライアントを作成
 var chatClient = CreateChatClient(appLogger);
 if (chatClient == null)
 {
@@ -50,6 +51,7 @@ if (chatClient == null)
 }
 
 // Step 4: Connect to MCP server via HTTP
+// HTTP 経由で MCP サーバーへ接続
 appLogger.LogInformation("Connecting to MCP Flight Search server...");
 var mcpClient = await CreateMcpClientAsync(loggerFactory, appLogger);
 if (mcpClient == null)
@@ -59,9 +61,11 @@ if (mcpClient == null)
 }
 
 // Step 5: Get tools from MCP server
+// MCP サーバーからツールを取得
 var tools = await GetTools(mcpClient, appLogger);
 
 // Step 6: Create agent with MCP tools and wrap with console approval handler
+// MCP ツールを使用してエージェントを作成し、コンソール承認ハンドラーでラップ
 var agent = chatClient.AsAIAgent(new ChatClientAgentOptions
 {
     Name = "TravelAssistant",
@@ -85,10 +89,11 @@ var agent = chatClient.AsAIAgent(new ChatClientAgentOptions
 appLogger.LogInformation("Agent created with {ToolCount} tools", tools.Count);
 
 // Step 8: Run the agent with a two-turn conversation
+// エージェントを2ターンの会話で実行
 try
 {
     var session = await agent.CreateSessionAsync();
-    var userInput = "Please book flight QF107 for December 25, 2026 for 2 passengers. The passenger details are: First Name: John, Last Name: Doe, Passport Number: AB1234567.";
+    var userInput = "2026年12月25日のQF107便を2名分予約してください。搭乗者情報は次のとおりです: 名: John、姓: Doe、パスポート番号: AB1234567。";
     Console.WriteLine($"User: {userInput}");
     appLogger.LogInformation("User: {UserInput}", userInput);
     var response = await agent.RunAsync(userInput, session);
@@ -105,7 +110,7 @@ try
         List<ChatMessage> userInputResponses = approvalRequests
             .ConvertAll(functionApprovalRequest =>
             {
-                Console.WriteLine($"The agent would like to invoke the following function, please reply Y to approve: Name {((FunctionCallContent)functionApprovalRequest.ToolCall).Name}");
+                Console.WriteLine($"エージェントが次の関数を呼び出そうとしています。承認する場合は Y を入力してください: 関数名 {((FunctionCallContent)functionApprovalRequest.ToolCall).Name}");
                 return new ChatMessage(ChatRole.User, [functionApprovalRequest.CreateResponse
                 (Console.ReadLine()?.Equals("Y", StringComparison.OrdinalIgnoreCase) ?? false)]);
             });

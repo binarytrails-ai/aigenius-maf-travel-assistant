@@ -59,6 +59,7 @@ builder.AddOpenAIConversations();
 builder.Services.AddAGUI();
 
 // Create chat client
+// チャットクライアントを作成
 var chatClient = CreateChatClient();
 if (chatClient == null)
 {
@@ -67,6 +68,7 @@ if (chatClient == null)
 }
 
 // Create tools for the agent
+// エージェントが使用するツールを作成
 var tools = new List<AITool>
 {
     AIFunctionFactory.Create(DateTimeTools.GetCurrentDate),
@@ -84,16 +86,17 @@ var loggerFactory = app.Services.GetRequiredService<ILoggerFactory>();
 var logger = app.Services.GetRequiredService<ILogger<Program>>();
 
 // Create the travel agent
+// 旅行アシスタントエージェントを作成
 AIAgent travelAgent = chatClient.AsAIAgent(new ChatClientAgentOptions
 {
     Name = "TravelAssistant",
     ChatOptions = new()
     {
         Instructions = """
-            You are a helpful travel planning assistant with date calculation tools.
-            
-            Use the tools to answer questions about dates and durations.
-            Provide friendly, conversational responses based on the tool results.
+            あなたは日付計算ツールを使える親切な旅行計画アシスタントです。
+
+            日付や期間に関する質問には、必要に応じてツールを使って回答してください。
+            ツールの結果に基づいて、親しみやすい会話調で回答してください。
             """,
         Tools = tools
     }
@@ -120,6 +123,7 @@ logger.LogInformation("Mapped OpenAI responses endpoint at: /v1/responses");
 logger.LogInformation("Mapped conversations endpoint at: /v1/conversations");
 
 // Map AGUI endpoint for interactive development UI
+// AGUIエンドポイントをマッピング
 app.MapAGUI("/agent/travel", travelAgent);
 logger.LogInformation("Mapped AGUI endpoint at: /agent/travel");
 

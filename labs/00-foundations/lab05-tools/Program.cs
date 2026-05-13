@@ -44,6 +44,7 @@ LoadEnv();
 var (loggerFactory, appLogger, tracerProvider) = InitTelemetry(ServiceName);
 
 // Step 3: Create chat client
+// チャットクライアントを作成
 var chatClient = CreateChatClient(appLogger);
 if (chatClient == null)
 {
@@ -52,6 +53,7 @@ if (chatClient == null)
 }
 
 // Step 4: Define tools that the agent can use
+// エージェントが使用できるツールを定義
 var tools = new List<AITool>
 {
     AIFunctionFactory.Create(GetCurrentDate),
@@ -63,16 +65,17 @@ var tools = new List<AITool>
 appLogger.LogInformation("Created {ToolCount} tools for the agent", tools.Count);
 
 // Step 5: Create agent with tools
+// ツール付きエージェントを作成
 var agent = chatClient.AsAIAgent(new ChatClientAgentOptions
 {
     Name = "TravelAssistant",
     ChatOptions = new()
     {
         Instructions = """
-            You are a helpful travel planning assistant with tools for dates and Australian time zones.
-            
-            Use the tools to answer questions.
-            Provide friendly, conversational responses based on the tool results.
+            あなたは、日付計算とオーストラリアのタイムゾーンに対応したツールを使える、親切な旅行計画アシスタントです。
+
+            質問には必要に応じてツールを使って回答してください。
+            ツールの結果に基づいて、親しみやすい会話調で回答してください。
             """,
         Tools = tools
     }
@@ -86,17 +89,20 @@ agent.AsBuilder()
 appLogger.LogInformation("Agent created with tools successfully");
 
 // Step 6: Run conversation with tool usage
+// ツールを使用した会話を実行
 try
 {
     // Example 1: Simple time zone difference
-    var userInput2 = "What's the time difference between Melbourne and Brisbane?";
+    // シンプルな時差の確認
+    var userInput2 = "メルボルンとブリスベンの時差は何時間ですか？";
     appLogger.LogInformation("User: {UserInput}", userInput2);
     var response2 = await agent.RunAsync(userInput2);
     appLogger.LogInformation("Agent: {AgentResponse}", response2.Text);
     Console.WriteLine();
 
     // Example 2: Time zone calculation between Australian cities
-    var userInput1 = "What time is it in Perth when it's 3:00 PM in Sydney?";
+    // 都市間の時差計算
+    var userInput1 = "シドニーが午後3時のとき、パースは何時ですか？";
     appLogger.LogInformation("User: {UserInput}", userInput1);
     var response1 = await agent.RunAsync(userInput1);
     appLogger.LogInformation("Agent: {AgentResponse}", response1.Text);

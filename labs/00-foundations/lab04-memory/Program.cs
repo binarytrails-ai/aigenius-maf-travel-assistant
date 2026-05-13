@@ -43,6 +43,7 @@ LoadEnv();
 var (loggerFactory, appLogger, tracerProvider) = InitTelemetry(ServiceName);
 
 // Step 3: Create chat client
+// チャットクライアントを作成
 var chatClient = CreateChatClient(appLogger);
 if (chatClient == null)
 {
@@ -52,26 +53,29 @@ if (chatClient == null)
 
 // Step 4: Create context provider with persistent storage
 // Initialize with hardcoded preferences to demonstrate usage first
+// 永続ストレージ対応のコンテキストプロバイダーを作成
+// 初期設定としてハードコードした設定値で初期化
 var userPreferences = new TravelPreferencesMemory(chatClient, "user123", appLogger, new UserTravelPreferences
 {
-    DestinationTypes = "beach destinations and cultural sites",
-    TravelStyle = "budget-friendly with local experiences",
-    SeatPreference = "window seat",
-    MealPreference = "vegetarian meals"
+    DestinationTypes = "ビーチと地元カルチャースポット",
+    TravelStyle = "現地体験を重視した予算重視志向",
+    SeatPreference = "窓側",
+    MealPreference = "低糖質、低脂肪"
 });
 
 // Step 5: Create agent with memory
+// メモリ機能付きエージェントを作成します
 var agent = chatClient.AsAIAgent(new ChatClientAgentOptions
 {
     Name = "TravelAssistant",
     ChatOptions = new()
     {
         Instructions = """
-        You are a helpful travel assistant. 
-        When making suggestions, naturally reference their preferences like:
-        "Since you enjoy [preference], I recommend..."
-        When you learn new preferences, acknowledge them warmly.
-        Always tailor your advice to their stored preferences.
+        あなたは親切な旅行アシスタントです。
+        提案するときは、次のように自然にユーザーの好みを反映してください。
+        「[好み]がお好きとのことなので、〜をおすすめします。」
+        新しい好みを学習したら、温かく共感しながら認識してください。
+        常に保存済みの好みに合わせて提案内容を調整してください。
         """,
         Tools = []
     },
@@ -86,20 +90,23 @@ agent.AsBuilder()
 appLogger.LogInformation("Agent created with memory successfully");
 
 // Step 6: Run conversation with memory
+// メモリ付き会話を実行します
 try
 {
     // First conversation - agent uses hardcoded preferences
+    // 1 回目の会話 - エージェントは初期設定を利用
     AgentSession session1 = await agent.CreateSessionAsync();
 
-    var userInput1 = "I'm thinking about taking a vacation next month. Any suggestions?";
+    var userInput1 = "来月の休暇で旅行に行きたいのですが、おすすめはありますか？";
     appLogger.LogInformation("User: {UserInput}", userInput1);
     var response1 = await agent.RunAsync(userInput1, session1);
     appLogger.LogInformation("Agent: {AgentResponse}\n", response1.Text);
 
     // Second session - learn new preferences
+    // 2 回目のセッション - 新しい好みを学習させる
     AgentSession session2 = await agent.CreateSessionAsync();
 
-    var userInput2 = "Actually, I've gotten really interested in mountain hiking and adventure travel lately.";
+    var userInput2 = "実は最近、山歩きやアウトドアアクティビティをやってみたいと思っていて。";
     appLogger.LogInformation("User: {UserInput}", userInput2);
     var response2 = await agent.RunAsync(userInput2, session2);
     appLogger.LogInformation("Agent: {AgentResponse}\n", response2.Text);
@@ -107,8 +114,9 @@ try
     appLogger.LogInformation(new string('-', 80));
 
     // Continue in same session to see updated preferences in action
+    // 同じ流れで会話を続け、更新後の好みが反映されることを確認します
     AgentSession session3 = await agent.CreateSessionAsync();
-    var userInput3 = "Can you recommend a trip for this summer?";
+    var userInput3 = "今年の夏向けの旅行先でおすすめを教えてください。";
     appLogger.LogInformation("User: {UserInput}", userInput3);
     var response3 = await agent.RunAsync(userInput3, session3);
     appLogger.LogInformation("Agent: {AgentResponse}\n", response3.Text);

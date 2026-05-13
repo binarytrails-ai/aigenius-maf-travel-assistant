@@ -1,45 +1,45 @@
-# Australian and New Zealand Destinations Reference
+# オーストラリア・ニュージーランド目的地リファレンス
 
-## Adventure/Outdoors
-| Destination | Location | Description |
+## アドベンチャー・アウトドア
+| 目的地 | 所在地 | 説明 |
 |-------------|----------|-------------|
-| Great Ocean Road | Victoria | Dramatic coastal cliffs and rainforest trails |
-| Blue Mountains | NSW | World Heritage wilderness and hiking |
-| Kakadu National Park | NT | Ancient landscapes and Indigenous culture |
-| Tasmania Wilderness | Tasmania | Cradle Mountain, Overland Track |
-| Queenstown | New Zealand | Adventure capital with bungee, hiking, skiing |
+| Great Ocean Road | Victoria | 壮大な海岸断崖と熱帯雨林トレイル |
+| Blue Mountains | NSW | 世界遺産の大自然とハイキング |
+| Kakadu National Park | NT | 太古の景観と先住民文化 |
+| Tasmania Wilderness | Tasmania | クレイドルマウンテン、オーバーランドトラック |
+| Queenstown | New Zealand | バンジー、ハイキング、スキーが楽しめる冒険の都 |
 
-## Beaches/Coastal
-| Destination | Location | Description |
+## ビーチ・沿岸
+| 目的地 | 所在地 | 説明 |
 |-------------|----------|-------------|
-| Great Barrier Reef | Queensland | Vibrant coral reefs and tropical islands |
-| Sunshine Coast | Queensland | Relaxed beaches and hinterland rainforests |
-| Byron Bay | NSW | Iconic surf town with wellness culture |
-| Margaret River | Western Australia | Stunning coastline with wine country |
-| Coromandel Peninsula | New Zealand | White sand beaches and native bush |
+| Great Barrier Reef | Queensland | 鮮やかなサンゴ礁と南国の島々 |
+| Sunshine Coast | Queensland | のんびりしたビーチと内陸の熱帯雨林 |
+| Byron Bay | NSW | ウェルネス文化が根付く象徴的サーフタウン |
+| Margaret River | Western Australia | 美しい海岸線とワイン産地 |
+| Coromandel Peninsula | New Zealand | 白砂のビーチと在来林 |
 
-## Wildlife
-| Destination | Location | Description |
+## 野生動物
+| 目的地 | 所在地 | 説明 |
 |-------------|----------|-------------|
-| Kangaroo Island | South Australia | Wildlife sanctuary experiences |
-| Phillip Island | Victoria | Penguin parades and coastal nature |
-| Ningaloo Reef | Western Australia | Whale sharks and manta rays |
-| Rottnest Island | Western Australia | Quokkas and marine life |
-| Kaikoura | New Zealand | Whale watching and seal colonies |
+| Kangaroo Island | South Australia | 野生動物保護区での体験 |
+| Phillip Island | Victoria | ペンギンパレードと海岸の自然 |
+| Ningaloo Reef | Western Australia | ジンベエザメとマンタ |
+| Rottnest Island | Western Australia | クオッカと海洋生物 |
+| Kaikoura | New Zealand | ホエールウォッチングとアザラシコロニー |
 
-## Cultural/Urban
-| Destination | Location | Description |
+## 文化・都市
+| 目的地 | 所在地 | 説明 |
 |-------------|----------|-------------|
-| Melbourne | Victoria | Arts, coffee culture, laneways |
-| Sydney | NSW | Iconic harbor, beaches, diverse neighborhoods |
-| Hobart | Tasmania | Heritage, MONA, food scene |
-| Auckland | New Zealand | Polynesian culture meets modern city |
-| Wellington | New Zealand | Creative capital with museums and cafes |
+| Melbourne | Victoria | アート、コーヒー文化、路地散策 |
+| Sydney | NSW | 象徴的な港、ビーチ、多様な街並み |
+| Hobart | Tasmania | 歴史遺産、MONA、グルメシーン |
+| Auckland | New Zealand | ポリネシア文化と現代都市の融合 |
+| Wellington | New Zealand | 博物館とカフェが魅力のクリエイティブ首都 |
 
-## Family
-| Destination | Location | Description |
+## ファミリー
+| 目的地 | 所在地 | 説明 |
 |-------------|----------|-------------|
-| Gold Coast | Queensland | Theme parks and beaches |
-| Port Douglas | Queensland | Reef access with family-friendly resorts |
-| Canberra | ACT | Educational attractions and outdoor spaces |
-| Bay of Islands | New Zealand | Dolphins, beaches, island hopping |
+| Gold Coast | Queensland | テーマパークとビーチ |
+| Port Douglas | Queensland | リーフ観光に便利なファミリー向けリゾート |
+| Canberra | ACT | 学びのある観光施設と屋外空間 |
+| Bay of Islands | New Zealand | イルカ、ビーチ、アイランドホッピング |

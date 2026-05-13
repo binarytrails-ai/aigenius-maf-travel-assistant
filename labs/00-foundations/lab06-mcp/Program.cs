@@ -42,6 +42,7 @@ LoadEnv();
 var (loggerFactory, appLogger, tracerProvider) = InitTelemetry(ServiceName);
 
 // Step 3: Create chat client
+// チャットクライアントを作成
 var chatClient = CreateChatClient(appLogger);
 if (chatClient == null)
 {
@@ -50,6 +51,7 @@ if (chatClient == null)
 }
 
 // Step 4: Connect to MCP server via HTTP
+// HTTP 経由で MCP サーバーへ接続
 appLogger.LogInformation("Connecting to MCP Flight Search server...");
 var mcpClient = await CreateMcpClientAsync(loggerFactory, appLogger);
 if (mcpClient == null)
@@ -59,19 +61,21 @@ if (mcpClient == null)
 }
 
 // Step 5: Get tools from MCP server
+// MCP サーバーからツールを取得
 var tools = await GetTools(mcpClient, appLogger);
 
 // Step 6: Create agent with MCP tools
+// MCP ツール付きエージェントを作成
 var agent = chatClient.AsAIAgent(new ChatClientAgentOptions
 {
     Name = "TravelAssistant",
     ChatOptions = new()
     {
         Instructions = """
-            You are a helpful travel planning assistant with date calculation tools.
-            
-            Use the tools to answer questions.
-            Provide friendly, conversational responses based on the tool results.
+            あなたは日付計算ツールを使える親切な旅行計画アシスタントです。
+
+            質問には必要に応じてツールを使って回答してください。
+            ツールの結果に基づいて、親しみやすい会話調で回答してください。
             """,
         Tools = tools
     }
@@ -84,11 +88,12 @@ var agent = chatClient.AsAIAgent(new ChatClientAgentOptions
 appLogger.LogInformation("Agent created with MCP tools successfully");
 
 // Step 7: Run the agent with a flight search request
+// エージェントでフライト検索リクエストを実行
 try
 {
     var session = await agent.CreateSessionAsync();
 
-    var userInput = "Can you find me flights from Melbourne to Auckland?";
+    var userInput = "メルボルンからオークランドへのフライトを探してもらえますか？";
     appLogger.LogInformation("User: {UserInput}", userInput);
 
     var response = await agent.RunAsync(userInput, session);
@@ -110,6 +115,7 @@ finally
 async Task<List<AITool>> GetTools(McpClient mcpClient, ILogger appLogger)
 {
     // List available tools from MCP server
+    // MCP サーバーで利用可能なツール一覧を取得します
     var allMcpTools = await mcpClient.ListToolsAsync();
     appLogger.LogInformation("Retrieved {Count} tools from MCP server", allMcpTools.Count);
 
@@ -127,6 +133,7 @@ async Task<McpClient?> CreateMcpClientAsync(ILoggerFactory loggerFactory, ILogge
     try
     {
         // Get MCP server base URL from environment or use default
+        // MCP サーバーのベース URL を環境変数から取得
         var mcpBaseUrl = Environment.GetEnvironmentVariable("MCP_FLIGHT_SEARCH_TOOL_BASE_URL");
         appLogger.LogInformation("Connecting to MCP server at {BaseUrl}", mcpBaseUrl);
         var httpClient = new HttpClient { BaseAddress = new Uri(mcpBaseUrl!) };
@@ -134,6 +141,7 @@ async Task<McpClient?> CreateMcpClientAsync(ILoggerFactory loggerFactory, ILogge
         httpClient.DefaultRequestHeaders.Add("X-API-KEY", mcpApiKey);
 
         // Configure HTTP transport
+        // HTTP トランスポートを設定します
         var transportOptions = new HttpClientTransportOptions
         {
             Endpoint = new Uri($"{mcpBaseUrl}/mcp")
@@ -142,6 +150,7 @@ async Task<McpClient?> CreateMcpClientAsync(ILoggerFactory loggerFactory, ILogge
         var transport = new HttpClientTransport(transportOptions, httpClient, loggerFactory);
 
         // Configure MCP client
+        // MCP クライアントを設定します
         var clientOptions = new McpClientOptions
         {
             ClientInfo = new Implementation
@@ -152,6 +161,7 @@ async Task<McpClient?> CreateMcpClientAsync(ILoggerFactory loggerFactory, ILogge
         };
 
         // Create MCP client
+        // MCP クライアントを作成します
         var client = await McpClient.CreateAsync(transport, clientOptions, loggerFactory);
         appLogger.LogInformation("Successfully connected to MCP server");
 
